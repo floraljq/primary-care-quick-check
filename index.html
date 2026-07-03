@@ -725,6 +725,301 @@
       color: #fff
     }
 
+    .section-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap
+    }
+
+    .add-btn {
+      border: 1px solid var(--green);
+      background: var(--green);
+      color: #fff;
+      border-radius: 11px;
+      height: 34px;
+      padding: 0 11px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 13px
+    }
+
+    .add-btn.secondary {
+      border-color: var(--blue);
+      background: var(--blue)
+    }
+
+    .add-btn:active,
+    .edit-custom:active,
+    .delete-custom:active,
+    .form-actions button:active {
+      transform: scale(.98)
+    }
+
+    .custom-badge {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #fff;
+      white-space: nowrap
+    }
+
+    .custom-actions {
+      margin-top: 10px;
+      border-top: 1px dashed var(--line);
+      padding-top: 10px
+    }
+
+    .edit-custom,
+    .delete-custom {
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--ink);
+      border-radius: 10px;
+      padding: 7px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-right: 6px
+    }
+
+    .edit-custom {
+      border-color: color-mix(in srgb, var(--blue) 38%, var(--line));
+      background: color-mix(in srgb, var(--blue) 10%, var(--card));
+      color: var(--blue)
+    }
+
+    .delete-custom {
+      border-color: color-mix(in srgb, var(--red) 35%, var(--line));
+      background: var(--red2);
+      color: var(--red)
+    }
+
+    .form-tip {
+      margin: 10px 0 0;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--green2);
+      color: var(--green);
+      font-size: 12px
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px
+    }
+
+    .form-row {
+      display: grid;
+      gap: 5px
+    }
+
+    .form-row label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink)
+    }
+
+    .form-row small {
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .form-row input,
+    .form-row textarea,
+    .form-row select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--bg);
+      color: var(--ink);
+      padding: 9px 10px;
+      outline: none
+    }
+
+    .form-row textarea {
+      min-height: 78px;
+      resize: vertical
+    }
+
+    .form-row input:disabled,
+    .form-row textarea:disabled,
+    .form-row select:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+      background: color-mix(in srgb, var(--bg) 76%, var(--line))
+    }
+
+    .form-row input:focus,
+    .form-row textarea:focus,
+    .form-row select:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 16%, transparent)
+    }
+
+    .form-two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px
+    }
+
+    .switch-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: var(--bg)
+    }
+
+    .switch {
+      position: relative;
+      display: inline-flex;
+      width: 52px;
+      height: 30px;
+      flex: 0 0 auto
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background: var(--line);
+      border-radius: 999px;
+      transition: .2s
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      width: 24px;
+      height: 24px;
+      left: 3px;
+      top: 3px;
+      background: #fff;
+      border-radius: 50%;
+      transition: .2s;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .18)
+    }
+
+    .switch input:checked+.slider {
+      background: var(--amber)
+    }
+
+    .switch input:checked+.slider:before {
+      transform: translateX(22px)
+    }
+
+    .form-actions {
+      position: sticky;
+      bottom: 0;
+      background: var(--card);
+      border-top: 1px solid var(--line);
+      margin: 14px -16px -20px;
+      padding: 12px 16px;
+      display: flex;
+      gap: 9px;
+      justify-content: flex-end;
+      flex-wrap: wrap
+    }
+
+    .form-actions button {
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--ink);
+      border-radius: 11px;
+      padding: 8px 13px;
+      cursor: pointer;
+      min-width: 82px;
+      min-height: 38px;
+      white-space: nowrap
+    }
+
+    .form-actions .primary {
+      border-color: var(--green);
+      background: var(--green);
+      color: #fff;
+      font-weight: 700
+    }
+
+    .required::after {
+      content: " *";
+      color: var(--red)
+    }
+
+    .backup-box {
+      margin: 18px 0 12px;
+      padding: 13px 14px;
+      border: 1px solid color-mix(in srgb, var(--green) 28%, var(--line));
+      background: color-mix(in srgb, var(--green) 9%, var(--card));
+      border-radius: 14px;
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .backup-box strong {
+      color: var(--ink)
+    }
+
+    .backup-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px
+    }
+
+    .backup-actions button {
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--ink);
+      border-radius: 10px;
+      padding: 7px 10px;
+      cursor: pointer;
+      font-weight: 650
+    }
+
+    .backup-actions button.primary {
+      border-color: var(--green);
+      background: var(--green);
+      color: #fff
+    }
+
+    .backup-actions button.secondary {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #fff
+    }
+
+    @media(max-width:430px) {
+      .form-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px
+      }
+
+      .form-actions .primary {
+        grid-column: 1/-1
+      }
+
+      .form-actions button {
+        width: 100%;
+        min-width: 0
+      }
+
+      .backup-actions button {
+        flex: 1 1 140px
+      }
+    }
+
     footer {
       margin-top: 32px;
       color: var(--muted);
@@ -875,6 +1170,20 @@
         padding-left: 13px;
         padding-right: 13px
       }
+
+      .section-title {
+        align-items: flex-start
+      }
+
+      .section-actions {
+        align-items: flex-end;
+        flex-direction: column;
+        gap: 5px
+      }
+
+      .form-two {
+        grid-template-columns: 1fr
+      }
     }
 
     @media(prefers-reduced-motion:reduce) {
@@ -979,8 +1288,10 @@
 
     <section id="diseaseSection">
       <div class="section-title">
-        <h2 id="listTitle">疾病列表</h2><span class="section-meta"><span id="diseaseCount"></span><span
-            class="fav-only-note" id="favNote">仅显示收藏</span></span>
+        <h2 id="listTitle">疾病列表</h2>
+        <div class="section-actions"><span class="section-meta"><span id="diseaseCount"></span><span
+              class="fav-only-note" id="favNote">仅显示收藏</span></span><button class="add-btn" id="addDiseaseBtn"
+            type="button">＋ 添加疾病</button></div>
       </div>
       <div class="disease-list" id="diseaseList"></div>
       <div class="empty" id="empty">
@@ -993,13 +1304,24 @@
         <strong>统一说明：</strong>本页按药品分组列出“适应症、规范建议、使用提醒”。仅当常用写法与规范建议存在实质差异时，额外显示“本院指导用法”，用于处方前对照核对；标注“重点核对”表示剂型、剂量、适应证或安全性风险需要处方前重点复核。
       </div>
       <div class="section-title">
-        <h2 id="medTitle">药品列表</h2><span id="medCount"></span>
+        <h2 id="medTitle">药品列表</h2>
+        <div class="section-actions"><span id="medCount"></span><button class="add-btn secondary" id="addMedBtn"
+            type="button">＋ 添加药品</button></div>
       </div>
       <div class="med-grid" id="medList"></div>
       <div class="med-empty" id="medEmpty">没有找到匹配的药品</div>
     </section>
 
     <footer>
+      <div class="backup-box" id="customBackupBox">
+        <strong>自定义内容备份：</strong>自定义疾病和药品默认保存在当前浏览器本机，刷新页面通常不会丢失。需要迁移到其他设备、重装浏览器或长期备份时，请导出 JSON
+        文件；在另一台设备打开同版或新版手册后再导入即可。导入时不自动判断重名或合并冲突，是否保留、编辑或删除由使用者自行决定；这样可以保持基础版手册不被改写，便于院内统一维护。
+        <div class="backup-actions">
+          <button id="exportCustomBtn" type="button" class="primary">导出自定义内容（JSON）</button>
+          <button id="importCustomBtn" type="button">导入自定义内容（JSON）</button>
+          <input id="importCustomFile" type="file" accept="application/json,.json" hidden>
+        </div>
+      </div>
       <h2>主要依据</h2>
       <ol class="refs" id="references">
         <li id="ref-primary"><a href="https://medjournals.cn/clinic/getClinicList.do?subjectId=116" target="_blank"
@@ -1032,7 +1354,7 @@
       <p>
         <strong>统一说明：</strong>各病种内容结合相关专业学会指南与药品说明书整理。指南年份不等于内容失效，请以本页核对日期及最新发布为准。页面药物限定于本院现有常用药品；出现“需要转诊”表示现有药品或基层条件不能完成规范治疗。剂量均为常用成人剂量示例，不能覆盖所有商品规格、适应证和个体调整。抗菌药需结合本地耐药资料；妊娠、哺乳、严重肝肾功能异常及高龄衰弱患者应另行核对权威药品说明书或上级医院意见。
       </p>
-      <div class="version"><span>内容版本 1.0</span><span>资料核对：2026-07-03</span></div>
+      <div class="version"><span>内容版本 2.0</span><span>资料核对：2026-07-03</span></div>
     </footer>
   </main>
 
@@ -1043,6 +1365,90 @@
     <div class="modal-body" id="emergencyBody"></div>
   </dialog>
 
+  <dialog id="diseaseDialog" aria-labelledby="diseaseDialogTitle">
+    <form id="diseaseForm" method="dialog">
+      <div class="modal-head">
+        <h2 id="diseaseDialogTitle">添加疾病</h2><button class="close" type="button" aria-label="关闭">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-tip">自定义疾病会先保存在当前浏览器本机，不会覆盖内置内容；保存后可继续编辑或删除；需要跨设备使用时，可在页面底部导出或导入自定义内容 JSON 文件。带 <span
+            style="color:var(--red)">*</span> 的项目建议填写完整；药物方案每行一条，行首写“需要转诊：”可自动显示为红色转诊提示。</div>
+        <div class="form-grid">
+          <div class="form-two">
+            <div class="form-row"><label class="required" for="diseaseName">疾病名称</label><input id="diseaseName"
+                name="name" required placeholder="如：急性支气管炎"></div>
+            <div class="form-row"><label class="required" for="diseaseCat">疾病类别</label><select id="diseaseCat"
+                name="cat" required></select></div>
+          </div>
+          <div class="form-row"><label for="diseaseAlias">别名 / 搜索关键词</label><input id="diseaseAlias" name="alias"
+              placeholder="可填症状、俗称、相关药名，便于搜索"></div>
+          <div class="form-row"><label class="required" for="diseaseClues">诊断提示</label><textarea id="diseaseClues"
+              name="clues" required placeholder="主要症状、体征、基层诊断要点"></textarea></div>
+          <div class="form-row"><label class="required" for="diseaseRed">必须先排除</label><textarea id="diseaseRed"
+              name="red" required placeholder="危急重症、易误诊疾病、立即转诊信号"></textarea></div>
+          <div class="form-row"><label for="diseaseTests">最低必要检查</label><textarea id="diseaseTests" name="tests"
+              placeholder="生命体征、床旁检查、化验、影像等"></textarea></div>
+          <div class="form-row"><label for="diseaseDx">诊断与鉴别</label><textarea id="diseaseDx" name="dx"
+              placeholder="诊断边界、需要鉴别的疾病"></textarea></div>
+          <div class="form-row"><label for="diseaseNonDrug">非药物处理</label><textarea id="diseaseNonDrug" name="nonDrug"
+              placeholder="生活方式、观察、护理、健康教育等"></textarea></div>
+          <div class="form-row"><label class="required" for="diseaseRx">常用药物方案</label><textarea id="diseaseRx" name="rx"
+              required placeholder="每行一条，如：阿莫西林 500 mg，每8小时1次，5～7天。
+需要转诊：本页用药目录内药品不能完成规范治疗。"></textarea><small>每行会生成一条用药卡片；首行显示为“首选 / 常用”。</small></div>
+          <div class="form-row"><label for="diseaseCaution">禁忌与特殊提醒</label><textarea id="diseaseCaution" name="caution"
+              placeholder="过敏、妊娠、肝肾功能、相互作用、老年风险等"></textarea></div>
+          <div class="form-row"><label for="diseaseFollow">复诊安排</label><textarea id="diseaseFollow" name="follow"
+              placeholder="复诊时间、复查项目、疗效判断"></textarea></div>
+          <div class="form-row"><label class="required" for="diseaseRefer">需要转诊的危险信号</label><textarea id="diseaseRefer"
+              name="refer" required placeholder="明确哪些情况必须立即或尽快转诊"></textarea></div>
+          <div class="form-row"><label for="diseaseSource">依据</label><select id="diseaseSource" name="source"></select>
+          </div>
+          <div class="form-row" id="diseaseSourceCustomRow" hidden><label
+              for="diseaseSourceCustom">自定义依据说明</label><input id="diseaseSourceCustom" name="sourceCustom" disabled
+              placeholder="如：本院诊疗规范、科室SOP、药品说明书或其他资料名称"></div>
+        </div>
+        <div class="form-actions"><button type="button" class="close">取消</button><button type="reset">清空</button><button
+            type="submit" class="primary">保存疾病</button></div>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="medDialog" aria-labelledby="medDialogTitle">
+    <form id="medForm" method="dialog">
+      <div class="modal-head">
+        <h2 id="medDialogTitle">添加药品</h2><button class="close" type="button" aria-label="关闭">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-tip">自定义药品会先保存在当前浏览器本机，不会覆盖内置内容；保存后可继续编辑或删除；需要跨设备使用时，可在页面底部导出或导入自定义内容 JSON
+          文件。类别用选项框选择；“重点核对”用开关控制；“本院指导用法”仅在确实与规范建议不一致时填写。</div>
+        <div class="form-grid">
+          <div class="form-two">
+            <div class="form-row"><label class="required" for="medName">药品名称</label><input id="medName" name="name"
+                required placeholder="如：阿莫西林胶囊"></div>
+            <div class="form-row"><label class="required" for="medGroup">药品类别</label><select id="medGroup"
+                name="groupId" required></select></div>
+          </div>
+          <div class="form-row"><label for="medSpec">规格</label><input id="medSpec" name="spec"
+              placeholder="如：250 mg；规格见实物"></div>
+          <div class="form-row"><label class="required" for="medIndication">适应症</label><textarea id="medIndication"
+              name="indication" required placeholder="按说明书、指南和本院使用场景填写"></textarea></div>
+          <div class="form-row"><label class="required" for="medDose">规范建议</label><textarea id="medDose" name="dose"
+              required placeholder="成人常用剂量、频次、疗程；必要时注明需按肝肾功能调整"></textarea></div>
+          <div class="form-row"><label for="medHomeUse">本院指导用法</label><textarea id="medHomeUse" name="homeUse"
+              placeholder="仅当与规范建议存在实质差异时填写；否则留空"></textarea></div>
+          <div class="form-row"><label for="medNote">使用提醒</label><textarea id="medNote" name="note"
+              placeholder="禁忌、相互作用、特殊人群、处方前核对事项"></textarea></div>
+          <div class="switch-row">
+            <div><strong>重点核对</strong><br><small>剂型、剂量、适应证或安全性风险需要处方前重点复核时开启。</small></div><label class="switch"><input
+                id="medCheck" name="check" type="checkbox"><span class="slider"></span></label>
+          </div>
+        </div>
+        <div class="form-actions"><button type="button" class="close">取消</button><button type="reset">清空</button><button
+            type="submit" class="primary">保存药品</button></div>
+      </div>
+    </form>
+  </dialog>
+
   <script>
     (() => {
       'use strict';
@@ -1050,7 +1456,7 @@
         ['all', '全部'], ['emergency', '急症'], ['cardio', '心血管'], ['resp', '呼吸'], ['ent', '耳鼻喉眼'], ['gi', '消化'], ['metabolic', '代谢/血液'], ['neuro', '神经/精神'], ['uro', '泌尿'], ['surgery', '外科/骨科/皮肤'], ['gyn', '妇科']
       ];
       const catNames = Object.fromEntries(categories);
-      const refs = {primary: '<a href="#ref-primary">中华医学会基层指南</a>', abx: '<a href="#ref-abx">抗菌药物指导原则</a>', life: '<a href="#ref-life">慢病营养运动指导原则（2024）</a>', htn: '<a href="#ref-htn">中国高血压临床实践指南（2024）</a>', hf: '<a href="#ref-hf">中国心衰基层指南（2024）</a>', dm: '<a href="#ref-dm">中国2型糖尿病指南（2020）</a>', cap: '<a href="#ref-cap">成人社区获得性肺炎基层指南（2018）</a>', ent: '<a href="#ref-ent">中国变应性鼻炎指南（2022）</a>', zoster: '<a href="#ref-zoster">中国带状疱疹专家共识（2022）</a>'};
+      const refs = {primary: '<a href="#ref-primary">中华医学会基层指南</a>', abx: '<a href="#ref-abx">抗菌药物指导原则</a>', life: '<a href="#ref-life">慢病营养运动指导原则（2024）</a>', htn: '<a href="#ref-htn">中国高血压临床实践指南（2024）</a>', hf: '<a href="#ref-hf">中国心衰基层指南（2024）</a>', dm: '<a href="#ref-dm">中国2型糖尿病指南（2020）</a>', cap: '<a href="#ref-cap">成人社区获得性肺炎基层指南（2018）</a>', ent: '<a href="#ref-ent">中国变应性鼻炎指南（2022）</a>', zoster: '<a href="#ref-zoster">中国带状疱疹专家共识（2022）</a>', local: '参考本院治疗规范', none: '暂无参考依据；院内使用前请完成审核。', custom: '自定义依据'};
       const d = (id, cat, name, alias, clues, red, tests, dx, nonDrug, rx, caution, follow, refer, source = 'primary') => ({id, cat, name, alias, clues, red, tests, dx, nonDrug, rx, caution, follow, refer, source});
       const diseases = [
         d('htn', 'cardio', '高血压', '头晕 血压升高 原发性高血压',
@@ -1898,35 +2304,66 @@
       ];
 
       const $ = s => document.querySelector(s);
+      const $$ = s => [...document.querySelectorAll(s)];
       const list = $('#diseaseList'), nav = $('#nav'), diseaseSearch = $('#diseaseSearch'), medSearch = $('#medSearch'), empty = $('#empty');
       let page = 'disease', active = 'all', favOnly = false, medActive = 'all', lastDiseaseCount = 0, lastMedCount = 0;
       const safeGet = (k, fallback) => {try {return JSON.parse(localStorage.getItem(k)) ?? fallback} catch {return fallback} };
+      const plain = s => String(s ?? '').replace(/\s+/g, ' ').trim();
+      const uid = prefix => `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+      const embeddedCustomData = {"diseases": [], "medications": []};
+      const asList = v => Array.isArray(v) ? v : [];
+      function normalizeDisease(x) {
+        x = x && typeof x === 'object' ? x : {};
+        const allowedCats = categories.filter(([id]) => !['all', 'emergency'].includes(id)).map(([id]) => id);
+        const cat = allowedCats.includes(plain(x.cat)) ? plain(x.cat) : 'surgery';
+        const rawSource = plain(x.source);
+        const source = (rawSource === 'custom' || rawSource === 'local' || rawSource === 'none' || refs[rawSource]) ? rawSource : 'local';
+        const rx = Array.isArray(x.rx) ? x.rx.map(plain).filter(Boolean) : String(x.rx || '').split(/\n+/).map(plain).filter(Boolean);
+        return {id: plain(x.id) || uid('custom-disease'), custom: true, cat, name: plain(x.name) || '未命名疾病', alias: plain(x.alias), clues: plain(x.clues) || '请补充诊断提示。', red: plain(x.red) || '请补充必须先排除的危险情况。', tests: plain(x.tests) || '按病情完善必要检查。', dx: plain(x.dx) || '结合病史、查体和必要检查综合判断。', nonDrug: plain(x.nonDrug) || '根据病情进行健康教育、生活方式调整和观察。', rx: rx.length ? rx : ['需要转诊：尚未填写规范药物方案，请补充后使用。'], caution: plain(x.caution) || '用药前核对过敏史、妊娠可能、肝肾功能、相互作用和处方权限。', follow: plain(x.follow) || '按病情安排复诊；症状加重或出现危险信号随时复诊。', refer: plain(x.refer) || '请补充需要转诊的危险信号。', source, sourceCustom: source === 'custom' ? plain(x.sourceCustom) : ''};
+      }
+      function normalizeMed(x) {
+        x = x && typeof x === 'object' ? x : {};
+        const allowedGroups = medGroupData.map(([id]) => id);
+        const groupId = allowedGroups.includes(plain(x.groupId)) ? plain(x.groupId) : medGroupData[0][0];
+        const group = medGroupData.find(([id]) => id === groupId);
+        return {id: plain(x.id) || uid('custom-med'), custom: true, groupId, groupName: group ? group[1] : '自定义药品', name: plain(x.name) || '未命名药品', spec: plain(x.spec) || '规格见实物', indication: plain(x.indication) || '请补充适应症。', dose: plain(x.dose) || '请补充规范建议。', homeUse: plain(x.homeUse), note: plain(x.note) || '处方前核对适应证、禁忌证、过敏史、肝肾功能、妊娠/哺乳状态及相互作用。', check: !!x.check};
+      }
       let favorites = new Set(safeGet('mqc-favorites', []));
-      const save = () => {try {localStorage.setItem('mqc-favorites', JSON.stringify([...favorites]))} catch { } };
-      const esc = s => s.replace(/[&<>'"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[c]));
-      const bullets = a => `<ul>${a.map(x => `<li>${x}</li>`).join('')}</ul>`;
-      function sourceText(x) {return refs[x.source] || refs.primary}
+      let customDiseases = [...asList(embeddedCustomData.diseases), ...asList(safeGet('mqc-custom-diseases-v1', []))].map(normalizeDisease);
+      let customMedications = [...asList(embeddedCustomData.medications), ...asList(safeGet('mqc-custom-meds-v1', []))].map(normalizeMed);
+      let editingDiseaseId = null, editingMedId = null;
+      const save = () => {try {localStorage.setItem('mqc-favorites', JSON.stringify([...favorites])); localStorage.setItem('mqc-custom-diseases-v1', JSON.stringify(customDiseases)); localStorage.setItem('mqc-custom-meds-v1', JSON.stringify(customMedications))} catch {alert('保存失败：浏览器可能禁止本地存储，或存储空间已满。')} };
+      const esc = s => String(s ?? '').replace(/[&<>'"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[c]));
+      const txt = s => esc(s).replace(/\n/g, '<br>');
+      const clean = plain;
+      const bullets = a => `<ul>${a.map(x => `<li>${txt(x)}</li>`).join('')}</ul>`;
+      const allDiseases = () => [...customDiseases, ...diseases];
+      const allMedications = () => [...customMedications, ...medications];
+      function sourceText(x) {if (x.source === 'custom') return `自定义依据：${txt(x.sourceCustom || '未填写具体来源')}`; return refs[x.source] || refs.primary}
       function card(x) {
-        const searchable = [x.name, x.alias, x.clues, x.red, x.tests, x.dx, x.nonDrug, ...x.rx, x.caution, x.follow, x.refer].join(' ').toLowerCase();
-        return `<details class="disease" id="${x.id}" data-cat="${x.cat}" data-search="${esc(searchable)}">
-      <summary><span class="catmark"></span><div class="titlewrap"><h3>${x.name}</h3><div class="alias">${catNames[x.cat]} · ${x.alias}</div></div><button class="star ${favorites.has(x.id) ? 'on' : ''}" data-fav="${x.id}" aria-label="${favorites.has(x.id) ? '取消收藏' : '收藏'}${x.name}" title="收藏">${favorites.has(x.id) ? '★' : '☆'}</button><span class="chev">⌄</span></summary>
+        const catName = catNames[x.cat] || '自定义类别';
+        const badge = x.custom ? '<span class="custom-badge">自定义</span>' : '';
+        const del = x.custom ? `<div class="custom-actions"><button class="edit-custom" type="button" data-edit-disease="${esc(x.id)}">编辑此自定义疾病</button><button class="delete-custom" type="button" data-delete-disease="${esc(x.id)}">删除此自定义疾病</button></div>` : '';
+        return `<details class="disease" id="${esc(x.id)}" data-cat="${esc(x.cat)}">
+      <summary><span class="catmark"></span><div class="titlewrap"><h3>${txt(x.name)}</h3><div class="alias">${txt(catName)} · ${txt(x.alias || '')}</div></div>${badge}<button class="star ${favorites.has(x.id) ? 'on' : ''}" data-fav="${esc(x.id)}" aria-label="${favorites.has(x.id) ? '取消收藏' : '收藏'}${esc(x.name)}" title="收藏">${favorites.has(x.id) ? '★' : '☆'}</button><span class="chev">⌄</span></summary>
       <div class="body">
-        <div class="block"><h4>诊断提示</h4><p>${x.clues}</p></div>
-        <div class="dangerbox"><strong>必须先排除</strong><br>${x.red}</div>
-        <div class="block"><h4>最低必要检查</h4><p>${x.tests}</p></div>
-        <div class="block"><h4>诊断与鉴别</h4><p>${x.dx}</p></div>
-        <div class="block"><h4>非药物处理</h4><p>${x.nonDrug}</p></div>
-        <div class="block"><h4>常用药物方案</h4><div class="rx">${x.rx.map((r, i) => {const need = r.startsWith('需要转诊：'); return `<div class="rx-item ${need ? 'need-referral' : ''}"><b>${need ? '⚠ 需要转诊' : (i ? '备选 / 补充' : '首选 / 常用')}</b><br>${need ? r.replace('需要转诊：', '') : r}</div>`}).join('')}</div></div>
-        <div class="warnbox"><strong>禁忌与特殊提醒</strong><br>${x.caution}</div>
-        <div class="block"><h4>复诊安排</h4><p>${x.follow}</p></div>
-        <div class="dangerbox"><strong>需要转诊的危险信号</strong><br>${x.refer}</div>
+        <div class="block"><h4>诊断提示</h4><p>${txt(x.clues)}</p></div>
+        <div class="dangerbox"><strong>必须先排除</strong><br>${txt(x.red)}</div>
+        <div class="block"><h4>最低必要检查</h4><p>${txt(x.tests)}</p></div>
+        <div class="block"><h4>诊断与鉴别</h4><p>${txt(x.dx)}</p></div>
+        <div class="block"><h4>非药物处理</h4><p>${txt(x.nonDrug)}</p></div>
+        <div class="block"><h4>常用药物方案</h4><div class="rx">${x.rx.map((r, i) => {const need = String(r).startsWith('需要转诊：'); return `<div class="rx-item ${need ? 'need-referral' : ''}"><b>${need ? '⚠ 需要转诊' : (i ? '备选 / 补充' : '首选 / 常用')}</b><br>${txt(need ? String(r).replace('需要转诊：', '') : r)}</div>`}).join('')}</div></div>
+        <div class="warnbox"><strong>禁忌与特殊提醒</strong><br>${txt(x.caution)}</div>
+        <div class="block"><h4>复诊安排</h4><p>${txt(x.follow)}</p></div>
+        <div class="dangerbox"><strong>需要转诊的危险信号</strong><br>${txt(x.refer)}</div>
         <div class="block source"><h4>依据</h4>${sourceText(x)}</div>
+        ${del}
       </div></details>`;
       }
       function renderCards() {
         const q = diseaseSearch.value.trim().toLowerCase();
         const visible = page === 'disease';
-        const filtered = visible ? diseases.filter(x => (active === 'all' || active === x.cat) && (!favOnly || favorites.has(x.id)) && (!q || [x.name, x.alias, x.clues, x.red, x.tests, x.dx, x.nonDrug, ...x.rx, x.caution, x.follow, x.refer].join(' ').toLowerCase().includes(q))) : [];
+        const filtered = visible ? allDiseases().filter(x => (active === 'all' || active === x.cat) && (!favOnly || favorites.has(x.id)) && (!q || [x.name, x.alias, x.clues, x.red, x.tests, x.dx, x.nonDrug, ...(x.rx || []), x.caution, x.follow, x.refer].join(' ').toLowerCase().includes(q))) : [];
         $('#diseaseSection').hidden = !visible;
         $('#emergencySection').hidden = !visible;
         list.innerHTML = visible ? filtered.map(card).join('') : '';
@@ -1936,22 +2373,34 @@
         bindCards(q);
       }
       function bindCards(q) {
-        list.querySelectorAll('.disease').forEach(el => {
-          if (q) el.open = true;
-        });
+        list.querySelectorAll('.disease').forEach(el => {if (q) el.open = true;});
         list.querySelectorAll('.star').forEach(btn => btn.addEventListener('click', e => {
           e.preventDefault(); e.stopPropagation(); const id = btn.dataset.fav;
           favorites.has(id) ? favorites.delete(id) : favorites.add(id); save(); renderAll();
         }));
+        list.querySelectorAll('[data-edit-disease]').forEach(btn => btn.addEventListener('click', e => {
+          e.preventDefault(); e.stopPropagation(); openEditDisease(btn.dataset.editDisease);
+        }));
+        list.querySelectorAll('[data-delete-disease]').forEach(btn => btn.addEventListener('click', e => {
+          e.preventDefault(); e.stopPropagation(); deleteCustomDisease(btn.dataset.deleteDisease);
+        }));
       }
-      function medCard(m) {const badge = m.check ? '<span class="med-badge check">重点核对</span>' : ''; const home = m.homeUse ? `<div class="med-row"><span class="med-label">本院指导用法</span><span>${m.homeUse}</span></div>` : ''; return `<details class="med-card" id="${m.id}"><summary><div class="med-name">${m.name}<span class="med-spec">${m.spec}</span></div>${badge}<span class="chev">⌄</span></summary><div class="med-detail"><div class="med-row"><span class="med-label">适应症</span><span>${m.indication}</span></div><div class="med-row"><span class="med-label">规范建议</span><span>${m.dose}</span></div>${home}<div class="med-row"><span class="med-label">使用提醒</span><span>${m.note}</span></div>${m.check ? '<div class="med-warning">⚠ 已标注重点核对：剂型、剂量、适应证或安全性风险需要处方前重点复核；如显示“本院指导用法”，请与规范建议逐项对照后再决定是否使用。</div>' : ''}</div></details>`}
+      function medCard(m) {
+        const badge = m.check ? '<span class="med-badge check">重点核对</span>' : '';
+        const custom = m.custom ? '<span class="custom-badge">自定义</span>' : '';
+        const home = m.homeUse ? `<div class="med-row"><span class="med-label">本院指导用法</span><span>${txt(m.homeUse)}</span></div>` : '';
+        const del = m.custom ? `<div class="custom-actions"><button class="edit-custom" type="button" data-edit-med="${esc(m.id)}">编辑此自定义药品</button><button class="delete-custom" type="button" data-delete-med="${esc(m.id)}">删除此自定义药品</button></div>` : '';
+        return `<details class="med-card" id="${esc(m.id)}"><summary><div class="med-name">${txt(m.name)}<span class="med-spec">${txt(m.spec)}</span></div>${custom}${badge}<span class="chev">⌄</span></summary><div class="med-detail"><div class="med-row"><span class="med-label">适应症</span><span>${txt(m.indication)}</span></div><div class="med-row"><span class="med-label">规范建议</span><span>${txt(m.dose)}</span></div>${home}<div class="med-row"><span class="med-label">使用提醒</span><span>${txt(m.note)}</span></div>${m.check ? '<div class="med-warning">⚠ 已标注重点核对：剂型、剂量、适应证或安全性风险需要处方前重点复核；如显示“本院指导用法”，请与规范建议逐项对照后再决定是否使用。</div>' : ''}${del}</div></details>`;
+      }
       function renderMedCats() {const groups = [['all', '全部药品'], ...medGroupData.map(([id, name]) => [id, name])]; $('#medCats').innerHTML = groups.map(([id, name]) => `<button class="med-cat ${id === medActive ? 'active' : ''}" data-medcat="${id}">${name}</button>`).join(''); const current = groups.find(([id]) => id === medActive); $('#medTitle').textContent = medActive === 'all' ? '药品列表' : (current ? current[1] : '药品列表'); $('#medCats').querySelectorAll('button').forEach(b => b.onclick = () => {medActive = b.dataset.medcat; renderMedCats(); renderMeds(); updateResults()})}
       function renderMeds() {
         const q = medSearch.value.trim().toLowerCase(), visible = page === 'meds';
-        const filtered = visible ? medications.filter(m => (medActive === 'all' || m.groupId === medActive) && (!q || [m.name, m.spec, m.indication, m.dose, m.note, m.homeUse, m.groupName].join(' ').toLowerCase().includes(q))) : [];
+        const filtered = visible ? allMedications().filter(m => (medActive === 'all' || m.groupId === medActive) && (!q || [m.name, m.spec, m.indication, m.dose, m.note, m.homeUse, m.groupName].join(' ').toLowerCase().includes(q))) : [];
         $('#medicineSection').hidden = !visible;
         $('#medList').innerHTML = visible ? filtered.map(medCard).join('') : '';
         if (q) $('#medList').querySelectorAll('.med-card').forEach(x => x.open = true);
+        $('#medList').querySelectorAll('[data-edit-med]').forEach(btn => btn.addEventListener('click', e => {e.preventDefault(); e.stopPropagation(); openEditMed(btn.dataset.editMed)}));
+        $('#medList').querySelectorAll('[data-delete-med]').forEach(btn => btn.addEventListener('click', e => {e.preventDefault(); e.stopPropagation(); deleteCustomMed(btn.dataset.deleteMed)}));
         lastMedCount = visible ? filtered.length : 0;
         $('#medCount').textContent = visible ? `${filtered.length}种` : '';
         $('#medEmpty').style.display = visible && !filtered.length ? 'block' : 'none';
@@ -1978,21 +2427,180 @@
       }
       function renderAll() {renderPageShell(); renderCards(); renderMeds(); updateResults()}
       function switchPage(next) {page = next; if (page === 'meds') favOnly = false; renderAll(); requestAnimationFrame(() => window.scrollTo({top: 0, behavior: 'smooth'}));}
-      function renderNav() {nav.innerHTML = categories.map(([id, name]) => `<button class="chip ${id === active ? 'active' : ''} ${id === 'emergency' ? 'danger' : ''}" data-cat="${id}">${name}</button>`).join(''); nav.querySelectorAll('button').forEach(b => b.onclick = () => {if (b.dataset.cat === 'emergency') {$('#emergencySection').scrollIntoView(); return } active = b.dataset.cat; renderNav(); renderAll(); $('#listTitle').textContent = active === 'all' ? '疾病列表' : catNames[active];});}
+      function renderNav() {
+        $('#listTitle').textContent = active === 'all' ? '疾病列表' : (catNames[active] || '疾病列表');
+        nav.innerHTML = categories.map(([id, name]) => `<button class="chip ${id === active ? 'active' : ''} ${id === 'emergency' ? 'danger' : ''}" data-cat="${id}">${name}</button>`).join('');
+        nav.querySelectorAll('button').forEach(b => b.onclick = () => {if (b.dataset.cat === 'emergency') {$('#emergencySection').scrollIntoView(); return } active = b.dataset.cat; renderNav(); renderAll();});
+      }
       function openDisease(id) {page = 'disease'; active = 'all'; favOnly = false; diseaseSearch.value = ''; renderNav(); renderAll(); requestAnimationFrame(() => {const el = document.getElementById(id); if (el) {el.open = true; el.scrollIntoView({block: 'start'})} })}
       function renderEmergencies() {$('#emergencyGrid').innerHTML = emergencies.map(x => `<button class="emergency-card" data-id="${x.id}"><span class="arrow">›</span><b>${x.name}</b><span>${x.hint}</span></button>`).join(''); $('#emergencyGrid').querySelectorAll('button').forEach(b => b.onclick = () => showEmergency(b.dataset.id));}
       function showEmergency(id) {const x = emergencies.find(e => e.id === id); $('#emergencyTitle').textContent = x.name; $('#emergencyBody').innerHTML = `<h3>快速识别</h3>${bullets(x.recognize)}<h3>立即处理</h3>${bullets(x.act)}<h3>不要这样做</h3>${bullets(x.avoid)}<h3>转诊</h3><div class="transfer">${x.transfer}</div><p class="source">依据：国家卫生健康委相关急诊规范及专业学会指南；请同步执行本院急救制度。</p>`; $('#emergencyDialog').showModal();}
+      function fillSelect(select, items, placeholder) {
+        select.innerHTML = (placeholder ? `<option value="">${placeholder}</option>` : '') + items.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('');
+      }
+      function initAddForms() {
+        fillSelect($('#diseaseCat'), categories.filter(([id]) => !['all', 'emergency'].includes(id)), '请选择疾病类别');
+        fillSelect($('#diseaseSource'), [['local', '参考本院治疗规范'], ['none', '暂无参考依据（待院内审核）'], ['custom', '其他/自行填写依据'], ['primary', '中华医学会基层指南'], ['abx', '抗菌药物指导原则'], ['life', '慢病营养运动指导原则（2024）'], ['htn', '中国高血压临床实践指南（2024）'], ['hf', '中国心衰基层指南（2024）'], ['dm', '中国2型糖尿病指南（2020）'], ['cap', '成人社区获得性肺炎基层指南（2018）'], ['ent', '中国变应性鼻炎指南（2022）'], ['zoster', '中国带状疱疹专家共识（2022）']]);
+        fillSelect($('#medGroup'), medGroupData.map(([id, name]) => [id, name]), '请选择药品类别');
+      }
+      function syncDiseaseSourceCustom() {
+        const isCustom = $('#diseaseSource').value === 'custom';
+        const row = $('#diseaseSourceCustomRow');
+        const input = $('#diseaseSourceCustom');
+        row.hidden = !isCustom;
+        input.required = isCustom;
+        input.disabled = !isCustom;
+        if (!isCustom) input.value = '';
+      }
+      function setDiseaseDialogMode(mode) {
+        const edit = mode === 'edit';
+        $('#diseaseDialogTitle').textContent = edit ? '编辑疾病' : '添加疾病';
+        $('#diseaseForm').querySelector('.primary').textContent = edit ? '保存修改' : '保存疾病';
+      }
+      function setMedDialogMode(mode) {
+        const edit = mode === 'edit';
+        $('#medDialogTitle').textContent = edit ? '编辑药品' : '添加药品';
+        $('#medForm').querySelector('.primary').textContent = edit ? '保存修改' : '保存药品';
+      }
+      function setSelectValue(select, value, fallback) {select.value = value || fallback; if (select.value !== value) select.value = fallback;}
+      function fillDiseaseForm(item) {
+        const f = $('#diseaseForm');
+        f.elements.name.value = item.name || ''; f.elements.cat.value = item.cat || ''; f.elements.alias.value = item.alias || '';
+        f.elements.clues.value = item.clues || ''; f.elements.red.value = item.red || ''; f.elements.tests.value = item.tests || ''; f.elements.dx.value = item.dx || ''; f.elements.nonDrug.value = item.nonDrug || '';
+        f.elements.rx.value = Array.isArray(item.rx) ? item.rx.join('\n') : (item.rx || ''); f.elements.caution.value = item.caution || ''; f.elements.follow.value = item.follow || ''; f.elements.refer.value = item.refer || '';
+        setSelectValue(f.elements.source, item.source || 'local', 'local'); syncDiseaseSourceCustom(); f.elements.sourceCustom.value = item.sourceCustom || '';
+      }
+      function fillMedForm(item) {
+        const f = $('#medForm');
+        f.elements.name.value = item.name || ''; f.elements.groupId.value = item.groupId || ''; f.elements.spec.value = item.spec || ''; f.elements.indication.value = item.indication || ''; f.elements.dose.value = item.dose || ''; f.elements.homeUse.value = item.homeUse || ''; f.elements.note.value = item.note || ''; $('#medCheck').checked = !!item.check;
+      }
+      function openAddDisease() {
+        editingDiseaseId = null; setDiseaseDialogMode('add');
+        $('#diseaseForm').reset(); $('#diseaseSource').value = 'local'; syncDiseaseSourceCustom();
+        $('#diseaseDialog').showModal(); setTimeout(() => $('#diseaseName').focus(), 0);
+      }
+      function openEditDisease(id) {
+        const item = customDiseases.find(x => x.id === id); if (!item) return;
+        editingDiseaseId = id; setDiseaseDialogMode('edit'); $('#diseaseForm').reset(); fillDiseaseForm(item);
+        $('#diseaseDialog').showModal(); setTimeout(() => $('#diseaseName').focus(), 0);
+      }
+      function openAddMed() {
+        editingMedId = null; setMedDialogMode('add');
+        $('#medForm').reset(); $('#medDialog').showModal(); setTimeout(() => $('#medName').focus(), 0);
+      }
+      function openEditMed(id) {
+        const item = customMedications.find(x => x.id === id); if (!item) return;
+        editingMedId = id; setMedDialogMode('edit'); $('#medForm').reset(); fillMedForm(item);
+        $('#medDialog').showModal(); setTimeout(() => $('#medName').focus(), 0);
+      }
+      function deleteCustomDisease(id) {
+        const item = customDiseases.find(x => x.id === id);
+        if (!item) return;
+        if (!confirm(`确定删除自定义疾病“${item.name}”吗？`)) return;
+        customDiseases = customDiseases.filter(x => x.id !== id);
+        favorites.delete(id);
+        save(); renderAll();
+      }
+      function deleteCustomMed(id) {
+        const item = customMedications.find(x => x.id === id);
+        if (!item) return;
+        if (!confirm(`确定删除自定义药品“${item.name}”吗？`)) return;
+        customMedications = customMedications.filter(x => x.id !== id);
+        save(); renderAll();
+      }
+      function diseaseItemFromForm(form, id) {
+        const fd = new FormData(form);
+        const rx = String(fd.get('rx') || '').split(/\n+/).map(clean).filter(Boolean);
+        return normalizeDisease({
+          id: id || uid('custom-disease'), custom: true,
+          cat: clean(fd.get('cat')), name: clean(fd.get('name')), alias: clean(fd.get('alias')),
+          clues: clean(fd.get('clues')), red: clean(fd.get('red')), tests: clean(fd.get('tests')),
+          dx: clean(fd.get('dx')), nonDrug: clean(fd.get('nonDrug')), rx,
+          caution: clean(fd.get('caution')), follow: clean(fd.get('follow')), refer: clean(fd.get('refer')), source: clean(fd.get('source')) || 'local', sourceCustom: clean(fd.get('sourceCustom'))
+        });
+      }
+      function medItemFromForm(form, id) {
+        const fd = new FormData(form);
+        return normalizeMed({
+          id: id || uid('custom-med'), custom: true,
+          groupId: clean(fd.get('groupId')), name: clean(fd.get('name')), spec: clean(fd.get('spec')),
+          indication: clean(fd.get('indication')), dose: clean(fd.get('dose')), homeUse: clean(fd.get('homeUse')),
+          note: clean(fd.get('note')), check: $('#medCheck').checked
+        });
+      }
+      function addCustomDiseaseFromForm(e) {
+        e.preventDefault();
+        const form = e.currentTarget;
+        if (!form.checkValidity()) {form.reportValidity(); return;}
+        const item = diseaseItemFromForm(form, editingDiseaseId);
+        if (editingDiseaseId) {customDiseases = customDiseases.map(x => x.id === editingDiseaseId ? item : x);} else {customDiseases = [item, ...customDiseases];}
+        const targetId = item.id; editingDiseaseId = null;
+        save(); $('#diseaseDialog').close();
+        page = 'disease'; active = item.cat; favOnly = false; diseaseSearch.value = ''; renderNav(); renderAll();
+        requestAnimationFrame(() => {const el = document.getElementById(targetId); if (el) {el.open = true; el.scrollIntoView({block: 'start'})} });
+      }
+      function addCustomMedFromForm(e) {
+        e.preventDefault();
+        const form = e.currentTarget;
+        if (!form.checkValidity()) {form.reportValidity(); return;}
+        const item = medItemFromForm(form, editingMedId);
+        if (editingMedId) {customMedications = customMedications.map(x => x.id === editingMedId ? item : x);} else {customMedications = [item, ...customMedications];}
+        const targetId = item.id; editingMedId = null;
+        save(); $('#medDialog').close();
+        page = 'meds'; medActive = item.groupId; medSearch.value = ''; renderMedCats(); renderAll();
+        requestAnimationFrame(() => {const el = document.getElementById(targetId); if (el) {el.open = true; el.scrollIntoView({block: 'start'})} });
+      }
+
+
+      function customPayload() {return {app: '基层全科诊疗助手', version: '2.5', exportedAt: new Date().toISOString(), diseases: customDiseases, medications: customMedications}}
+      function downloadText(filename, text, type = 'application/json') {
+        const blob = new Blob([text], {type: type + ';charset=utf-8'}), url = URL.createObjectURL(blob), a = document.createElement('a');
+        a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 800);
+      }
+      function exportCustomData() {
+        downloadText(`基层全科诊疗助手-自定义数据-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(customPayload(), null, 2));
+      }
+      function importCustomData(file) {
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            const data = JSON.parse(String(reader.result || ''));
+            const ds = Array.isArray(data.diseases) ? data.diseases : [];
+            const ms = Array.isArray(data.medications) ? data.medications : [];
+            if (!ds.length && !ms.length) {alert('未在文件中找到可导入的自定义疾病或药品。'); return;}
+            customDiseases = [...ds.map(normalizeDisease), ...customDiseases];
+            customMedications = [...ms.map(normalizeMed), ...customMedications];
+            save(); renderAll();
+            alert(`已导入自定义疾病 ${ds.length} 个、自定义药品 ${ms.length} 种。`);
+          } catch (err) {alert('导入失败：文件格式不是本手册导出的JSON数据。')}
+        };
+        reader.readAsText(file, 'utf-8');
+      }
+
       diseaseSearch.addEventListener('input', renderAll);
       medSearch.addEventListener('input', renderAll);
       $('#diseasePageBtn').onclick = () => switchPage('disease');
       $('#medPageBtn').onclick = () => switchPage('meds');
+      $('#addDiseaseBtn').onclick = openAddDisease;
+      $('#addMedBtn').onclick = openAddMed;
+      $('#diseaseForm').addEventListener('submit', addCustomDiseaseFromForm);
+      $('#diseaseForm').addEventListener('reset', () => setTimeout(syncDiseaseSourceCustom, 0));
+      $('#medForm').addEventListener('submit', addCustomMedFromForm);
+      $('#diseaseSource').addEventListener('change', syncDiseaseSourceCustom);
+      $('#exportCustomBtn').onclick = exportCustomData;
+      $('#importCustomBtn').onclick = () => $('#importCustomFile').click();
+      $('#importCustomFile').addEventListener('change', e => {importCustomData(e.target.files && e.target.files[0]); e.target.value = '';});
       $('#clearDiseaseSearch').onclick = $('#emptyClear').onclick = () => {diseaseSearch.value = ''; active = 'all'; favOnly = false; renderNav(); renderAll(); diseaseSearch.focus()};
       $('#clearMedSearch').onclick = () => {medSearch.value = ''; medActive = 'all'; renderMedCats(); renderAll(); medSearch.focus()};
       $('#favToggle').onclick = () => {if (page === 'meds') return; favOnly = !favOnly; $('#favToggle').textContent = favOnly ? '★' : '☆'; $('#favToggle').classList.toggle('on', favOnly); renderAll()};
       const root = document.documentElement, storedTheme = localStorage.getItem('mqc-theme'); if (storedTheme) root.dataset.theme = storedTheme; else if (matchMedia('(prefers-color-scheme:dark)').matches) root.dataset.theme = 'dark';
       $('#themeToggle').onclick = () => {root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark'; try {localStorage.setItem('mqc-theme', root.dataset.theme)} catch { } };
-      $('.close').onclick = () => $('#emergencyDialog').close(); $('#emergencyDialog').addEventListener('click', e => {if (e.target === $('#emergencyDialog')) $('#emergencyDialog').close()});
-      renderNav(); renderMedCats(); renderAll(); renderEmergencies();
+      $$('.close').forEach(btn => btn.addEventListener('click', () => btn.closest('dialog')?.close()));
+      $('#diseaseDialog').addEventListener('close', () => {editingDiseaseId = null; setDiseaseDialogMode('add')});
+      $('#medDialog').addEventListener('close', () => {editingMedId = null; setMedDialogMode('add')});
+      $$('dialog').forEach(dlg => dlg.addEventListener('click', e => {if (e.target === dlg) dlg.close()}));
+      initAddForms(); renderNav(); renderMedCats(); renderAll(); renderEmergencies();
     })();
   </script>
 </body>
