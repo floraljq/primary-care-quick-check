@@ -1,0 +1,2000 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f7f6">
+  <title>基层全科诊疗助手｜成人常见病与常用药</title>
+  <style>
+    :root {
+      --bg: #f3f6f5;
+      --card: #fff;
+      --ink: #162420;
+      --muted: #66746f;
+      --line: #dfe7e4;
+      --green: #176b52;
+      --green2: #e5f3ed;
+      --red: #b42318;
+      --red2: #fff0ee;
+      --amber: #8a4b08;
+      --amber2: #fff6df;
+      --blue: #245b8f;
+      --shadow: 0 8px 30px rgba(20, 55, 45, .07);
+      --radius: 18px;
+      --nav: 78px
+    }
+
+    [data-theme="dark"] {
+      --bg: #101614;
+      --card: #18211e;
+      --ink: #edf5f2;
+      --muted: #a6b4af;
+      --line: #2a3733;
+      --green: #66d3ad;
+      --green2: #17382d;
+      --red: #ff8d84;
+      --red2: #3d211f;
+      --amber: #f3bd66;
+      --amber2: #3a2f19;
+      --blue: #8fc5f6;
+      --shadow: none
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 154px
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased
+    }
+
+    button,
+    input {
+      font: inherit
+    }
+
+    .app {
+      max-width: 920px;
+      margin: auto;
+      padding: 0 14px 100px
+    }
+
+    .top {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      backdrop-filter: blur(16px);
+      padding: 10px 0 8px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px
+    }
+
+    .logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: var(--green);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      font-weight: 800
+    }
+
+    .brand h1 {
+      font-size: 18px;
+      line-height: 1.2;
+      margin: 0
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 2px
+    }
+
+    .tools {
+      margin-left: auto;
+      display: flex;
+      gap: 6px
+    }
+
+    .icon-btn,
+    .mini-btn {
+      border: 1px solid var(--line);
+      color: var(--ink);
+      background: var(--card);
+      border-radius: 12px;
+      min-width: 42px;
+      height: 42px;
+      cursor: pointer
+    }
+
+    .icon-btn:active,
+    .chip:active,
+    .emergency-card:active {
+      transform: scale(.98)
+    }
+
+    .page-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 8px 0 10px
+    }
+
+    .page-tab {
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--muted);
+      border-radius: 14px;
+      height: 42px;
+      cursor: pointer;
+      font-weight: 700
+    }
+
+    .page-tab.active {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff
+    }
+
+    .searchbox {
+      position: relative
+    }
+
+    .searchbox[hidden] {
+      display: none
+    }
+
+    .searchbox svg {
+      position: absolute;
+      left: 14px;
+      top: 13px;
+      color: var(--muted)
+    }
+
+    .search-input {
+      width: 100%;
+      height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--card);
+      color: var(--ink);
+      padding: 0 78px 0 42px;
+      outline: none;
+      box-shadow: var(--shadow)
+    }
+
+    .search-input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 17%, transparent)
+    }
+
+    .search-meta {
+      position: absolute;
+      right: 8px;
+      top: 7px;
+      display: flex;
+      align-items: center;
+      gap: 5px
+    }
+
+    .count {
+      font-size: 11px;
+      color: var(--muted)
+    }
+
+    .clear-search {
+      display: none;
+      border: 0;
+      background: var(--green2);
+      color: var(--green);
+      border-radius: 9px;
+      height: 34px;
+      padding: 0 10px;
+      cursor: pointer
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      overflow: auto;
+      padding: 10px 0 2px;
+      scrollbar-width: none
+    }
+
+    .nav[hidden] {
+      display: none
+    }
+
+    .nav::-webkit-scrollbar {
+      display: none
+    }
+
+    .chip {
+      white-space: nowrap;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--muted);
+      padding: 7px 12px;
+      border-radius: 999px;
+      cursor: pointer
+    }
+
+    .chip.active {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff
+    }
+
+    .chip.danger {
+      color: var(--red);
+      border-color: color-mix(in srgb, var(--red) 35%, var(--line))
+    }
+
+    .chip.danger.active {
+      background: var(--red);
+      color: #fff
+    }
+
+    .notice {
+      margin: 12px 0 18px;
+      padding: 13px 14px;
+      border: 1px solid #efd6a5;
+      background: var(--amber2);
+      color: var(--amber);
+      border-radius: 14px;
+      font-size: 13px
+    }
+
+    .notice strong {
+      color: var(--ink)
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      margin: 24px 2px 10px
+    }
+
+    .section-title h2 {
+      font-size: 19px;
+      margin: 0
+    }
+
+    .section-title span {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .section-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap
+    }
+
+    .emergency-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px
+    }
+
+    .emergency-card {
+      border: 1px solid color-mix(in srgb, var(--red) 22%, var(--line));
+      background: var(--card);
+      border-radius: 16px;
+      padding: 14px;
+      cursor: pointer;
+      text-align: left;
+      color: var(--ink);
+      min-height: 94px
+    }
+
+    .emergency-card b {
+      display: block;
+      color: var(--red);
+      font-size: 15px
+    }
+
+    .emergency-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+      margin-top: 4px
+    }
+
+    .emergency-card .arrow {
+      float: right;
+      color: var(--red)
+    }
+
+    .disease-list {
+      display: grid;
+      gap: 10px
+    }
+
+    .disease {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow)
+    }
+
+    .disease[open] {
+      border-color: color-mix(in srgb, var(--green) 35%, var(--line))
+    }
+
+    .disease summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 15px 15px 14px;
+      display: flex;
+      gap: 11px;
+      align-items: center;
+      min-height: 66px
+    }
+
+    .disease summary::-webkit-details-marker {
+      display: none
+    }
+
+    .disease .catmark {
+      width: 7px;
+      height: 34px;
+      border-radius: 8px;
+      background: var(--green);
+      flex: 0 0 auto
+    }
+
+    .titlewrap {
+      min-width: 0;
+      flex: 1
+    }
+
+    .disease h3 {
+      font-size: 16px;
+      line-height: 1.3;
+      margin: 0
+    }
+
+    .alias {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .star {
+      border: 0;
+      background: none;
+      color: var(--muted);
+      font-size: 22px;
+      padding: 7px;
+      cursor: pointer
+    }
+
+    .star.on {
+      color: #e2a400
+    }
+
+    .chev {
+      width: 24px;
+      text-align: center;
+      color: var(--muted);
+      transition: .2s
+    }
+
+    .disease[open] .chev,
+    .med-card[open] .chev {
+      transform: rotate(180deg)
+    }
+
+    .body {
+      border-top: 1px solid var(--line);
+      padding: 4px 15px 16px
+    }
+
+    .block {
+      padding: 11px 0;
+      border-bottom: 1px dashed var(--line)
+    }
+
+    .block:last-child {
+      border: 0
+    }
+
+    .block h4 {
+      margin: 0 0 5px;
+      font-size: 13px;
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .block p,
+    .block ul {
+      margin: 0
+    }
+
+    .block ul {
+      padding-left: 20px
+    }
+
+    .block li+li {
+      margin-top: 3px
+    }
+
+    .dangerbox,
+    .warnbox {
+      margin: 10px 0;
+      padding: 10px 12px;
+      border-radius: 12px
+    }
+
+    .dangerbox {
+      color: var(--red);
+      background: var(--red2)
+    }
+
+    .warnbox {
+      color: var(--amber);
+      background: var(--amber2)
+    }
+
+    .rx {
+      display: grid;
+      gap: 7px
+    }
+
+    .rx-item {
+      border-left: 3px solid var(--green);
+      background: var(--green2);
+      padding: 8px 10px;
+      border-radius: 0 10px 10px 0
+    }
+
+    .rx-item b {
+      color: var(--green)
+    }
+
+    .rx-item.need-referral {
+      border-left-color: var(--red);
+      background: var(--red2);
+      color: var(--red);
+      font-weight: 650
+    }
+
+    .rx-item.need-referral b {
+      color: var(--red);
+      font-size: 14px
+    }
+
+    .source {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .source a {
+      color: var(--blue)
+    }
+
+    mark {
+      background: #ffe080;
+      color: #2b2500;
+      border-radius: 2px;
+      padding: 0 1px
+    }
+
+    .empty {
+      display: none;
+      text-align: center;
+      background: var(--card);
+      border: 1px dashed var(--line);
+      border-radius: 16px;
+      padding: 34px 15px;
+      color: var(--muted)
+    }
+
+    .empty button {
+      margin-top: 10px;
+      border: 0;
+      background: var(--green);
+      color: #fff;
+      border-radius: 10px;
+      padding: 9px 14px;
+      cursor: pointer
+    }
+
+    .medicine-section {
+      scroll-margin-top: 154px
+    }
+
+    .med-intro {
+      margin: 0 0 18px;
+      padding: 13px 14px;
+      border: 1px solid color-mix(in srgb, var(--blue) 28%, var(--line));
+      background: color-mix(in srgb, var(--blue) 10%, var(--card));
+      color: var(--blue);
+      border-radius: 14px;
+      font-size: 13px
+    }
+
+    .med-intro strong {
+      color: var(--ink)
+    }
+
+    .med-cats {
+      display: flex;
+      gap: 7px;
+      overflow: auto;
+      padding: 0 0 10px;
+      scrollbar-width: none
+    }
+
+    .med-cats::-webkit-scrollbar {
+      display: none
+    }
+
+    .med-cat {
+      white-space: nowrap;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--muted);
+      padding: 6px 10px;
+      border-radius: 999px;
+      cursor: pointer
+    }
+
+    .med-cat.active {
+      background: var(--green2);
+      border-color: var(--green);
+      color: var(--green)
+    }
+
+    .med-grid {
+      display: grid;
+      gap: 8px
+    }
+
+    .med-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden
+    }
+
+    .med-card summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 56px;
+      padding: 11px 13px;
+      cursor: pointer
+    }
+
+    .med-card summary::-webkit-details-marker {
+      display: none
+    }
+
+    .med-card[open] {
+      border-color: color-mix(in srgb, var(--green) 35%, var(--line))
+    }
+
+    .med-name {
+      font-weight: 700;
+      line-height: 1.35;
+      flex: 1
+    }
+
+    .med-spec {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 400;
+      margin-top: 2px
+    }
+
+    .med-badge {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--green2);
+      color: var(--green);
+      white-space: nowrap
+    }
+
+    .med-badge.check {
+      background: var(--amber2);
+      color: var(--amber)
+    }
+
+    .med-detail {
+      border-top: 1px solid var(--line);
+      padding: 10px 13px 12px
+    }
+
+    .med-row {
+      display: grid;
+      grid-template-columns: 86px 1fr;
+      gap: 8px
+    }
+
+    .med-row+.med-row {
+      margin-top: 7px
+    }
+
+    .med-label {
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .med-row span:last-child {
+      overflow-wrap: anywhere
+    }
+
+    .med-warning {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 9px;
+      background: var(--amber2);
+      color: var(--amber);
+      font-size: 12px
+    }
+
+    .med-empty {
+      display: none;
+      text-align: center;
+      color: var(--muted);
+      padding: 24px;
+      background: var(--card);
+      border: 1px dashed var(--line);
+      border-radius: 14px
+    }
+
+    .nav[hidden],
+    .med-cats[hidden] {
+      display: none !important
+    }
+
+    .nav,
+    .med-cats {
+      display: flex;
+      gap: 8px;
+      overflow: auto;
+      padding: 10px 0 2px;
+      scrollbar-width: none
+    }
+
+    .nav::-webkit-scrollbar,
+    .med-cats::-webkit-scrollbar {
+      display: none
+    }
+
+    .chip,
+    .med-cat {
+      white-space: nowrap;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--muted);
+      padding: 7px 12px;
+      border-radius: 999px;
+      cursor: pointer
+    }
+
+    .chip.active,
+    .med-cat.active {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff
+    }
+
+    .chip.danger {
+      color: var(--red);
+      border-color: color-mix(in srgb, var(--red) 35%, var(--line))
+    }
+
+    .chip.danger.active {
+      background: var(--red);
+      color: #fff
+    }
+
+    footer {
+      margin-top: 32px;
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .refs {
+      padding-left: 20px
+    }
+
+    .refs a {
+      color: var(--blue);
+      overflow-wrap: anywhere
+    }
+
+    .version {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+      margin-top: 18px
+    }
+
+    dialog {
+      width: min(680px, calc(100% - 24px));
+      max-height: 88dvh;
+      border: 0;
+      border-radius: 20px;
+      background: var(--card);
+      color: var(--ink);
+      padding: 0;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .3)
+    }
+
+    dialog::backdrop {
+      background: rgba(5, 15, 12, .6);
+      backdrop-filter: blur(3px)
+    }
+
+    .modal-head {
+      position: sticky;
+      top: 0;
+      background: var(--card);
+      border-bottom: 1px solid var(--line);
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 2
+    }
+
+    .modal-head h2 {
+      font-size: 18px;
+      margin: 0;
+      color: var(--red);
+      flex: 1
+    }
+
+    .close {
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--ink);
+      border-radius: 10px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer
+    }
+
+    .modal-body {
+      padding: 5px 16px 20px
+    }
+
+    .modal-body h3 {
+      font-size: 14px;
+      margin: 14px 0 4px;
+      color: var(--green)
+    }
+
+    .modal-body .transfer {
+      font-weight: 700;
+      color: var(--red);
+      background: var(--red2);
+      padding: 10px;
+      border-radius: 10px
+    }
+
+    .modal-body ul {
+      margin: 4px 0;
+      padding-left: 20px
+    }
+
+    .skip {
+      position: fixed;
+      left: -999px;
+      top: 4px
+    }
+
+    .skip:focus {
+      left: 4px;
+      z-index: 100;
+      background: var(--card);
+      padding: 8px
+    }
+
+    .fav-only-note {
+      display: none;
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    @media(min-width:720px) {
+      .emergency-grid {
+        grid-template-columns: repeat(4, 1fr)
+      }
+
+      .disease-list,
+      .med-grid {
+        grid-template-columns: repeat(2, 1fr);
+        align-items: start
+      }
+
+      .app {
+        padding-left: 24px;
+        padding-right: 24px
+      }
+
+      .top {
+        padding-top: 14px
+      }
+    }
+
+    @media(max-width:430px) {
+      .app {
+        padding-left: 10px;
+        padding-right: 10px
+      }
+
+      .brand h1 {
+        font-size: 17px
+      }
+
+      .emergency-card {
+        padding: 12px;
+        min-height: 92px
+      }
+
+      .body {
+        padding-left: 13px;
+        padding-right: 13px
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      * {
+        scroll-behavior: auto !important;
+        transition: none !important
+      }
+    }
+
+    @media print {
+
+      .top,
+      .tools,
+      .notice,
+      .emergency-grid,
+      .star,
+      .chev {
+        display: none !important
+      }
+
+      .disease-list {
+        display: block
+      }
+
+      .disease {
+        break-inside: avoid;
+        margin: 0 0 10px;
+        box-shadow: none
+      }
+
+      .disease .body {
+        display: block !important
+      }
+
+      .app {
+        max-width: none;
+        padding: 0
+      }
+
+      body {
+        font-size: 11px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#content">跳到正文</a>
+  <main class="app" id="content">
+    <header class="top">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">＋</div>
+        <div>
+          <h1>基层全科诊疗助手</h1><small>成人常见病与常用药 · 离线版</small>
+        </div>
+        <div class="tools">
+          <button class="icon-btn" id="favToggle" title="只看收藏" aria-label="只看收藏">☆</button>
+          <button class="icon-btn" id="themeToggle" title="切换深浅色" aria-label="切换深浅色">◐</button>
+        </div>
+      </div>
+      <div class="page-tabs" role="tablist" aria-label="手册页面">
+        <button class="page-tab active" id="diseasePageBtn" type="button" role="tab" aria-selected="true">疾病速查</button>
+        <button class="page-tab" id="medPageBtn" type="button" role="tab" aria-selected="false">用药目录</button>
+      </div>
+      <div class="searchbox" id="diseaseSearchBox">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          aria-hidden="true">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.5-3.5" />
+        </svg>
+        <input id="diseaseSearch" class="search-input" type="search" autocomplete="off" placeholder="搜疾病、症状、用药方案…"
+          aria-label="搜索疾病、症状或用药方案">
+        <div class="search-meta"><span class="count" id="diseaseResultCount"></span><button class="clear-search"
+            id="clearDiseaseSearch">清除</button></div>
+      </div>
+      <div class="searchbox" id="medSearchBox" hidden>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          aria-hidden="true">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.5-3.5" />
+        </svg>
+        <input id="medSearch" class="search-input" type="search" autocomplete="off" placeholder="搜药品、适应症、剂量、提醒…"
+          aria-label="搜索药品、适应症、剂量或使用提醒">
+        <div class="search-meta"><span class="count" id="medResultCount"></span><button class="clear-search"
+            id="clearMedSearch">清除</button></div>
+      </div>
+      <nav class="nav" id="nav" aria-label="疾病分类"></nav>
+      <div class="med-cats" id="medCats" aria-label="药品分类" hidden></div>
+    </header>
+
+    <div class="notice">
+      <strong>专业提示：</strong>仅供执业医务人员辅助决策，不替代完整病史采集、体格检查与临床判断。用药前核对过敏史、妊娠可能、肝肾功能、药物相互作用、本院药品目录和处方权限；病情不稳定时先救治并转诊；计量单位、检验缩写和影像缩写按临床常用写法显示。
+    </div>
+
+    <section id="emergencySection">
+      <div class="section-title">
+        <h2>立即处理与转诊</h2><span>点击查看基层初步处置</span>
+      </div>
+      <div class="emergency-grid" id="emergencyGrid"></div>
+    </section>
+
+
+    <section id="diseaseSection">
+      <div class="section-title">
+        <h2 id="listTitle">疾病列表</h2><span class="section-meta"><span id="diseaseCount"></span><span
+            class="fav-only-note" id="favNote">仅显示收藏</span></span>
+      </div>
+      <div class="disease-list" id="diseaseList"></div>
+      <div class="empty" id="empty">
+        <div>没有找到匹配内容</div><button id="emptyClear">清除筛选</button>
+      </div>
+    </section>
+
+    <section class="medicine-section" id="medicineSection" hidden>
+      <div class="med-intro">
+        <strong>统一说明：</strong>本页按药品分组列出“适应症、规范建议、使用提醒”。仅当常用写法与规范建议存在实质差异时，额外显示“本院指导用法”，用于处方前对照核对；标注“重点核对”表示剂型、剂量、适应证或安全性风险需要处方前重点复核。
+      </div>
+      <div class="section-title">
+        <h2 id="medTitle">药品列表</h2><span id="medCount"></span>
+      </div>
+      <div class="med-grid" id="medList"></div>
+      <div class="med-empty" id="medEmpty">没有找到匹配的药品</div>
+    </section>
+
+    <footer>
+      <h2>主要依据</h2>
+      <ol class="refs" id="references">
+        <li id="ref-primary"><a href="https://medjournals.cn/clinic/getClinicList.do?subjectId=116" target="_blank"
+            rel="noopener">中华医学会基层医疗卫生机构常见疾病诊疗指南集</a></li>
+        <li id="ref-essential"><a href="https://www.nhc.gov.cn/wjw/jbywml/201810/8b68d28bd3754898b339e06da8c7d907.shtml"
+            target="_blank" rel="noopener">国家基本药物目录（2018年版）及基本药物制度文件</a></li>
+        <li id="ref-abx"><a href="https://www.nhc.gov.cn/yzygj/c100068/201508/9f7136d6fb034339a7c9348c72a8a1fd.shtml"
+            target="_blank" rel="noopener">国家卫生健康委《抗菌药物临床应用指导原则（2015年版）》</a></li>
+        <li id="ref-nmpa"><a href="https://www.nmpa.gov.cn/datasearch/home-index.html" target="_blank"
+            rel="noopener">国家药品监督管理局药品数据查询及药品说明书/安全性公告</a></li>
+        <li id="ref-af"><a href="https://www.cem.org.cn/public/html/202408/20240803/index.htm" target="_blank"
+            rel="noopener">《急性心房颤动中国急诊管理指南》（2024）</a></li>
+        <li id="ref-life"><a href="https://app.www.gov.cn/govdata/gov/202407/02/516820/article.html" target="_blank"
+            rel="noopener">高血压等慢性病营养和运动指导原则（2024年版）</a></li>
+        <li id="ref-htn"><a href="https://rs.yiigle.com/CN115399202004/1514630.htm" target="_blank"
+            rel="noopener">《中国高血压临床实践指南》（2024）</a></li>
+        <li id="ref-hf"><a href="https://rs.yiigle.com/CN115399202004/1508886.htm" target="_blank"
+            rel="noopener">《中国心力衰竭基层诊疗与管理指南》（2024）</a></li>
+        <li id="ref-dm"><a href="https://rs.yiigle.com/CN2021/1315505.htm" target="_blank"
+            rel="noopener">《中国2型糖尿病防治指南》（2020）</a></li>
+        <li id="ref-cap"><a href="https://rs.yiigle.com/CN114798201902/1116963.htm" target="_blank"
+            rel="noopener">《成人社区获得性肺炎基层诊疗指南》（2018）</a></li>
+        <li id="ref-ent"><a href="https://rs.yiigle.com/CN115330202202/1348951.htm" target="_blank"
+            rel="noopener">《中国变应性鼻炎诊断和治疗指南》（2022年修订版）</a></li>
+        <li id="ref-zoster"><a href="https://rs.yiigle.com/CN2021/1436320.htm" target="_blank"
+            rel="noopener">《中国带状疱疹诊疗专家共识》（2022版）</a></li>
+        <li id="ref-er"><a href="https://www.nhc.gov.cn/ylyjs/zcwj/202401/8d4720bda8e7493b9ba1b9533e2fb91a.shtml"
+            target="_blank" rel="noopener">国家卫生健康委急诊相关诊疗规范与专业指南</a></li>
+      </ol>
+      <p>
+        <strong>统一说明：</strong>各病种内容结合相关专业学会指南与药品说明书整理。指南年份不等于内容失效，请以本页核对日期及最新发布为准。页面药物限定于本院现有常用药品；出现“需要转诊”表示现有药品或基层条件不能完成规范治疗。剂量均为常用成人剂量示例，不能覆盖所有商品规格、适应证和个体调整。抗菌药需结合本地耐药资料；妊娠、哺乳、严重肝肾功能异常及高龄衰弱患者应另行核对权威药品说明书或上级医院意见。
+      </p>
+      <div class="version"><span>内容版本 1.0</span><span>资料核对：2026-07-03</span></div>
+    </footer>
+  </main>
+
+  <dialog id="emergencyDialog" aria-labelledby="emergencyTitle">
+    <div class="modal-head">
+      <h2 id="emergencyTitle"></h2><button class="close" aria-label="关闭">×</button>
+    </div>
+    <div class="modal-body" id="emergencyBody"></div>
+  </dialog>
+
+  <script>
+    (() => {
+      'use strict';
+      const categories = [
+        ['all', '全部'], ['emergency', '急症'], ['cardio', '心血管'], ['resp', '呼吸'], ['ent', '耳鼻喉眼'], ['gi', '消化'], ['metabolic', '代谢/血液'], ['neuro', '神经/精神'], ['uro', '泌尿'], ['surgery', '外科/骨科/皮肤'], ['gyn', '妇科']
+      ];
+      const catNames = Object.fromEntries(categories);
+      const refs = {primary: '<a href="#ref-primary">中华医学会基层指南</a>', abx: '<a href="#ref-abx">抗菌药物指导原则</a>', life: '<a href="#ref-life">慢病营养运动指导原则（2024）</a>', htn: '<a href="#ref-htn">中国高血压临床实践指南（2024）</a>', hf: '<a href="#ref-hf">中国心衰基层指南（2024）</a>', dm: '<a href="#ref-dm">中国2型糖尿病指南（2020）</a>', cap: '<a href="#ref-cap">成人社区获得性肺炎基层指南（2018）</a>', ent: '<a href="#ref-ent">中国变应性鼻炎指南（2022）</a>', zoster: '<a href="#ref-zoster">中国带状疱疹专家共识（2022）</a>'};
+      const d = (id, cat, name, alias, clues, red, tests, dx, nonDrug, rx, caution, follow, refer, source = 'primary') => ({id, cat, name, alias, clues, red, tests, dx, nonDrug, rx, caution, follow, refer, source});
+      const diseases = [
+        d('htn', 'cardio', '高血压', '头晕 血压升高 原发性高血压',
+          '诊室血压反复 ≥140/90 mmHg；规范家庭血压平均 ≥135/85 mmHg可支持诊断。首次发现明显升高应安静复测并双臂测量。',
+          '≥180/120 mmHg伴胸痛、呼吸困难、神经功能缺损、视乳头水肿、少尿或意识改变＝高血压急症。',
+          '最低：尿常规、血肌酐及估算肾小球滤过率、血电解质、空腹血糖或糖化血红蛋白、血脂、心电图；年轻、突发或难治者筛查继发原因。',
+          '确认持续升高并评估靶器官损害及总心血管风险；勿仅凭一次读数长期用药。',
+          '限盐（食盐＜5 g/d）、减重、戒烟限酒、规律运动；指导家庭血压记录。',
+          ['氨氯地平 5 mg 每日1次；按反应增至10 mg/d。', '厄贝沙坦 150 mg 每日1次。', '依那普利 5 mg 每日1～2次；常用10～20 mg/d，最大40 mg/d。'],
+          '血管紧张素转换酶抑制剂（如依那普利）和血管紧张素Ⅱ受体阻滞剂（如厄贝沙坦）禁用于妊娠；用后1～2周复查肌酐和血钾。双侧肾动脉狭窄、高钾慎用；老年人从低剂量开始。',
+          '起始或调药后2～4周复诊；稳定后每1～3个月。',
+          '疑继发高血压、妊娠相关高血压、难治性高血压或任何急症表现立即/尽快转诊。', 'htn'),
+        d('angina', 'cardio', '稳定性冠心病 / 心绞痛', '劳力性胸痛 冠心病 心肌缺血 硝酸甘油',
+          '劳力或情绪诱发胸骨后压榨感，休息或硝酸甘油数分钟缓解；同时评估非典型表现。',
+          '静息痛、新发/加重、持续＞10～15分钟、出汗/晕厥/呼吸困难：按急性冠脉综合征处理。撕裂痛警惕主动脉夹层。',
+          '生命体征、12导联心电图；血常规、血糖、血脂、肾功能。能开展时安排进一步缺血评估。',
+          '稳定型症状需与胃食管反流、肌骨痛及焦虑鉴别；诊断不确定不应延误急性冠脉综合征转诊。',
+          '戒烟、运动康复、控制血压/血糖/血脂，教育识别急性发作。',
+          ['硝酸甘油 0.5 mg 舌下，5分钟可重复，最多3次；首次服用宜坐位。', '阿司匹林 75～100 mg 每日1次（无活动性出血/过敏）。', '阿托伐他汀 20 mg 每晚1次；按风险和耐受调整。'],
+          '近期使用磷酸二酯酶-5抑制剂（治疗勃起功能障碍的药物）、低血压或疑右心室梗死者禁用硝酸甘油；抗血小板治疗前核对出血风险。',
+          '确诊后1个月内评估症状与药物，稳定后每3～6个月。',
+          '症状模式改变、静息症状、心衰/心律失常或药物不能控制者转诊。'),
+        d('hf', 'cardio', '心力衰竭', '气促 端坐呼吸 水肿 心衰',
+          '活动后气促、端坐呼吸、夜间阵发性呼吸困难、乏力、双下肢水肿；查颈静脉、肺啰音和体重变化。',
+          '静息气促、血氧饱和度低、肢端湿冷、收缩压＜90 mmHg、胸痛、新发心律失常或意识改变。',
+          '心电图、胸片、血常规、肌酐及估算肾小球滤过率、电解质、肝功能；可及时获得时查B型利钠肽或氨基末端B型利钠肽前体，安排超声心动图。',
+          '基层可识别和随访稳定慢性心衰；新诊断需明确射血分数、病因和诱因。',
+          '每日体重、适度限盐，避免非甾体抗炎药（如双氯芬酸）和自行大量饮水；稳定期循序运动。',
+          ['有淤血时呋塞米20 mg，早晨口服，每日1次；按体重、尿量和肾功能调整。', '稳定且无低血压：依那普利2.5 mg，每日2次起始，缓慢滴定。', '螺内酯20 mg，每日1次，仅在估算肾小球滤过率＞30 ml/min/1.73m²且血钾＜5.0 mmol/L时考虑。', '需要转诊：本页用药目录内缺少指南优先推荐的特定心力衰竭用药组合；新诊断或需优化长期方案者转上级医院。'],
+          '启动依那普利、厄贝沙坦或螺内酯后1～2周复查肌酐和血钾；利尿过度可致低血压或肾损伤。',
+          '调药后1～2周；稳定后每1～3个月，记录体重、症状、血压、心率和肾功能。',
+          '新诊断、超声不可及、疑缺血病因、反复失代偿或任何急性危险信号应转诊。', 'hf'),
+        d('af', 'cardio', '心房颤动', '房颤 心悸 心律不齐 抗凝',
+          '心悸、乏力、气促或偶然发现脉搏绝对不齐；必须用心电图确认。',
+          '低血压、缺血性胸痛、肺水肿、晕厥或急性卒中表现＝不稳定，紧急转诊。',
+          '12导联心电图、血常规、电解质、肾肝功能、促甲状腺激素；用房颤卒中风险评分评估是否需要抗凝，并同步评估出血风险。',
+          '确认房颤、估计发作时间及诱因；不能仅凭脉搏诊断。',
+          '限酒，处理甲亢、感染、睡眠呼吸暂停等诱因；教育卒中征象。',
+          ['需要转诊：现有美托洛尔制剂标注与房颤急性控速常用剂型、剂量不能直接对应；新发房颤应转诊制定控速或复律方案。', '需要转诊：本页用药目录未包含规范口服抗凝药；是否抗凝需依据卒中风险、出血风险、肾功能及瓣膜情况决定，新诊断宜与上级医院共同制定。'],
+          '哮喘、急性心衰、低血压或显著传导阻滞慎用β阻滞剂；勿在房颤发作时间不明时自行药物复律。',
+          '新诊断尽快专科评估；稳定患者每1～3个月复查心率、症状及抗凝安全性。',
+          '不稳定、预激伴房颤、妊娠、卒中或难以控制心室率者立即/尽快转诊。'),
+        d('lipid', 'cardio', '血脂异常', '高脂血症 胆固醇 低密度脂蛋白 甘油三酯 他汀',
+          '常无症状；根据低密度脂蛋白胆固醇、是否已有动脉粥样硬化性心血管病及总体风险决定干预强度。',
+          '甘油三酯极高伴上腹痛警惕胰腺炎；肌痛伴深色尿警惕横纹肌溶解。',
+          '空腹/非空腹血脂；开始他汀前查ALT，肌肉症状高风险者查CK；排除甲状腺功能减退等继发原因。',
+          '先做风险分层和个体化目标，不以单一“正常值”替代风险评估。',
+          '减少反式脂肪和精制糖，增加蔬果、全谷、鱼类和运动；戒烟。',
+          ['阿托伐他汀 10 mg 每晚1次；高危患者如需更高强度方案应转诊评估。'],
+          '妊娠/备孕禁用他汀；活动性肝病慎用。严重肌痛、无力或深色尿立即停药评估。',
+          '开始或调量后4～12周复查血脂与耐受，之后每3～12个月。',
+          '疑家族性高胆固醇血症、极高甘油三酯、他汀严重不耐受或目标难达者转诊。'),
+
+        d('uri', 'resp', '上呼吸道感染 / 流感', '感冒 发热 咽痛 鼻塞 咳嗽 奥司他韦',
+          '鼻塞、流涕、咽痛、咳嗽；流感常突发高热、肌痛、乏力。',
+          '呼吸困难、血氧饱和度下降、意识改变、持续高热、脱水、胸痛或高危患者迅速恶化。',
+          '多数无需检验；流行期高危或需决定抗病毒治疗时考虑流感抗原/核酸。',
+          '排除肺炎、链球菌性咽炎及新发传染病；脓性鼻涕本身不等于细菌感染。',
+          '休息、补液、盐水洗鼻；佩戴口罩并落实呼吸道卫生。',
+          ['普通感冒且无禁忌：复方氨酚烷胺片1片，每日2次，短期使用。', '流感确诊/高度疑似且发病48小时内或属高危：奥司他韦75 mg，每日2次，共5天；肾功能下降需减量。'],
+          '复方感冒药可能造成嗜睡、口干，并含多种成分；高血压、前列腺增生、青光眼患者慎用，不与其他复方感冒药重复。普通病毒感染不使用抗菌药。',
+          '一般3～5天；发热＞3天或症状加重复诊。',
+          '出现危险信号，或高龄、妊娠、严重基础病患者恶化时转诊。'),
+        d('sinusitis', 'resp', '急性鼻窦炎', '鼻窦炎 脓涕 面痛 鼻塞',
+          '鼻塞/脓涕伴面部压痛；持续≥10天不改善、起病即高热脓涕≥3～4天，或先好转后加重提示细菌性。',
+          '眶周肿胀、眼球运动痛/障碍、视力下降、剧烈头痛、脑膜刺激征。',
+          '典型轻症不需影像；怀疑眶内/颅内并发症才紧急影像转诊。',
+          '与病毒性上感、过敏性鼻炎和牙源性感染鉴别。',
+          '盐水鼻腔冲洗；鼻用糖皮质激素可用于伴过敏或明显鼻塞。',
+          ['明确细菌性且无青霉素过敏：阿莫西林500 mg，每8小时1次，5～7天；48～72小时无改善需转诊。', '需要转诊：严重青霉素过敏、眼眶或神经系统症状、免疫功能低下者，本页用药目录中的药品不足以安全完成治疗。'],
+          '青霉素严重过敏者不可使用阿莫西林类；肾功能下降需调剂量。',
+          '抗菌治疗48～72小时无改善或疗程后未缓解复诊。',
+          '任何眼部或神经系统危险信号、免疫功能低下或反复发作者转诊。', 'abx'),
+        d('bronchitis', 'resp', '急性支气管炎', '咳嗽 痰 急性咳嗽 支气管炎',
+          '急性咳嗽常持续2～3周，可有痰；生命体征和肺部检查通常无局灶异常。',
+          '呼吸频率增快、心动过速、高热、低氧、咯血、胸痛或局灶湿啰音提示肺炎等。',
+          '无危险信号一般不需胸片或抽血检查；疑肺炎、百日咳或流感时针对性检查。',
+          '排除哮喘/慢性阻塞性肺疾病急性加重、肺炎、心衰和药物性咳嗽。',
+          '补液、避免烟雾；解释咳嗽自然病程。',
+          ['干咳明显且已排除痰液潴留：喷托维林25 mg，每日3次，短期使用。', '痰黏不易咳出：氨溴索30 mg，每日3次。', '需要转诊：出现喘鸣或支气管痉挛时，本页用药目录内缺少首选吸入支气管扩张药。'],
+          '不常规使用抗菌药、口服激素或镇咳麻醉药；痰色不能单独判断细菌感染。',
+          '1周内加重或咳嗽＞3周复诊。',
+          '低氧、呼吸窘迫、疑肺炎/肺栓塞/心衰者转诊。'),
+        d('cap', 'resp', '社区获得性肺炎', '肺炎 发热 咳痰 胸片 严重度评分 阿莫西林',
+          '新发咳嗽、咳痰、发热或胸痛，伴局灶肺部体征；尽可能用胸片证实新浸润影。',
+          '意识障碍、呼吸频率≥30次/分、收缩压＜90或舒张压≤60 mmHg、血氧饱和度＜92%、不能进食或脓毒症表现。',
+          '生命体征和血氧饱和度；胸片（可及）、血常规；中重症或治疗失败再做病原学。可用“意识、呼吸频率、血压和年龄”四项评分辅助判断，但不能替代临床评估。',
+          '排除流感、新冠病毒感染、肺结核、心力衰竭和肺栓塞；先判断能否安全门诊治疗。',
+          '休息、补液、戒烟；记录体温和呼吸状况。',
+          ['无基础病、病情稳定且无青霉素过敏：阿莫西林500 mg，每8小时1次，通常5～7天。', '青霉素过敏且病情稳定：阿奇霉素首日500 mg，每日1次；第2～5日250 mg，每日1次。须结合本地耐药情况。'],
+          '疗程至少5天且退热48～72小时、生命体征稳定后方可停；避免盲目联合或静脉抗菌药。',
+          '开始治疗48～72小时复评；任何时间恶化立即复诊。',
+          '任一重症指标、口服不能、显著合并症、免疫抑制或治疗失败转诊。', 'cap'),
+        d('asthma', 'resp', '支气管哮喘', '喘息 气短 夜间咳嗽 吸入治疗',
+          '反复喘息、气短、胸闷/咳嗽，症状和呼气气流受限具有可变性；夜间或诱因后明显。',
+          '说话困难、嗜睡或躁动、静息气促、血氧饱和度＜92%、沉默肺或呼气峰流量＜预计值/个人最佳值的50%。',
+          '峰流速或肺功能及支气管舒张试验（可及）；评估吸入技术和诱因。',
+          '不应仅凭一次喘息定诊；鉴别慢性阻塞性肺疾病、心力衰竭、异物和过敏反应。',
+          '避免烟草和明确诱因；每次复诊检查吸入技术，提供书面行动计划。',
+          ['中重度急性发作在转诊途中可泼尼松40～50 mg，每日1次，5～7天；不能替代吸入治疗和紧急评估。', '需要转诊：本页用药目录内没有规范的一线吸入控制药和缓解药，疑似哮喘或急性发作者应转诊建立规范吸入方案。'],
+          '急性重度发作不要镇静；氨茶碱治疗窗窄、相互作用多，不作为基层自行处理急性发作的首选。',
+          '起始/调整治疗后2～4周，稳定后1～3个月。',
+          '出现危险信号、初治1小时效果差、既往气管插管或重症监护病房治疗史、诊断不清者转诊。'),
+        d('copd', 'resp', '慢性阻塞性肺疾病', '慢阻肺 慢性咳痰 气促 吸烟',
+          '长期吸烟或粉尘暴露，慢性咳痰及进行性活动后气促；稳定期诊断需支气管舒张后“第一秒用力呼气容积/用力肺活量”＜0.70。',
+          '新发低氧、意识改变、呼吸肌疲劳、血流动力学不稳、不能进食或严重合并症。',
+          '稳定期做肺功能；急性加重查血氧饱和度，按需做胸片和心电图，评估肺炎或心力衰竭。',
+          '区分稳定期与急性加重；排除哮喘、肺结核、支扩和心衰。',
+          '戒烟、按当地政策接种疫苗、肺康复；获得吸入药后应教授正确使用方法。',
+          ['中重度急性加重：泼尼松40 mg，每日1次，共5天。', '痰脓性增加并伴气促或痰量增加时：阿莫西林500 mg，每8小时1次，5～7天；须结合本地耐药。', '需要转诊：本页用药目录内没有规范的一线长效和短效吸入支气管扩张药，稳定期建档和急性喘憋均需上级医院完善方案。'],
+          '低氧患者氧疗目标通常88%～92%；抗菌药依指征及本地耐药选择。',
+          '急性加重48～72小时；稳定期每1～3个月。',
+          '出现危险信号、频繁加重、长期低氧、诊断不清或肺功能不可及时获得者转诊。', 'abx'),
+
+        d('allergic-rhinitis', 'ent', '过敏性鼻炎', '鼻痒 喷嚏 清水鼻涕 鼻塞 花粉 尘螨',
+          '阵发性喷嚏、清水样涕、鼻痒和鼻塞，常伴眼痒；与季节、尘螨或特定暴露有关。',
+          '单侧持续鼻塞/血涕、面部肿胀、视力异常、严重喘息或喉头水肿。',
+          '多数依据病史和鼻腔检查；反复难治或需明确过敏原时转诊检测。',
+          '与病毒性感冒、药物性鼻炎、鼻窦炎和鼻腔占位鉴别。',
+          '避免明确过敏原，生理盐水鼻腔冲洗；清洗床品并减少尘螨暴露。',
+          ['氯雷他定10 mg，每晚1次。', '夜间症状且无需驾驶/操作机器时，可短期用马来酸氯苯那敏4 mg，每日3次。', '需要转诊：中重度持续鼻炎通常需要鼻用激素，本页用药目录内没有此类一线药物。'],
+          '马来酸氯苯那敏可引起嗜睡、口干、尿潴留；老年人、青光眼和前列腺增生患者慎用。',
+          '1～2周评估；控制后按需复诊。',
+          '任何危险信号、反复鼻窦炎、哮喘控制差或规范回避/口服药无效者转诊。', 'ent'),
+        d('aom', 'ent', '急性中耳炎', '耳痛 发热 听力下降 鼓膜 中耳炎 阿莫西林',
+          '急性耳痛、发热或听力下降，耳镜见鼓膜膨隆、充血或新发中耳积液；不能只凭耳痛诊断。',
+          '耳后红肿压痛、耳廓向外上移、眩晕、面瘫、剧烈头痛、脑膜刺激征或免疫功能低下。',
+          '耳镜检查是关键；同时检查外耳道、乳突和面神经。反复或渗液不愈者做听力评估。',
+          '鉴别外耳道炎、耵聍栓塞、牙源性疼痛和颞下颌关节病。',
+          '保持耳道干燥；鼓膜穿孔时避免自行滴入不明药液。',
+          ['明确急性细菌性中耳炎且无青霉素过敏：阿莫西林500 mg，每8小时1次，5～7天。', '青霉素过敏且无严重过敏反应史：头孢氨苄500 mg，每日4次，5～7天；严重速发过敏者转诊选择药物。'],
+          '48～72小时无改善应复查诊断；不以“耳闷”单独使用抗菌药。',
+          '48～72小时复诊；听力下降持续2～4周复查。',
+          '乳突炎、面瘫、眩晕、颅内感染表现、鼓膜穿孔大量流脓或治疗失败者转诊。', 'abx'),
+        d('otitis-externa', 'ent', '外耳道炎', '耳道痛 耳痒 耳流脓 游泳耳',
+          '牵拉耳廓或按压耳屏疼痛明显，外耳道红肿、瘙痒或分泌物；鼓膜情况必须评估。',
+          '糖尿病/免疫低下者剧痛、肉芽、颅神经异常；红肿越过外耳道或伴高热。',
+          '耳镜检查，清除遮挡后确认鼓膜是否完整；重症或反复者培养。',
+          '鉴别中耳炎穿孔、真菌性外耳道炎、湿疹和异物。',
+          '保持耳道干燥，不掏耳；由受过训练者在直视下清理分泌物。',
+          ['需要转诊：本页用药目录内没有规范外耳道抗菌滴剂；不应用口服抗菌药或眼膏替代耳用滴剂。'],
+          '鼓膜是否完整不清时禁止滴入有耳毒性风险的药液；糖尿病患者要警惕恶性外耳道炎。',
+          '24～48小时评估疼痛和红肿。',
+          '任何危险信号、耳道完全肿闭、鼓膜不能评估或症状明显者转耳鼻喉科。'),
+        d('pharyngitis', 'ent', '急性咽炎 / 扁桃体炎', '咽痛 吞咽痛 扁桃体化脓 链球菌',
+          '咽痛、吞咽痛、发热；咳嗽流涕更支持病毒性。高热、扁桃体渗出、颈前淋巴结痛且无咳嗽提示链球菌可能。',
+          '流涎、张口困难、含糊音、呼吸困难、颈部肿胀、严重脱水或单侧进行性疼痛。',
+          '检查口咽和颈部；有条件时用链球菌快速检测或培养决定抗菌药。',
+          '鉴别病毒感染、传染性单核细胞增多症、扁桃体周围脓肿和会厌炎。',
+          '温盐水漱口、补液、避免烟酒；落实呼吸道卫生。',
+          ['局部疼痛可用西地碘含片1.5 mg，每次1片，每日3～5次。', '明确或高度疑似链球菌感染且无青霉素过敏：阿莫西林500 mg，每12小时1次，共10天。', '严重青霉素过敏可用阿奇霉素首日500 mg，此后250 mg，每日1次至第5天。'],
+          '多数咽炎为病毒性，不因扁桃体“有白点”就常规使用抗菌药；疑传染性单核细胞增多症时避免阿莫西林。',
+          '治疗48～72小时无改善复诊。',
+          '任何气道危险信号、疑脓肿/会厌炎、不能饮水或反复发作转诊。', 'abx'),
+        d('epistaxis', 'ent', '鼻出血', '流鼻血 鼻衄 鼻腔出血',
+          '多数来自鼻中隔前部；先评估出血侧、持续时间、血压、抗凝药和反复史。',
+          '血流入咽部、呼吸困难、休克表现、外伤后大量出血、持续压迫20分钟仍不止或反复贫血。',
+          '生命体征、鼻腔前部检查；反复/大量者查血常规和凝血功能。',
+          '排除后鼻孔出血、鼻腔肿物、凝血障碍和外伤。',
+          '坐位身体前倾，捏紧双侧鼻翼软部连续15～20分钟；吐出口中血液，冰敷面部可辅助。',
+          ['需要转诊：本页用药目录内没有规范鼻腔局部血管收缩或止血药；压迫无效时不要用口服止血药替代鼻腔填塞/电凝。'],
+          '不要仰头吞血或频繁松手查看；止血后24小时避免擤鼻、抠鼻和剧烈活动。',
+          '止血后1周内评估诱因；反复者安排耳鼻喉检查。',
+          '任何危险信号、后鼻孔出血、抗凝相关持续出血或反复不明原因出血转诊。'),
+        d('conjunctivitis', 'ent', '结膜炎', '红眼 眼痒 眼分泌物 红霉素眼膏',
+          '结膜充血、异物感和分泌物；双眼痒和水样分泌物多见过敏，脓性分泌物支持细菌性。',
+          '眼痛、畏光、视力下降、角膜混浊、瞳孔异常、外伤/化学暴露、隐形眼镜佩戴者红眼。',
+          '测视力、检查瞳孔和角膜；普通结膜炎一般不需化验。',
+          '必须鉴别角膜炎、虹膜睫状体炎、急性闭角型青光眼和巩膜炎。',
+          '洗手、勿共用毛巾，停戴隐形眼镜和眼妆；病毒性多为自限。',
+          ['细菌性表现明显：红霉素眼膏涂入结膜囊，每日3～4次，5～7天。', '过敏性结膜炎伴鼻炎可用氯雷他定10 mg，每晚1次。', '需要转诊：本页用药目录内无规范抗过敏滴眼液；过敏症状明显或持续者转眼科配药。'],
+          '不要用含激素皮肤药膏涂眼；隐形眼镜相关红眼不使用红霉素眼膏后在家观察，应转眼科。',
+          '用药48小时无改善或1周未愈复诊。',
+          '任何眼痛、畏光、视力下降、角膜异常或新生儿接触史相关者紧急转诊。'),
+        d('hordeolum', 'ent', '睑腺炎（麦粒肿）', '眼睑肿痛 麦粒肿 针眼',
+          '眼睑局限红肿压痛，可见睫毛根部或睑板腺脓点；通常不影响视力。',
+          '眼球活动痛、视力下降、眼球突出、高热、红肿迅速扩展至眶周。',
+          '视力、瞳孔、眼球运动和眼睑检查；反复者筛查睑缘炎及糖尿病。',
+          '鉴别霰粒肿、泪囊炎、眶隔前/眶蜂窝织炎。',
+          '温热湿敷10～15分钟，每日3～4次；不要挤压。',
+          ['伴明显睑缘感染或自行破溃后：红霉素眼膏涂患处及结膜囊，每日2～3次，5～7天。'],
+          '不要自行针挑；皮肤用激素软膏不能用于眼睑缘或眼内。',
+          '48～72小时评估；1～2周不消退复诊。',
+          '任何眶部危险信号、反复同一部位或形成大脓肿者转眼科。'),
+        d('dry-eye', 'ent', '干眼与视疲劳', '眼干 眼涩 异物感 屏幕疲劳',
+          '双眼干涩、烧灼、异物感，长时间用屏幕后加重；视力波动但眨眼后可改善。',
+          '持续眼痛、明显畏光、视力下降、单眼严重红眼、角膜白点或外伤。',
+          '测视力，检查眼睑、结膜和角膜；询问药物、干燥综合征症状和环境因素。',
+          '鉴别结膜炎、角膜炎、睑缘炎和全身免疫性疾病。',
+          '遵循20-20-20用眼休息，增加眨眼，避免风口，热敷并清洁睑缘。',
+          ['需要转诊：本页用药目录内无人工泪液；症状持续、影响视力或需长期滴眼药者转眼科。'],
+          '不要自行使用抗菌眼膏或激素类眼药治疗单纯干眼。',
+          '调整用眼1～2周后评估。',
+          '任何危险信号、明显口干关节症状或保守措施无效者转诊。'),
+        d('aphthous', 'ent', '复发性口腔溃疡', '口疮 口腔溃疡 疼痛',
+          '圆形/椭圆形浅表疼痛性溃疡，周围红晕，多在7～14天自愈。',
+          '持续＞2～3周、硬结、进行性增大、吞咽困难、发热、眼/生殖器溃疡或明显体重下降。',
+          '检查口腔及颈部淋巴结；反复严重者查血常规、铁、叶酸/维生素B12等。',
+          '鉴别创伤、疱疹、手足口病、白塞病和口腔肿瘤。',
+          '避免辛辣、酒精和尖锐食物；保持口腔卫生，处理锐利牙缘。',
+          ['西地碘含片1.5 mg，每次1片，每日3～5次，短期使用。', '冰硼散少量吹敷患处，按说明书使用。'],
+          '甲状腺疾病患者长期/大量使用含碘制剂前需评估；不要在不愈合溃疡上反复自行用药。',
+          '2周内未愈复诊。',
+          '任何危险信号、频繁复发或疑系统性疾病转口腔科/相关专科。'),
+        d('dental', 'ent', '牙源性感染', '牙痛 牙龈肿 牙周炎 牙脓肿',
+          '牙痛、叩痛、牙龈或面部局限肿胀；抗菌药不能替代开髓、引流或拔牙等牙科处理。',
+          '口底/颈部肿胀、吞咽或呼吸困难、张口受限、高热、眼眶周围肿胀或脓毒症表现。',
+          '检查患牙、牙龈、面颈部和张口度；必要时牙片由口腔科完成。',
+          '鉴别颞下颌关节病、鼻窦炎、三叉神经痛和心源性牵涉痛。',
+          '温盐水漱口，保持口腔清洁；尽快安排口腔科病因处理。',
+          ['无全身症状时通常不需抗菌药。出现扩散或全身症状且无青霉素过敏：阿莫西林500 mg，每8小时1次，3～5天，并尽快牙科处理。', '厌氧感染表现明显时可加甲硝唑0.4 g，每日3次，3～5天。'],
+          '抗菌药不能治愈坏死牙髓或封闭脓肿；服甲硝唑期间及停药后至少24小时避免饮酒。',
+          '24～48小时评估，且必须完成口腔科处理。',
+          '任何气道/深部感染危险信号、免疫低下或门诊治疗无效者紧急转诊。', 'abx'),
+
+        d('gerd', 'gi', '胃食管反流病', '反酸 烧心 胸骨后烧灼 质子泵抑制剂 奥美拉唑',
+          '典型烧心和反流；可伴夜间咳嗽/咽部症状，但先排其他病因。',
+          '吞咽困难/痛、呕血黑便、贫血、持续呕吐、非意愿体重下降、胸痛。',
+          '典型且无危险信号可经验治疗；有危险信号或疗效差需胃镜或进一步检查。',
+          '胸痛首先排除心源性；与消化性溃疡、药物损伤鉴别。',
+          '减重；睡前3小时不进食；抬高床头，避免个体明确诱因。',
+          ['奥美拉唑20 mg 早餐前30分钟，每日1次，4～8周；控制后降至最低有效剂量。'],
+          '长期使用前应重新确认适应证；与抗血小板药合用时应核对药物相互作用。',
+          '4周评估；停药复发或8周无效复诊。',
+          '任何报警症状、难治或新发于高龄者转诊胃镜。'),
+        d('dyspepsia', 'gi', '消化不良 / 胃炎 / 消化性溃疡', '上腹痛 饱胀 胃痛 幽门螺杆菌',
+          '上腹痛/烧灼、餐后饱胀或早饱；溃疡可有节律性痛但症状不能可靠区分。',
+          '消化道出血、贫血、体重下降、持续呕吐、腹膜刺激征、吞咽困难。',
+          '无危险信号者考虑尿素呼气试验或粪便抗原检测幽门螺杆菌；检测前停质子泵抑制剂约2周、抗菌药或铋剂约4周。',
+          '评估非甾体抗炎药（如双氯芬酸）的使用；幽门螺杆菌阳性应根除，方案需结合当地耐药和既往抗菌药暴露。',
+          '戒烟酒，停用非必要的非甾体抗炎药；规律少量饮食。',
+          ['未检测或幽门螺杆菌阴性：奥美拉唑20 mg，每日1次，4～8周。', '需要转诊：幽门螺杆菌阳性时，本页用药目录内药品不能组成当前推荐的完整14天含铋四联方案。'],
+          '不把“胃炎”症状直接等同细菌感染；根除后至少4周复查尿素呼气/粪抗原确认。',
+          '治疗2～4周复评；根除结束后按规范复查。',
+          '报警症状、疑穿孔、反复出血或经验治疗失败转诊胃镜。'),
+        d('gastroenteritis', 'gi', '急性胃肠炎', '腹泻 呕吐 食物中毒 补液',
+          '急性稀便伴腹痛、恶心/呕吐；首先评估脱水和流行病学史。',
+          '休克/重度脱水、血便、持续高热、剧烈局限腹痛、腹膜刺激征、少尿或意识改变。',
+          '轻症通常无需检查；血便、高热、免疫抑制、聚集性或持续＞7天者考虑粪便病原学。',
+          '排除外科急腹症、药物性腹泻、艰难梭菌感染和炎症性肠病。',
+          '小量频繁补水和含盐流质；能进食即恢复清淡正常饮食。',
+          ['无血便、高热或肠梗阻表现：蒙脱石散1袋，每日3次，与其他药物间隔至少2小时。', '需要转诊：中重度脱水或不能口服者，本页用药目录内无规范口服补液制剂和静脉补液药品。'],
+          '血便、高热、疑侵袭性感染时不要单纯止泻；多数急性胃肠炎不需经验使用抗菌药。',
+          '24～48小时无改善、持续呕吐或尿量减少复诊。',
+          '出现危险信号、老年衰弱、严重基础病或无法口服补液者转诊。', 'abx'),
+        d('constipation', 'gi', '便秘', '排便困难 大便干硬 聚乙二醇',
+          '排便次数减少、硬便、费力、排不尽；区分急性与慢性并查药物因素。',
+          '腹痛腹胀伴呕吐/停止排气、便血、贫血、体重下降、新发于中老年或直肠肿块。',
+          '病史、腹部及直肠指检；有报警征象再做血常规、促甲状腺激素、结肠评估等。',
+          '排除肠梗阻、继发原因和排便障碍；勿长期仅靠刺激性泻药。',
+          '逐渐增加膳食纤维和水分，规律运动、固定如厕时间。',
+          ['聚乙二醇4000散1袋，每日1～2次；按实际规格说明溶水服用。'],
+          '疑梗阻禁用泻药；心肾衰竭患者补液和含电解质制剂需个体化。',
+          '2～4周评估；长期用药定期回顾原因。',
+          '报警征象、顽固便秘、疑盆底功能障碍转诊。'),
+        d('biliary', 'gi', '胆绞痛 / 急性胆囊炎', '右上腹痛 胆结石 墨菲征 胆囊炎',
+          '脂餐后右上腹/上腹持续痛可放射右肩；胆绞痛通常数小时内缓解。发热、墨菲征阳性提示胆囊炎。',
+          '休克、黄疸伴发热、腹膜刺激征、持续＞6小时、反复呕吐或意识改变。',
+          '血常规、肝胆酶、胆红素、淀粉酶/脂肪酶（可及）；首选腹部超声。',
+          '区分单纯胆绞痛、胆囊炎、胆管炎和胰腺炎；后3者通常需上级医院。',
+          '发作期禁食/少量清液视情况，避免脂肪餐；建立静脉通道按需。',
+          ['无肾病、溃疡、抗凝或妊娠：双氯芬酸50 mg 口服，每8～12小时按需，最大150 mg/d，短期使用。'],
+          '不要用止痛效果掩盖持续恶化；疑感染不应因等待口服抗菌药而延误转诊。',
+          '单纯胆绞痛缓解后尽快外科评估。',
+          '疑胆囊炎、胆管炎、胰腺炎或出现任何危险信号时立即转诊。'),
+        d('hemorrhoid', 'gi', '痔病', '痔疮 便血 肛门疼痛',
+          '排便时鲜血、脱出、瘙痒；血栓性外痔可突发剧痛。',
+          '大量出血/晕厥、黑便、贫血、体重下降、排便习惯改变、肛门脓肿征象。',
+          '视诊、肛门指检；不能把所有便血归为痔，按年龄/风险安排结直肠评估。',
+          '区分肛裂、脓肿、直肠脱垂和肿瘤。',
+          '纤维20～30 g/d、充足饮水、避免久蹲和用力；温水坐浴。',
+          ['合并便秘：聚乙二醇4000散1袋，每日1～2次。', '局部症状可短期使用马应龙痔疮膏，按说明书外用。'],
+          '含激素局部制剂仅短期并按说明书；出血患者慎用非甾体抗炎药（如双氯芬酸）。',
+          '1～2周；反复便血必须明确来源。',
+          '严重血栓痛＜72小时、持续出血、贫血或诊断不确定转外科/肛肠科。'),
+
+        d('dm2', 'metabolic', '2型糖尿病', '高血糖 多饮 多尿 糖化血红蛋白 二甲双胍',
+          '典型症状加随机血糖≥11.1 mmol/L，或空腹血糖≥7.0 mmol/L、口服葡萄糖耐量试验2小时血糖≥11.1 mmol/L、糖化血红蛋白≥6.5%；无典型症状需复核确认。',
+          '血糖明显升高伴呕吐、腹痛、深大呼吸、脱水、意识改变；或反复低血糖。',
+          '糖化血红蛋白、空腹血糖、肾肝功能、血脂、尿白蛋白/肌酐比值、足部检查；定期检查眼底。',
+          '明确分型，排除1型、药物性和急性代谢并发症；设个体化目标。',
+          '饮食结构、规律运动、减重、足部护理和低血糖教育。',
+          ['无禁忌常以二甲双胍500 mg随餐每日1次起始，1～2周后增至每日2次；常用最大2 g/d。', '需要转诊：已有动脉粥样硬化性心血管病、心力衰竭或慢性肾脏病者，本页用药目录内缺少部分具有心肾保护证据的降糖药，应转诊优化方案。'],
+          '估算肾小球滤过率＜30 ml/min/1.73m²禁用二甲双胍；急性缺氧、严重感染、脱水或造影相关风险时暂缓并评估。',
+          '起始或调整后2～4周；糖化血红蛋白每3个月复查至达标，稳定后每6个月。',
+          '疑1型、妊娠、急性代谢失代偿、严重并发症或控制困难转诊。', 'dm'),
+        d('gout', 'metabolic', '高尿酸血症 / 痛风', '关节红肿 第一跖趾 秋水仙碱 别嘌醇',
+          '急性单关节剧烈红肿痛，常累及第一跖趾；无症状高尿酸不等于痛风。',
+          '发热、寒战、免疫抑制、人工关节或首次不典型发作：必须排除化脓性关节炎。',
+          '血尿酸、肾功能；不典型/疑感染者关节液晶体和培养。急性期尿酸可正常。',
+          '排除感染、创伤和假性痛风；反复发作/痛风石者评估降尿酸治疗。',
+          '急性期休息冰敷；减重、限酒和高嘌呤食物，避免脱水。',
+          ['秋水仙碱低剂量：首剂1.0 mg，1小时后0.5 mg；之后0.5 mg，每日1～2次，短期至缓解。', '或双氯芬酸钠25～50 mg，每日2～3次，最大150 mg/d，短期使用（无肾病、溃疡、抗凝或妊娠）。', '需长期降尿酸者：别嘌醇50～100 mg/d低剂量起始，每2～4周滴定；汉族及高风险人群考虑检测别嘌醇严重过敏相关的人类白细胞抗原-B*58:01基因。'],
+          '重度肾功能不全，或与某些强肝药酶、药物转运体抑制剂合用时，应避免或调整秋水仙碱；不确定相互作用时咨询药师。别嘌醇出现皮疹立即停药就医。',
+          '急性期数日；降尿酸每2～4周调量，达标后每3～6个月。',
+          '疑感染、不能口服、严重肾病、痛风石或诊断不清转诊。'),
+        d('thyroid', 'metabolic', '甲状腺功能异常', '甲亢 甲减 促甲状腺激素 游离甲状腺素 左甲状腺素 甲巯咪唑',
+          '甲亢：心悸、消瘦、怕热、震颤；甲减：乏力、怕冷、便秘、体重增加。',
+          '甲状腺危象样高热/谵妄/快速房颤；黏液性水肿昏迷；明显气道压迫。',
+          '促甲状腺激素、游离甲状腺素（必要时游离三碘甲状腺原氨酸）；甲状腺触诊、心电图。治疗前后按病因补充抗体或超声。',
+          '必须以实验室确认并分析病因；非甲状腺疾病可暂时影响结果。',
+          '解释规律服药与复查；左甲状腺素空腹且与铁/钙间隔≥4小时。',
+          ['明确原发甲减：左甲状腺素年轻无心病者常25～50 μg/d起；老年或冠心病者12.5～25 μg/d起，逐步调整。', '甲亢可在确诊和血常规/肝功能基线后使用甲巯咪唑，常10～20 mg/d；首诊宜专科共同制定。'],
+          '甲巯咪唑出现发热/咽痛立即停药并急查血常规；妊娠期方案不同。左甲状腺素勿快速加量。',
+          '甲状腺功能减退调量后6～8周查促甲状腺激素；甲状腺功能亢进治疗初期2～4周复查。',
+          '妊娠、结节可疑、眼病、严重心律失常或危象表现转诊。'),
+        d('ida', 'metabolic', '缺铁性贫血', '贫血 乏力 血红蛋白 铁蛋白 琥珀酸亚铁',
+          '乏力、头晕、心悸；小细胞低色素提示但不能单独确诊。成人男性/绝经后女性要查失血来源。',
+          '晕厥、静息胸痛/气促、血流动力学不稳、活动性大量出血或血红蛋白严重下降。',
+          '血常规、网织红、铁蛋白（炎症时结合转铁蛋白饱和度）；粪便隐血及病因检查。',
+          '确认缺铁并寻找月经过多、胃肠失血、摄入/吸收不良等原因。',
+          '含铁饮食不能替代明确缺铁的补充治疗；同时处理病因。',
+          ['琥珀酸亚铁0.1 g，每日2次；胃肠反应明显者可先每日1次，再按耐受调整。'],
+          '与钙、茶/咖啡和部分药物错开；黑便常见但柏油样便伴症状需排除出血。',
+          '2～4周复查血红蛋白；纠正后通常继续约3个月补足储备。',
+          '病因不明、男性/绝经后女性、口服无效/不耐受或重度症状性贫血转诊。'),
+        d('osteoporosis', 'metabolic', '骨质疏松', '骨折 骨密度 钙 维生素D',
+          '有脆性骨折史，或双能X线吸收法骨密度检查T值≤-2.5；评估跌倒和继发原因。',
+          '新发剧烈背痛、身高骤降或神经症状警惕椎体骨折；髋部骨折疑似不能负重。',
+          '骨密度（可及）、血钙、血磷、碱性磷酸酶、肌酐、25-羟维生素D；按情况查促甲状腺激素等。',
+          '骨折风险决定药物；排除骨软化和继发性骨质疏松。',
+          '负重与抗阻运动、蛋白摄入、日照、戒烟限酒、跌倒预防。',
+          ['饮食钙不足时可用碳酸钙D3片1片，每日1～2次；须按实际制剂核算元素钙和维生素D总量。', '需要转诊：本页用药目录内缺少规范抗骨质疏松药物；有脆性骨折或高骨折风险者需上级医院制定治疗。'],
+          '补钙前评估高钙血症、肾结石和肾功能；避免与左甲状腺素、铁剂同时服用。',
+          '3个月评估依从与不良反应；骨密度通常1～2年复查。',
+          '脆性骨折、极高风险、继发病因或用药禁忌者转诊。'),
+        d('obesity', 'metabolic', '肥胖', '超重 体质指数 腰围 减重 代谢综合征',
+          '中国成人BMI（体质指数，体重kg/身高m²）≥24为超重、≥28为肥胖；结合腰围和合并症评估。',
+          '快速不明原因体重变化、严重呼吸暂停、心衰症状或进食障碍风险。',
+          '血压、腰围、空腹血糖或糖化血红蛋白、血脂、肝功能；按线索查促甲状腺激素和睡眠呼吸暂停。',
+          '评估药物、心理、睡眠和社会因素，不把肥胖简单归因于意志。',
+          '目标先减原体重5%～10%；建立可持续能量缺口，每周≥150分钟中等强度运动并加抗阻。',
+          ['基层首选结构化生活方式干预。减重药存在适应证、禁忌和停药规则，不在未完成评估时经验开具。'],
+          '避免来路不明减肥药和极低能量饮食；妊娠/备孕不使用减重药。',
+          '每2～4周记录体重、腰围和行为目标。',
+          'BMI明显升高伴并发症、疑内分泌病因、进食障碍或生活方式失败者转诊。', 'life'),
+
+        d('headache', 'neuro', '常见头痛', '偏头痛 紧张性头痛 头疼 双氯芬酸',
+          '偏头痛常单侧搏动、恶心、畏光；紧张型多双侧压迫。记录起病方式、频率和神经查体。',
+          '雷击样、发热颈强、意识/神经缺损、妊娠/产后、头伤后、癌症/免疫抑制、新发于＞50岁。',
+          '无危险信号且神经系统查体正常通常不需影像；有危险信号应按病因紧急评估。',
+          '区分原发性头痛、药物过度使用和继发性头痛。',
+          '规律睡眠饮食、补液、头痛日记，避免频繁止痛。',
+          ['偏头痛早期且无禁忌：双氯芬酸钠25～50 mg，每日2～3次，最大150 mg/d，短期使用。', '频繁偏头痛可用氟桂利嗪5 mg，每晚1次预防；出现抑郁、嗜睡或锥体外系症状应停药评估。'],
+          '非甾体抗炎药（如双氯芬酸）的禁忌包括活动性溃疡、明显肾病、抗凝高风险和妊娠晚期；急性止痛药尽量少于每月10～15天。',
+          '新诊断2～4周；频繁发作评估预防治疗。',
+          '任何危险信号、诊断不清或头痛进行性改变者转诊。'),
+        d('vertigo', 'neuro', '外周性眩晕', '天旋地转 良性阵发性位置性眩晕 耳石症 倍他司汀',
+          '短暂、体位诱发并伴典型眼震，提示良性阵发性位置性眩晕（俗称耳石症）；同时询问听力、耳鸣和神经症状。',
+          '持续剧烈眩晕伴步态不能、复视、构音/吞咽障碍、肢体无力、剧烈头痛或新发耳聋。',
+          '生命体征、血糖、完整神经系统和眼震检查；适合者做后半规管良性阵发性位置性眩晕变位试验。头脉冲、眼震方向和眼位偏斜三项检查仅限受过训练者用于特定急性前庭综合征。',
+          '先排后循环卒中；“头晕”应区分眩晕、晕厥前和失衡。',
+          '耳石症首选耳石复位法；短期防跌倒，避免长期卧床。',
+          ['明显恶心可短期倍他司汀6～12 mg 每日3次，通常≤3～5天；不替代复位和病因诊断。'],
+          '前庭抑制药长期使用可妨碍代偿并增加老年跌倒风险。',
+          '复位后1周；持续/复发复诊。',
+          '任何中枢神经系统危险信号、新发单侧听力下降或不能行走者紧急转诊。'),
+        d('epilepsy', 'neuro', '癫痫随访与发作识别', '抽搐 癫痫 发作 意识丧失',
+          '刻板反复发作、意识/运动/感觉异常；首次事件需排低血糖、晕厥、卒中和心律失常。',
+          '发作≥5分钟、反复发作未恢复、首次发作、妊娠、受伤、持续意识障碍或呼吸异常。',
+          '现场先测血糖；首次发作做心电图、血常规、电解质等，并转上级医院完善脑影像和脑电图。',
+          '不能凭单次不明原因意识丧失长期开抗癫痫药；记录目击描述和视频（获同意时）。',
+          '发作时移除危险物、侧卧、计时；不要强按或塞物入口。规律服药睡眠，避免酒精。',
+          ['需要转诊：本页用药目录未包含规范抗发作药；稳定患者仅按既有专科方案续方和随访，不得突然停药或随意换药。发作≥5分钟按本院急救流程并呼叫转运。'],
+          '关注药物相互作用、妊娠风险和驾驶/高空作业安全；漏服不要自行加倍。',
+          '稳定者每3～6个月；发作变化随时复诊。',
+          '所有首次发作、状态癫痫、局灶体征或控制不佳者转诊。'),
+        d('bells', 'neuro', '周围性面瘫', '贝尔面瘫 口角歪 眼闭不全 泼尼松',
+          '急性单侧全脸无力，包括额纹和闭眼；常在72小时内达高峰。',
+          '额纹保留、肢体无力/言语障碍提示卒中；耳疱疹/剧痛、双侧、复发或渐进超过3周。',
+          '完整神经和耳部检查；典型初发通常不需影像。检查角膜暴露。',
+          '排除中枢性面瘫、耳带状疱疹综合征所致面瘫、腮腺病变和莱姆病流行史。',
+          '眼闭不全时白天主动眨眼、夜间轻柔贴合眼睑；本页用药目录内无人工泪液，眼干、眼痛或闭眼不全明显者应尽快转眼科配药。',
+          ['发病72小时内：泼尼松60 mg，每日1次5天，再逐渐减量5天（糖尿病等需个体化）。', '伴耳部疱疹或严重完全瘫痪可在激素基础上考虑阿昔洛韦0.8 g，每日5次，共7天，并转诊；抗病毒药不单用。', '需要转诊：眼闭不全明显时，本页用药目录内无眼表润滑药；须转眼科保护角膜。'],
+          '激素前排除严重感染并评估血糖、消化道风险；出现眼痛/视力变化急诊眼科。',
+          '1周评估眼保护；3周和3个月评估恢复。',
+          '中枢征象、耳疱疹、角膜损伤、双侧/复发或3个月无恢复转诊。'),
+        d('mental', 'neuro', '焦虑 / 抑郁 / 失眠初筛', '情绪低落 焦虑 睡不着 心理量表 自杀',
+          '持续情绪低落、兴趣下降、过度担心或失眠影响功能；可用患者健康问卷9项和广泛性焦虑量表7项辅助，但不能代替临床访谈。',
+          '自杀/伤人想法、精神病性症状、躁狂、严重激越、不能进食饮水或戒断状态。',
+          '评估自杀风险、物质或药物影响、甲状腺和其他躯体病；必要时查血常规、促甲状腺激素等。',
+          '区分正常应激、抑郁/焦虑障碍、双相障碍和继发原因；抗抑郁前筛查躁狂史。',
+          '睡眠卫生、规律活动、减少酒精/咖啡因；提供心理支持和随访安全计划。',
+          ['轻症优先心理与行为干预。', '需要转诊：本页用药目录内没有适合基层启动的指南常用抗抑郁、抗焦虑药；中度以上、诊断不清或药物治疗需求者转精神心理专科。'],
+          '治疗初期密切观察自杀风险；不要长期经验使用苯二氮䓬类。老年人注意低钠和跌倒。',
+          '起始后1～2周，之后每2～4周直至稳定。',
+          '任何安全风险立即陪同转诊；疑双相、精神病、难治或诊断不清转精神专科。'),
+
+        d('uti', 'uro', '尿路感染', '尿频 尿急 尿痛 膀胱炎 肾盂肾炎 头孢氨苄',
+          '女性急性尿频、尿急、尿痛且无阴道症状提示膀胱炎；发热/腰痛提示上尿路感染。',
+          '脓毒症、寒战高热、肋脊角痛伴呕吐、尿路梗阻、妊娠、男性发热性尿路感染。',
+          '尿常规；复杂/复发、男性、疑肾盂肾炎者治疗前尿培养。',
+          '排除阴道炎、性传播感染、结石和肾盂肾炎；无症状菌尿通常不治疗（妊娠等例外）。',
+          '适量饮水，不憋尿；症状与复诊教育。',
+          ['非妊娠女性单纯性膀胱炎：头孢氨苄500 mg，每日4次，5～7天；尽量根据尿培养调整。', '需要转诊：疑肾盂肾炎、妊娠、男性、反复或复杂性尿路感染时，本页用药目录中的药品不宜未经培养盲目治疗。'],
+          '严重头孢菌素过敏者不能使用头孢氨苄；肾功能下降需调整剂量。',
+          '48小时无改善复诊；复发者培养。',
+          '任何危险信号、复杂感染、尿潴留或治疗失败者转诊。', 'abx'),
+        d('stone', 'uro', '泌尿系结石', '肾绞痛 腰痛 血尿 输尿管结石',
+          '突发阵发性腰腹痛向腹股沟放射，可伴血尿、恶心；患者常辗转不安。',
+          '发热/脓毒症、无尿、孤立肾、肾功能恶化、持续呕吐或止痛无效。',
+          '尿常规、肌酐；超声为基层首选，诊断不清或高风险需CT。',
+          '排除主动脉疾病、胆病、阑尾炎和妇科急腹症；感染合并梗阻是急症。',
+          '正常饮水即可，不强迫大量灌水；过滤尿液留取结石。',
+          ['无禁忌：双氯芬酸钠25～50 mg，每日2～3次，最大150 mg/d，短期使用。', '需要转诊：本页用药目录内无规范促排石药；结石较大、持续梗阻或需药物促排者转泌尿科。'],
+          '非甾体抗炎药（如双氯芬酸）用于肾功能不全、消化道出血或正在抗凝者风险较高。',
+          '1～2周复查；确认排石或影像随访，避免“痛止即愈”。',
+          '任何危险信号、结石＞10 mm、持续梗阻或疼痛、4周仍未排出者转诊。'),
+        d('ckd', 'uro', '慢性肾脏病', '慢性肾病 肌酐 蛋白尿 估算肾小球滤过率 肾功能不全',
+          '估算肾小球滤过率＜60 ml/min/1.73m²或肾损伤标志持续≥3个月；早期常无症状。',
+          '高钾伴心电图改变、肺水肿、尿毒症症状、快速肌酐升高、少尿/无尿。',
+          '血肌酐及估算肾小球滤过率、尿常规、尿白蛋白/肌酐比值、电解质、血常规、血压；按需做肾脏超声。',
+          '确认慢性和分期，区别急性肾损伤；查糖尿病、高血压、药物和梗阻。',
+          '控盐、戒烟、合理蛋白，避免脱水、非甾体抗炎药（如双氯芬酸）和成分不明草药；所有药物核对肾功能调整剂量。',
+          ['白蛋白尿合并高血压可考虑血管紧张素Ⅱ受体阻滞剂，如厄贝沙坦150 mg，每日1次；1～2周复查肌酐和血钾。'],
+          '使用依那普利或厄贝沙坦后肌酐明显升高或高钾时需停药评估；两类药不要联用。',
+          '慢性肾脏病1～2期按风险每6～12个月；3期至少每3～6个月，异常者更频繁。',
+          '估算肾小球滤过率＜30、肾功能快速下降、重度蛋白尿或血尿、难治性高血压或任何急症应转诊。'),
+        d('bph', 'uro', '良性前列腺增生', '夜尿 尿线细 排尿困难 前列腺增生',
+          '中老年男性尿频、夜尿、尿线细、踌躇和排不尽；评估症状影响。',
+          '急性尿潴留、发热、肉眼血尿伴血块、肾功能恶化、骨痛/体重下降。',
+          '腹部及直肠指检、尿常规、肌酐；可及时获得时测残余尿并做超声。是否检查前列腺特异抗原需知情讨论并结合预期寿命。',
+          '排除感染、药物、糖尿病、神经源性膀胱和前列腺癌。',
+          '睡前减少饮水，减少酒精/咖啡因；避免可能加重潴留的减充血剂。',
+          ['需要转诊：本页用药目录内没有规范治疗良性前列腺增生的一线药物；完成初步评估后转泌尿科制定方案。'],
+          '复方感冒药中的抗组胺成分可能加重排尿困难或尿潴留，应慎用。',
+          '起始后4～6周；稳定后6～12个月。',
+          '出现危险信号、反复感染或结石、残余尿明显者转泌尿科。'),
+
+        d('lowback', 'surgery', '常见腰痛', '腰肌劳损 坐骨神经痛 椎间盘 双氯芬酸',
+          '多数为非特异性机械痛；评估腿痛、麻木、力量和工作/心理因素。',
+          '尿潴留/失禁、鞍区麻木、进行性无力、发热、重大创伤、癌症史、夜间静息痛或长期激素。',
+          '无危险信号不常规影像；完成神经系统检查，出现危险信号时选择X线检查、MRI或化验。',
+          '区分非特异性、神经根病和严重病因；影像退变不一定解释疼痛。',
+          '保持日常活动，避免卧床；热敷、逐步锻炼和人体工学。',
+          ['双氯芬酸钠25～50 mg，每日2～3次，最大150 mg/d，建议3～5天后评估。'],
+          '非甾体抗炎药（如双氯芬酸）需注意肾病、消化性溃疡、抗凝、心力衰竭和妊娠；不常规使用阿片类止痛药和全身激素。',
+          '1～2周；多数4～6周改善。',
+          '任何危险信号、进行性神经功能缺损或6周不改善者转诊。'),
+        d('oa', 'surgery', '骨关节炎', '膝痛 关节退变 骨刺 双氯芬酸',
+          '活动相关关节痛、短暂晨僵、骨性增大/摩擦感；常累及膝、髋、手。',
+          '急性红热肿、发热、不能负重、近期创伤或迅速进展。',
+          '典型病例以临床诊断；非典型/创伤或手术计划才影像。',
+          '排除感染、晶体关节炎、炎症性关节炎和骨折。',
+          '减重、肌力与有氧训练、合适鞋具/手杖；教育长期自我管理。',
+          ['无禁忌且疼痛影响活动：双氯芬酸钠25～50 mg，每日2～3次，最大150 mg/d，短期使用。'],
+          '口服非甾体抗炎药应使用最低有效剂量和最短疗程；关节腔注射需严格掌握适应证并规范无菌操作。',
+          '4～6周评估功能和疼痛。',
+          '出现危险信号、诊断不清、严重功能障碍或保守治疗失败者转诊。'),
+        d('sprain', 'surgery', '扭挫伤', '脚踝扭伤 软组织损伤',
+          '明确轻中度外伤后局部痛肿，仍需判断骨折、脱位和肌腱断裂。',
+          '畸形、开放伤、远端缺血/麻木、剧痛进行性加重、不能负重或高能量伤。',
+          '查压痛点、稳定性、远端神经血运；按渥太华踝部规则等决定是否行X线检查。',
+          '排除骨折/脱位后分级；勿因可活动就完全排除骨折。',
+          '前48～72小时保护、适度加压抬高和短时冷敷；尽早耐受范围活动。',
+          ['疼痛明显且无禁忌：双氯芬酸钠25 mg，每日2～3次，短期使用。'],
+          '包扎后检查远端循环；避免长时间完全制动。',
+          '3～7天评估；功能逐步恢复。',
+          '出现危险信号、疑骨折或肌腱断裂、1～2周仍明显不能负重者转诊。'),
+        d('wound', 'surgery', '浅表创伤与轻度烧伤', '擦伤 切口 烧烫伤 破伤风',
+          '评估受伤时间、机制、污染、深度、面积、异物和神经血管功能；烧伤估算面积。',
+          '活动性大出血、深部结构损伤、环形烧伤、电/化学伤、面手会阴/大关节、吸入伤或较大面积。',
+          '浅表伤通常无需化验；深/污染伤按需影像找异物。核对破伤风免疫史。',
+          '区分可基层清创闭合的伤口和需外科探查者；动物/人咬伤另行处理。',
+          '伤口充分流动清水/生理盐水冲洗，移除可见污染。烧伤立即流动凉水20分钟，勿冰敷。',
+          ['疼痛且无禁忌：双氯芬酸钠25 mg，每日2～3次，短期使用。', '需要转诊：本页用药目录内无破伤风疫苗及破伤风免疫球蛋白；污染伤口、深刺伤或免疫史不全者需转有条件机构处理。'],
+          '清洁浅表伤不常规口服抗菌药；勿在烧伤上涂牙膏/酱油或直接冰敷。',
+          '伤口24～48小时复查；出现红肿扩展、脓液或发热立即复诊。',
+          '任何危险信号、无法彻底清创、高风险咬伤或感染扩展者转诊。'),
+        d('cellulitis', 'surgery', '蜂窝织炎 / 浅表脓肿', '皮肤红肿热痛 脓包 头孢氨苄 切开引流',
+          '蜂窝织炎为边界不清红肿热痛；脓肿有波动感。标记红斑边缘便于观察。',
+          '快速进展、剧痛与外观不相称、水疱/捻发音、坏死、脓毒症、免疫抑制或特殊部位。',
+          '轻症多临床诊断；脓液可培养。系统症状查血常规/血糖等。',
+          '有脓肿时切开引流是核心；排除坏死性软组织感染和深静脉血栓。',
+          '抬高患肢、处理足癣/伤口；规范无菌换药。',
+          ['非化脓性轻症：头孢氨苄500 mg 每日4次，5天；48小时复评并按反应延长。', '局限脓肿：充分切开引流；是否加抗菌药根据全身症状、范围和宿主风险。'],
+          '对青霉素和头孢菌素等β-内酰胺类药物严重过敏者需另选方案；应结合本地耐甲氧西林金黄色葡萄球菌流行情况和培养结果，勿盲目扩大抗菌范围。',
+          '24～48小时复诊；初期红斑可能短暂不退，以全身和边缘进展综合判断。',
+          '任何危险信号、面部/手部/会阴感染、深部感染或门诊治疗失败者转诊。', 'abx'),
+        d('urticaria', 'surgery', '急性荨麻疹', '风团 风疹块 皮肤瘙痒 过敏 氯雷他定',
+          '突发瘙痒性风团，单个皮损通常24小时内消退且不留痕；询问食物、药物、感染和接触史。',
+          '呼吸困难、声音嘶哑、舌/咽肿胀、低血压、晕厥或反复呕吐提示严重全身过敏反应。',
+          '单纯急性荨麻疹一般不需化验；检查气道、呼吸和循环。',
+          '区分单纯荨麻疹、血管性水肿、过敏性休克和荨麻疹性血管炎。',
+          '停用可疑诱因；避免酒精、热水浴和抓挠。',
+          ['氯雷他定10 mg，每晚1次。', '夜间瘙痒严重且无需驾驶时，可短期用马来酸氯苯那敏4 mg，每日3次。', '需要转诊：出现气道、呼吸或循环危险信号时，本页用药目录内缺少规范一线抢救药，立即呼叫急救转运。'],
+          '马来酸氯苯那敏可致嗜睡、口干和尿潴留；不应仅靠激素掩盖进行性严重过敏反应。',
+          '24～48小时；持续超过6周按慢性荨麻疹评估。',
+          '任何严重过敏危险信号、血管性水肿、皮损固定疼痛或反复难治者转诊。'),
+        d('eczema', 'surgery', '湿疹 / 接触性皮炎', '皮炎 红斑 瘙痒 渗出 炉甘石 皮炎平',
+          '瘙痒性红斑、丘疹、脱屑或渗出；接触性皮炎常与特定暴露部位一致。',
+          '广泛水疱/脱皮、黏膜损害、发热、面部明显肿胀、快速扩展或继发严重感染。',
+          '多数临床诊断；询问新药、职业/化学品、护肤品和既往过敏。',
+          '鉴别真菌感染、疥疮、蜂窝织炎和严重药疹；环形皮疹先排真菌。',
+          '停接触可疑物，温水短浴，频繁使用无香保湿剂，避免抓挠。',
+          ['无破溃渗液的轻度局限皮炎：醋酸地塞米松乳膏薄涂，每日1～2次，连续不超过5～7天。', '急性瘙痒、无明显干裂时可用炉甘石洗剂，每日2～3次。'],
+          '面部、眼周、腋窝、腹股沟慎用激素；疑真菌感染时不要单用激素。',
+          '1周评估；反复者查诱因。',
+          '任何危险信号、广泛病变、继发感染或短期治疗无效者转皮肤科。'),
+        d('tinea', 'surgery', '浅表真菌感染', '体癣 股癣 足癣 脚气 达克宁 克霉唑',
+          '体股癣常为边界清楚、边缘活跃的环形脱屑斑；足癣可趾间浸渍、脱屑或水疱。',
+          '糖尿病足破溃、快速红肿扩展、发热、免疫低下或累及头皮/指甲广泛病变。',
+          '典型可临床诊断；不典型或激素治疗后改变者做真菌镜检。',
+          '鉴别湿疹、银屑病、接触性皮炎；不要把所有瘙痒都当真菌。',
+          '保持干燥，袜子每日更换，鞋袜不共用；足癣同时处理鞋袜。',
+          ['咪康唑乳膏或克霉唑乳膏薄涂患处及周围1～2 cm，每日2次，体股癣2～4周；皮损消退后再继续1周。'],
+          '不要单用含激素复方乳膏长期治疗不明皮疹；破溃感染处先评估。',
+          '2周评估；足癣可能需4周。',
+          '任何危险信号、头癣、甲癣、广泛/反复或规范外用无效者转诊。'),
+        d('zoster', 'surgery', '带状疱疹', '带状疱疹 缠腰龙 水疱 神经痛 阿昔洛韦',
+          '单侧沿皮节分布的疼痛和成簇水疱，通常不越过正中线；可先痛后出疹。',
+          '眼周/鼻尖/耳部受累、面瘫、播散、免疫低下、运动无力、排尿障碍或高热。',
+          '典型可临床诊断；不典型或免疫低下者考虑病毒检测。',
+          '鉴别单纯疱疹、接触性皮炎和蜂窝织炎；耳疱疹伴面瘫警惕耳带状疱疹综合征所致面瘫。',
+          '保持皮损清洁干燥并覆盖，避免接触未患水痘的孕妇和免疫低下者。',
+          ['发疹72小时内或仍有新疱：阿昔洛韦0.8 g，每日5次，共7～10天；肾功能下降需减量。', '疼痛且无禁忌：双氯芬酸钠25～50 mg，每日2～3次，短期使用。'],
+          '阿昔洛韦期间注意补水和肾功能；眼、耳或中枢神经受累不能仅口服药后观察。',
+          '48～72小时评估新疱和疼痛。',
+          '任何危险信号、年龄较大且疼痛重、播散或免疫低下者转诊。', 'zoster'),
+        d('scabies', 'surgery', '疥疮', '夜间瘙痒 指缝 疥螨 硫软膏',
+          '夜间剧痒，指缝、腕屈侧、腋窝、腰腹或生殖器丘疹/隧道；同住者常同时瘙痒。',
+          '脓疱、蜂窝织炎、结痂型疥疮、免疫低下或集体机构暴发。',
+          '典型依据分布和接触史；不典型可做皮屑镜检。',
+          '鉴别湿疹、虫咬、荨麻疹和药疹。',
+          '同住和密切接触者同时处理；近3天衣被热洗烘干或密封至少72小时。',
+          ['硫软膏按实际浓度及说明书全身外用，颈部以下重点覆盖指缝、甲缘、腹股沟；完成疗程后更换清洁衣被。'],
+          '不要只涂有皮疹处；治疗后瘙痒可持续2～4周，不等于一定失败。孕妇和大面积破损皮肤先咨询。',
+          '1～2周评估新皮损和接触者治疗情况。',
+          '结痂型、继发感染、集体暴发或规范治疗后仍有新隧道者转诊。'),
+
+
+        d('liver-abnormal', 'gi', '肝功能异常 / 慢性乙肝初筛', '转氨酶升高 乙肝 恩替卡韦 护肝片 水飞蓟 易善复',
+          '体检或就诊发现ALT/AST、胆红素或乙型肝炎病毒学异常；先判断是否急性肝损伤、胆道梗阻、酒精/药物性肝损伤或慢性病毒性肝炎。',
+          '黄疸迅速加重、凝血异常、意识改变、明显乏力厌食伴胆红素升高、腹水、消化道出血或疑急性肝衰竭。',
+          '复查肝功能、胆红素、白蛋白、凝血功能；乙肝两对半、HBV DNA定量（可及）、丙肝抗体；询问饮酒、草药/保健品和近期用药；必要时腹部超声。',
+          '不要把“转氨酶升高”直接等同于需要护肝药；慢性乙肝是否抗病毒取决于HBV DNA水平、ALT、肝纤维化/肝硬化和家族史等。',
+          '停止不必要的酒精、草药和可疑肝损伤药物；避免熬夜和自行叠加多种护肝中成药。',
+          ['肌苷片、护肝片、水飞蓟宾、多烯磷脂酰胆碱等仅可作为明确病因后的辅助治疗，不能替代病因治疗。', '需要转诊：慢性乙肝启动、换药或停药须按病毒学、肝纤维化和肾功能等制定方案，不应基层经验启停。'],
+          '不明原因肝功能异常、黄疸或乙肝病毒复制活跃者，避免仅反复开“护肝药”而延误病因诊断。',
+          '轻度异常1～4周复查；乙肝抗病毒治疗随访按专科方案监测肝功能、HBV DNA定量和肾功能。',
+          '任何危险信号、胆红素升高明显、凝血异常、疑药物性肝损伤或慢性乙肝需抗病毒评估者转诊。'),
+        d('sti-urethritis-cervicitis', 'gyn', '尿道炎 / 宫颈炎（疑性传播感染）', '尿道分泌物 宫颈炎 非淋菌性尿道炎 性病 阿奇霉素',
+          '尿痛、尿道分泌物、宫颈脓性分泌物或性接触后症状；需询问性伴、避孕套使用和妊娠可能。',
+          '发热、下腹痛、睾丸痛、盆腔压痛、妊娠、性暴力相关暴露或疑播散性感染。',
+          '尿常规不能替代性传播感染检测；可及时获得时做淋球菌/衣原体核酸检测，女性做妇科检查并排除盆腔炎性疾病。',
+          '区分单纯膀胱炎、阴道炎、宫颈炎和盆腔炎；性伴需要同步评估和治疗，避免反复感染。',
+          '治疗前后避免无保护性接触；建议性伴就诊，完成性病检测和健康教育。',
+          ['需要转诊：本页用药目录内虽有阿奇霉素、乙酰螺旋霉素、罗红霉素等，但缺少许多指南推荐方案所需药物和检测条件；疑淋病、衣原体感染或宫颈炎者宜转专科/性病门诊规范处理。'],
+          '不要仅按“尿路感染”长期反复给头孢或喹诺酮；氟喹诺酮类需严格掌握适应证和本地耐药。',
+          '规范治疗后1周内评估症状；复发或性伴未处理者复诊。',
+          '任何危险信号、妊娠、疑盆腔炎/附睾睾丸炎、检测阳性需报告或伴侣处理困难者转诊。', 'abx'),
+        d('heat-motion', 'gi', '中暑先兆 / 晕动病 / 暑湿不适', '中暑 晕船 晕车 恶心呕吐 人丹',
+          '高温暴露后头晕、乏力、口渴、多汗、恶心；乘车船后恶心呕吐可为晕动病。',
+          '体温显著升高、意识异常、抽搐、无汗、低血压、横纹肌溶解表现、持续呕吐不能饮水。',
+          '测体温、血压、心率和意识；重症或高危者查电解质、肾功能、肌酸激酶等需上级医院完成。',
+          '热射病是急症；不要把意识改变的高温患者当作普通“中暑”。晕动病需排除急腹症、心脑血管和前庭性疾病。',
+          '立即离开高温环境，降温、补充含盐液体；晕动病减少视觉刺激、通风、少量多次饮水。',
+          ['轻症暑湿不适或晕动相关恶心可按说明书短期含服人丹。', '需要转诊：中重度脱水、热射病或意识异常时，本页用药目录内无规范静脉补液、快速降温和器官功能监测条件。'],
+          '人丹不能替代快速降温和补液；持续呕吐、少尿或意识变化应立即转诊。',
+          '轻症处理后数小时内观察；24小时内仍乏力、发热或尿色深复诊。',
+          '任何危险信号、高龄、心肾病、独居或无法补液者转诊。'),
+        d('psoriasis', 'surgery', '银屑病初筛与随访', '银屑病 鳞屑 斑块 郁金银屑片',
+          '边界清楚的红斑鳞屑斑块，常见于头皮、肘膝伸侧；询问关节痛、指甲改变和家族史。',
+          '红皮病样广泛潮红脱屑、脓疱、高热、关节明显肿痛或快速加重。',
+          '轻症可临床判断；诊断不清、关节症状或中重度需皮肤科评估。',
+          '鉴别脂溢性皮炎、体癣、湿疹、药疹；环形皮损或激素治疗后加重时先排真菌。',
+          '保湿、避免搔抓和诱发因素；戒烟限酒，管理体重和代谢风险。',
+          ['郁金银屑片按说明书短期使用可作为辅助；不能替代规范外用维生素D类似物、糖皮质激素或系统治疗评估。', '需要转诊：中重度、头面/生殖器/甲受累、关节痛或反复难控者，本页用药目录中的药品不足以完成规范治疗。'],
+          '不要长期自行使用强效激素或含激素复方乳膏；疑关节病型银屑病需尽早转诊。',
+          '2～4周评估皮损面积、瘙痒和关节症状。',
+          '任何危险信号、诊断不清、关节受累或生活质量明显受损者转皮肤科。'),
+        d('breast', 'gyn', '乳房肿块 / 乳腺疼痛 / 乳腺炎样表现', '乳腺增生 乳腺结节 乳房胀痛 乳核散结 乳腺炎 硫酸镁',
+          '乳房胀痛、周期性疼痛、触及肿块或局部红肿热痛；记录月经关系、哺乳状态、发热和肿块变化。',
+          '乳房皮肤橘皮样改变、乳头血性溢液、固定硬块、腋窝淋巴结、发热寒战、脓肿波动感或快速红肿扩展。',
+          '视诊和触诊双乳及腋窝；可及性允许时按年龄和风险做乳腺超声/钼靶；红肿热痛评估脓肿。',
+          '不能把所有乳房疼痛归为“乳腺增生”；肿块必须影像随访或专科评估。',
+          '合适内衣，减少挤压；红肿疼痛避免热敷过度，疑脓肿不要挤压。',
+          ['乳核散结片可按说明书用于乳腺结节、胀痛、增生等辅助治疗，但不能替代影像评估。', '50%硫酸镁溶液仅可在完整皮肤局部湿敷辅助消肿；皮肤破损、溃疡、流脓处禁用。', '需要转诊：疑乳腺脓肿、恶性肿瘤或哺乳期重症乳腺炎时，本页用药目录中的药品不能完成规范处理。'],
+          '乳房肿块或血性溢液不要长期只用中成药观察；局部湿敷不能替代引流或抗感染治疗。',
+          '疼痛或红肿24～48小时复评；肿块按影像建议随访。',
+          '任何危险信号、肿块持续存在、影像异常、脓肿或全身感染表现者转乳腺/外科。'),
+        d('skin-local', 'surgery', '鸡眼 / 皲裂 / 冻疮等局部皮肤问题', '鸡眼 手足皲裂 冻疮 水杨酸苯酚贴膏 愈裂贴膏 冻疮膏 尿素维E',
+          '局部角化疼痛、手足裂口或寒冷暴露后红肿瘙痒；先评估糖尿病足、感染和循环障碍。',
+          '糖尿病足破溃、黑色坏死、进行性红肿热痛、发热、感觉缺失或肢端缺血。',
+          '检查足背动脉、感觉、皮肤完整性；糖尿病患者评估血糖和足部风险。',
+          '鸡眼需与跖疣、胼胝鉴别；冻疮需区分深部冻伤和血管炎。',
+          '减少摩擦和受压，保暖防潮；干裂处加强保湿，避免撕扯裂口。',
+          ['鸡眼可用水杨酸苯酚贴膏按说明书局部使用，保护正常皮肤。', '手足皲裂可用愈裂贴膏或尿素维E乳膏按说明书外用。', '冻疮膏按说明书外用；破溃、感染或深部冻伤需转诊。'],
+          '糖尿病足、周围血管病或感觉减退者慎用腐蚀性鸡眼贴；破溃感染处不要封包。',
+          '1～2周复评；疼痛加重或出现感染随时复诊。',
+          '任何危险信号、糖尿病足风险、诊断不清或反复不愈者转皮肤科/外科。'),
+        d('neuro-special-refill', 'neuro', '帕金森病 / 重症肌无力等专科慢病续方', '帕金森 美多芭 苯海索 重症肌无力 溴吡斯的明',
+          '既往已由专科明确诊断并形成稳定用药方案的患者，可在基层进行安全性询问、依从性检查和续方协助。',
+          '吞咽/呼吸困难、肌无力快速加重、跌倒频繁、幻觉谵妄、严重体位性低血压、高热强直或突然停药后恶化。',
+          '询问近期加减药、漏服、感染、跌倒、幻觉和吞咽情况；测血压含立位血压，必要时心电图。',
+          '基层不宜首次诊断或自行大幅调整苯海索、多巴丝肼、溴吡斯的明等专科药。',
+          '规律服药，避免突然停药；跌倒预防，评估吞咽和营养。',
+          ['需要转诊：苯海索、多巴丝肼、溴吡斯的明均属需按症状和不良反应个体化的专科用药；基层仅按既有专科方案续方和监测，不自行启动或大幅调量。'],
+          '苯海索可加重认知障碍、尿潴留和青光眼；多巴丝肼突然停药风险高；溴吡斯的明过量可出现胆碱能危象样表现。',
+          '稳定患者1～3个月随访；任何功能下降或不良反应提前复诊。',
+          '出现危险信号、诊断不清、疗效波动明显或需调药者转神经内科。'),
+        d('cytopenia', 'metabolic', '白细胞 / 血小板减少初筛', '白细胞减少 血小板减少 升白 利可君 地榆升白',
+          '体检发现白细胞、中性粒细胞或血小板减少；先确认是否重复异常并询问感染、药物、放化疗、肝脾病和出血。',
+          '发热伴中性粒细胞减少、皮肤黏膜出血、黑便血尿、血小板显著降低、贫血明显或全血细胞减少。',
+          '复查血常规和分类，必要时外周血涂片、肝肾功能、感染指标；结合病史评估药物和病毒感染。',
+          '不要把血细胞减少直接等同于“需要升白药”；必须排除急性白血病、再障、药物性骨髓抑制和脾亢等。',
+          '避免感染暴露和不必要侵入操作；有出血倾向避免阿司匹林和非甾体抗炎药。',
+          ['地榆升白片、利可君片可按说明书作为辅助治疗，但应在明确病因或专科方案下使用。', '需要转诊：显著或持续血细胞减少、全血细胞减少、伴发热或出血者，本页用药目录中的药品不能完成规范诊治。'],
+          '升白/升板药不能替代病因诊断；发热性中性粒细胞减少是急症。',
+          '轻度异常1～2周复查；用药后按血常规变化调整。',
+          '任何危险信号、进行性下降、原因不明或伴肝脾淋巴结异常者转血液科。'),
+        d('vaginitis', 'gyn', '阴道炎', '白带 瘙痒 异味 霉菌 细菌性阴道病 滴虫',
+          '阴道分泌物、异味、瘙痒/灼热；症状不能可靠区分细菌性阴道病、念珠菌病和滴虫病。',
+          '下腹明显压痛、发热、妊娠、溃疡、出血或全身不适。',
+          '询问性暴露和妊娠可能；窥器检查、阴道pH、湿片/胺试验或可用的核酸检测。',
+          '明确病原后治疗；同时排除宫颈炎、盆腔炎性疾病和性传播感染。',
+          '避免阴道冲洗和刺激性洗液；滴虫需性伴同治并避免性接触至疗程完成。',
+          ['细菌性阴道病：甲硝唑0.4 g，每日3次，共7天。', '外阴阴道念珠菌病：硝酸咪康唑栓1枚，每晚1次，共7天。', '滴虫病：甲硝唑0.4 g，每日3次，共7天，并治疗性伴。'],
+          '妊娠期用药需单独评估；服甲硝唑期间及停药后至少24小时避免饮酒。反复发作先复核诊断。',
+          '疗程后未缓解或2个月内复发复诊。',
+          '出现危险信号、妊娠、复发难治或疑上行感染者转诊。'),
+        d('pid', 'gyn', '盆腔炎性疾病', '盆腔炎 下腹痛 宫颈举痛',
+          '性活跃女性下腹痛，宫颈举痛、子宫或附件压痛；诊断阈值应低但必须排除妊娠相关急症。',
+          '妊娠、休克、腹膜刺激征、高热/呕吐、盆腔包块、严重全身病或不能口服。',
+          '妊娠试验必做；妇科检查、淋球菌/衣原体检测、阴道分泌物检查；按需血常规/超声。',
+          '排除异位妊娠、阑尾炎、卵巢扭转和囊肿破裂；不应因等待结果延误经验治疗。',
+          '治疗完成且性伴处理前避免性接触；近60天性伴评估和经验治疗淋球菌/衣原体。',
+          ['需要转诊：本页用药目录内药品不能组成指南推荐的完整盆腔炎经验治疗方案；初步检查后尽快转妇科，不能只用甲硝唑或中成药替代。'],
+          '妊娠、盆腔包块或严重全身症状必须紧急转诊；按本地性病管理规范完成检测和性伴处理。',
+          '48～72小时必须复评；无明确改善即转诊。',
+          '任何危险信号、疑脓肿、门诊依从困难或72小时无改善者转诊。', 'abx'),
+        d('aub', 'gyn', '异常子宫出血', '月经过多 经期延长 贫血 功能性出血',
+          '出血频率、规律、持续时间或量异常；记录末次月经、妊娠可能、药物和贫血症状。',
+          '血流动力学不稳、晕厥、每小时浸透≥1片卫生巾连续数小时、妊娠阳性伴痛/出血或重度贫血症状。',
+          '所有育龄期患者先做妊娠试验和血常规。按年龄及风险进一步做超声、促甲状腺激素、凝血及子宫内膜评估。',
+          '按子宫结构性病变和非结构性原因分类思考病因；未排除妊娠前不能直接止血。',
+          '记录出血量和周期，纠正缺铁；稳定前避免阿司匹林。',
+          ['合并缺铁：琥珀酸亚铁0.1 g，每日2次。', '需要转诊：本页用药目录内缺少适合未明确病因时直接使用的规范止血方案；排除妊娠并评估病因后由妇科制定治疗。'],
+          '不要在未排除妊娠、血栓风险和子宫内膜病变前自行使用激素类药物止血。',
+          '本周期内复评；出血增加或贫血症状随时复诊。',
+          '任何危险信号、绝经后出血、反复不规则出血或肿瘤风险高者转妇科。'),
+        d('dysmenorrhea', 'gyn', '痛经', '经期腹痛 原发性痛经 双氯芬酸',
+          '原发性痛经通常自初潮后数年开始，经前/经期痉挛痛，无盆腔器质性体征。',
+          '突发剧痛、妊娠可能、发热、晕厥、大量出血、腹膜刺激征或新发于成年后。',
+          '育龄期有妊娠可能先检测；非典型、查体异常或治疗无效者盆腔超声。',
+          '排除异位妊娠、盆腔炎性疾病、子宫内膜异位症、腺肌病和卵巢病变。',
+          '热敷、规律运动和睡眠；非甾体抗炎药最好在预计月经前1天或疼痛初起使用。',
+          ['双氯芬酸钠25～50 mg，每日2～3次，随餐，通常2～3天，最大150 mg/d。'],
+          '非甾体抗炎药（如双氯芬酸）需注意胃肠道、肾功能、抗凝治疗和妊娠禁忌；激素避孕需完整评估后选择。',
+          '2～3个周期评估疗效。',
+          '出现危险信号、疼痛进行性加重、性交痛、不孕或规范治疗3个周期无效者转诊。')
+      ];
+
+      const medGroupData = [
+        ['cv', '心脑血管与降压', `
+酒石酸美托洛尔缓释片（Ⅱ）|25 mg|高血压、心率控制、心绞痛及部分心律失常等；须按具体剂型和适应证使用。|按实际剂型和适应证个体化；常从小剂量起，依据心率、血压和耐受调整|名称、盐型和剂型易混淆（酒石酸盐普通/缓释与琥珀酸盐缓释不可简单等量替代）；心动过缓、传导阻滞、支气管痉挛及急性失代偿心衰慎/禁用。|100 mg，每日1次。|!
+盐酸普萘洛尔片|10 mg|高血压、心率控制、心绞痛及部分心律失常等；须按具体剂型和适应证使用。|10 mg起始，每日3～4次|哮喘、心动过缓、传导阻滞者慎用；长期使用者停药需逐步减量。|
+苯磺酸氨氯地平片|5 mg|高血压；部分药物还可用于心血管合并症时的个体化治疗。|5～10 mg，每日1次|注意踝部水肿、头痛和低血压。|
+硝苯地平片|10 mg|高血压；部分药物还可用于心血管合并症时的个体化治疗。|10 mg，每日3次|普通短效片不得用于无监护快速降压或舌下含服；仅在明确适应证下按说明书使用，并监测低血压、心动过速和头痛。||!
+硝苯地平缓释片（Ⅱ）|20 mg|高血压；部分药物还可用于心血管合并症时的个体化治疗。|20 mg，每日2次|整片吞服，勿掰碎；监测血压。|
+卡托普利片|25 mg|高血压；部分药物还可用于心血管合并症时的个体化治疗。|12.5～50 mg，每日2～3次|妊娠禁用；开始或加量后复查肌酐和血钾。|
+马来酸依那普利片|5 mg|高血压；部分药物还可用于心血管合并症时的个体化治疗。|5～10 mg起始，每日1～2次；最大40 mg/d|妊娠禁用；开始或加量后复查肌酐和血钾。|
+厄贝沙坦片|150 mg|高血压；部分药物还可用于心血管合并症时的个体化治疗。|150 mg起始，每日1次|妊娠禁用；复查肌酐和血钾。|
+厄贝沙坦氢氯噻嗪片|150 mg/12.5 mg|高血压；部分药物还可用于心血管合并症时的个体化治疗。|每次1片，每日1次；反应不足且耐受时按说明书调整|注意低血压、电解质紊乱、尿酸和肾功能。|
+缬沙坦胶囊|80 mg|高血压；部分药物还可用于心血管合并症时的个体化治疗。|80～160 mg，每日1次|妊娠禁用；复查肌酐和血钾。|
+复方罗布麻片|规格见实物|高血压；部分药物还可用于心血管合并症时的个体化治疗。|2片，每日3次|复方降压制剂；不作为优先降压方案，与其他降压药合用前核对成分及血压。|
+复方利血平氨苯蝶啶片|规格见实物|高血压；部分药物还可用于心血管合并症时的个体化治疗。|通常每次1片，每日1次；调整剂量须按具体说明书或上级医嘱|复方降压药含利血平、利尿剂等成分；用前核对成分、血压、电解质、尿酸、肾功能及抑郁/帕金森样症状风险。|1片，每日1次；必要时可增至1片，每日2～3次。|!
+硝酸甘油片|0.5 mg|心绞痛急性发作缓解；疑急性冠脉综合征时仅作初步处理并转诊。|胸痛发作时1片舌下含服；5分钟可重复，最多3次|低血压或近期服用治疗勃起功能障碍药物者禁用；不缓解立即转诊。|
+速效救心丸|40 mg/丸|胸痹/心绞痛、脑血管病后遗症等说明书适应证；不能替代急症转诊和规范二级预防。|4～6丸，每日3次；急用10～15丸舌下含服|急性胸痛不能用本品替代急性冠脉综合征转诊。|
+单硝酸异山梨酯片|20 mg|胸痹/心绞痛、脑血管病后遗症等说明书适应证；不能替代急症转诊和规范二级预防。|20 mg，每日2次；两次间隔约7小时|不用于急性胸痛即时缓解；注意头痛和低血压。|
+复方丹参片|0.6 g|胸痹/心绞痛、脑血管病后遗症等说明书适应证；不能替代急症转诊和规范二级预防。|3片，每日3次|中成药；不能替代规范抗血小板、调脂及转诊。|
+银杏叶分散片|规格见实物|胸痹/心绞痛、脑血管病后遗症等说明书适应证；不能替代急症转诊和规范二级预防。|1片，每日3次|与抗凝或抗血小板药合用可能增加出血风险。|
+三七片|0.25 g|胸痹/心绞痛、脑血管病后遗症等说明书适应证；不能替代急症转诊和规范二级预防。|4～12片，每日3次|按说明书适应证使用；出血风险患者慎用。|
+心脑康胶囊|0.25 g|胸痹/心绞痛、脑血管病后遗症等说明书适应证；不能替代急症转诊和规范二级预防。|4粒，每日3次|中成药；按说明书适应证使用。|
+稳心颗粒|5 g/袋|心悸、早搏等心律失常相关症状的说明书适应证；危险心律失常需转诊。|1袋，每日3次|不能替代心电图诊断和危险心律失常转诊。|
+地高辛片|0.25 mg|心力衰竭及部分快速性室上性心律失常的专科/规范适应证。|多数维持量0.125～0.25 mg，每日1次；高龄或肾功能下降常需更低剂量|治疗窗窄；必须按适应证、心率、肾功能、血钾及合并用药个体化，避免直接套用较高维持剂量。|0.125～0.5 mg，每日1次。|!
+阿司匹林肠溶片|25 mg|明确动脉粥样硬化性心血管病二级预防等抗血小板适应证。|75～160 mg，每日1次|仅限明确适应证；活动性出血、严重过敏等禁用。|
+阿托伐他汀钙片|10 mg|血脂异常及动脉粥样硬化性心血管病风险管理。|10 mg，每晚1次|妊娠及活动性肝病禁用；肌痛或深色尿应评估。|
+脂必妥片|0.35 g|血脂异常及动脉粥样硬化性心血管病风险管理。|3片，每日2次|中成药；不能替代心血管风险分层和必要的他汀治疗。|
+呋塞米片|20 mg|水肿性疾病、心力衰竭/肝硬化腹水等容量管理相关适应证。|水肿常以20～40 mg、每日1次起始；按反应调整|按容量状态、肾功能和电解质调整；不用于单纯“排水减重”。|
+螺内酯片|20 mg|水肿性疾病、心力衰竭/肝硬化腹水等容量管理相关适应证。|心力衰竭常以20 mg、每日1次起始；其他适应证剂量不同|保钾利尿剂；用于心衰、肝硬化腹水、原醛等适应证时剂量差异较大，必须复查血钾和肾功能，避免与补钾、血管紧张素转换酶抑制剂或血管紧张素Ⅱ受体阻滞剂叠加导致高钾。|40～120 mg/日，分2～4次服用。|!
+氢氯噻嗪片|25 mg|高血压；部分药物还可用于心血管合并症时的个体化治疗。|高血压常用12.5～25 mg，每日1次|监测血钠、血钾、尿酸、血糖和肾功能。|25～50 mg，每日1～2次。|!
+`],
+        ['resp', '感冒、呼吸与咽喉', `
+复方氨酚烷胺片（感康）|复方制剂|普通感冒、流感样症状或咽痛等说明书适应证；不能替代细菌感染或流感高危抗病毒治疗。|1片，每日2次|避免与其他复方感冒药重复；高血压、青光眼、前列腺增生者慎用。|
+感冒清片|规格见实物|普通感冒、流感样症状或咽痛等说明书适应证；不能替代细菌感染或流感高危抗病毒治疗。|3～4片，每日3次|复方/中成药；核对是否含对乙酰氨基酚、马来酸氯苯那敏等成分，避免与其他感冒药重复。|
+维C银翘片|规格见实物|普通感冒、流感样症状或咽痛等说明书适应证；不能替代细菌感染或流感高危抗病毒治疗。|2片，每日3次|复方中成药；核对是否含对乙酰氨基酚、马来酸氯苯那敏等成分，避免与其他感冒药重复。|
+复方穿心莲片|规格见实物|普通感冒、流感样症状或咽痛等说明书适应证；不能替代细菌感染或流感高危抗病毒治疗。|4片，每日3次|用于咽痛、感冒及湿热泄泻等说明书适应证；按说明书短期使用。|
+咳特灵胶囊|含马来酸氯苯那敏|咳嗽对症治疗；有痰不畅、低氧或喘憋时需另行评估。|1粒，每日3次|可能嗜睡、口干；避免驾驶，前列腺增生者慎用。|
+海珠喘息定片|复方制剂|喘息/支气管痉挛相关说明书适应证；急性重症喘息不作为基层首选。|2～4片，每日3次|复方平喘药可能含茶碱样/拟交感等成分；不能替代哮喘或慢阻肺规范吸入治疗，急性喘憋、低氧或心律失常风险者应转诊。||!
+复方甘草口服液|100 ml/瓶|咳嗽对症治疗；有痰不畅、低氧或喘憋时需另行评估。|5～10 ml，每日3次|含甘草成分；长期或大量使用注意水肿、低钾和血压升高。|
+复方甘草片|复方制剂|咳嗽对症治疗；有痰不畅、低氧或喘憋时需另行评估。|3～4片，每日3次，口服或含化，短期使用|含阿片粉等成分；避免与酒精、镇静催眠药同用，孕妇、哺乳期、儿童、运动员及呼吸功能不全者慎用，注意依赖和呼吸抑制风险。||!
+枸橼酸喷托维林片|25 mg|咳嗽对症治疗；有痰不畅、低氧或喘憋时需另行评估。|干咳：1片，每日3～4次|有痰不易咳出时慎用。|
+氨茶碱片|0.1 g|喘息/支气管痉挛相关说明书适应证；急性重症喘息不作为基层首选。|常用0.1 g，每日3次起；需根据疗效、不良反应和相互作用调整|治疗窗窄、相互作用多；不作为急性重度喘息的基层首选，高龄、心律失常、肝功能异常或合并大环内酯/喹诺酮等药物时风险增加。|0.1～0.2 g，每日3次。|!
+氨溴索片|30 mg|痰液黏稠、不易咳出。|30～60 mg，每日3次|用于痰黏；注意胃肠不适。|
+西地碘含片|1.5 mg|咽喉炎、口腔溃疡、牙龈肿痛等局部症状。|1片，每日3～5次|甲状腺疾病患者长期使用前需评估。|
+冰硼散|规格见实物|咽喉炎、口腔溃疡、牙龈肿痛等局部症状。|少量吹敷患处|用于口腔局部；按说明书短期使用。|
+`],
+        ['gi', '消化系统', `
+甲硝唑片|0.2 g|厌氧菌感染、滴虫病、细菌性阴道病等明确适应证。|0.4 g，每日3次|按明确感染适应证使用；服药期间及停药后至少24小时禁酒。|
+人工牛黄甲硝唑胶囊|0.2 g|牙周/牙源性炎症等说明书适应证；注意含甲硝唑。|2粒，每日3次|复方制剂；注意与其他甲硝唑制剂重复，服药期间及停药后至少24小时禁酒。|
+甲氧氯普胺片|5 mg|恶心、呕吐、胃排空/动力障碍相关短期对症治疗。|5～10 mg，每日3次，短期使用|可致锥体外系反应；帕金森病、肠梗阻等患者慎/禁用。||!
+多酶片|规格见实物|消化不良、食欲缺乏等助消化适应证。|2～3片，每日3次|按说明书适应证使用。|
+多潘立酮片|10 mg|恶心、呕吐、胃排空/动力障碍相关短期对症治疗。|1片，每日3次，饭前；通常不超过1周|有心律失常、心电图QT间期延长风险或合并相关药物者慎用。||!
+碳酸氢钠片|0.5 g|胃酸过多、反酸烧心等短期对症；亦可按医嘱用于代谢性酸中毒等。|反酸烧心：1～2片，每日3次|不宜长期自行服用；心衰、高血压及肾病患者注意钠负荷。|
+胶体果胶铋胶囊|50 mg|胃食管反流、胃炎、消化性溃疡及幽门螺杆菌相关方案中的抑酸/胃黏膜保护。|3粒，每日4次|疗程和联合方案按幽门螺杆菌方案核对；可使大便变黑。|
+雷尼替丁胶囊|0.15 g|胃食管反流、胃炎、消化性溃疡及幽门螺杆菌相关方案中的抑酸/胃黏膜保护。|1粒，每日2次|如本院仍配备，使用前核对具体厂家说明书、有效期和最新药品警戒信息；胃食管反流通常优先选择质子泵抑制剂。||!
+奥美拉唑肠溶胶囊|20 mg|胃食管反流、胃炎、消化性溃疡及幽门螺杆菌相关方案中的抑酸/胃黏膜保护。|胃食管反流常用20 mg，每日1次，早餐前；根除幽门螺杆菌时按联合方案每日2次|疗程依适应证；长期使用应定期复核必要性。|20 mg，每日2次，早、晚服用。|!
+复方黄连素片|规格见实物|腹泻、肠炎等对症治疗；先评估脱水、血便和高热。|4片，每日3次|中成药/复方制剂；腹泻先评估脱水和危险信号。|
+麻仁丸|规格见实物|便秘。|33丸，每日1～2次|疑肠梗阻、剧烈腹痛时禁用泻药。|
+聚乙二醇4000散|按袋装规格|便秘。|1袋，每日1～2次|按说明书溶水服用；疑肠梗阻时禁用。|
+蒙脱石散|按袋装规格|腹泻、肠炎等对症治疗；先评估脱水、血便和高热。|1袋，每日3次|与其他口服药间隔至少2小时。|
+人丹|规格见实物|中暑先兆、晕动不适、恶心呕吐或消化不良等说明书适应证。|9～17丸含服|用于中暑、晕动及消化不适等说明书适应证；中暑伴意识异常需转诊。|
+`],
+        ['endo', '内分泌与代谢', `
+格列美脲片|2 mg|2型糖尿病降糖治疗；须结合血糖、肾功能、进食规律和低血糖风险。|1 mg（半片）早餐前起始；按血糖调整，通常1～4 mg/d，最大8 mg/d|有低血糖风险；老年、肾功能不全或进食不规律者谨慎。|1 mg早餐前起始；可每周增加1 mg，最高6 mg/日；注意低血糖。|!
+格列本脲片|2.5 mg|2型糖尿病降糖治疗；须结合血糖、肾功能、进食规律和低血糖风险。|1.25～2.5 mg早餐前起始；按血糖缓慢调整|长效磺脲类低血糖可持续较久；老年、肾功能不全、进食不规律或合并其他降糖药者风险高，不宜作为老年人常规首选。|2.5 mg早餐前起始；可每周增加2.5 mg，最高15 mg/日；低血糖风险较高，老年人不建议常规使用。|!
+二甲双胍片|250 mg|2型糖尿病降糖治疗；须结合血糖、肾功能、进食规律和低血糖风险。|500 mg每日1次起，可逐步增至最大2 g/d|随餐服；估算肾小球滤过率＜30禁用，急性缺氧/脱水时评估停用。|
+阿卡波糖片|50 mg|2型糖尿病降糖治疗；须结合血糖、肾功能、进食规律和低血糖风险。|1片随第一口主食嚼服，每日3次起；按血糖调整|低血糖时须用葡萄糖纠正，普通蔗糖效果较差。|50～200 mg，每日3次，餐前或餐中嚼服。|!
+消渴丸|2.5 g/丸，含格列本脲|2型糖尿病降糖治疗；须结合血糖、肾功能、进食规律和低血糖风险。|按说明书和血糖从小剂量起；避免自行加量|含格列本脲，低血糖风险不可忽视；须与其他磺脲类/格列奈类等促泌剂避免重复，并核对肾功能、饮食规律和老年风险。|5～10丸，每日2～3次，饭前服用。|!
+左甲状腺素钠片（优甲乐）|50 μg|甲状腺功能减退的替代治疗。|年轻无心脏病者常25～50 μg/d起；老年或冠心病者12.5～25 μg/d起|早餐前空腹服，按促甲状腺激素每6～8周调整；与铁、钙间隔至少4小时。|
+丙硫氧嘧啶片|50 mg|甲状腺功能亢进的抗甲状腺治疗；首诊/妊娠/重症宜专科制定。|剂量依甲亢严重度、妊娠阶段及甲状腺功能调整，通常分次给药|可能严重肝损伤和粒细胞缺乏；仅在明确适应证（如妊娠早期、甲状腺危象等特定场景）并完成血常规、肝功能基线后由专科制定。|甲亢：起始300 mg/日，最大600 mg/日，分次口服；稳定后50～150 mg/日维持。|!
+甲巯咪唑片|10 mg|甲状腺功能亢进的抗甲状腺治疗；首诊/妊娠/重症宜专科制定。|常用起始10～20 mg/d；较重者可更高，维持量需按甲状腺功能调整|用前核对血常规、肝功能和妊娠状态；发热、咽痛立即停药并查血常规，妊娠期方案不同。|甲亢：起始20～40 mg/日，分1～2次服用；稳定后2.5～10 mg/日维持。|!
+别嘌醇片|0.1 g|痛风或高尿酸血症的长期降尿酸治疗（有明确适应证时）。|50～100 mg/d低剂量起始，每2～4周按血尿酸逐步滴定|汉族及高风险患者考虑人类白细胞抗原-B*58:01检测；出现皮疹立即停药。|
+秋水仙碱片|0.5 mg|急性痛风性关节炎低剂量抗炎治疗及部分患者发作预防。|急性痛风：首剂1.0 mg，1小时后0.5 mg；12小时后可0.5 mg、每日1～2次短期使用|避免每小时反复给药的大剂量方案；肾功能不全及与强肝药酶/药物转运体抑制剂合用时需调整。|急性痛风发作：每小时0.5～1 mg，直至缓解或出现腹泻、呕吐；治疗量3～5 mg，24小时不超过6 mg。预防：0.5～1 mg，每日1～2次。|!
+`],
+        ['hepato', '肝胆与泌尿', `
+消炎利胆片|2.6 g|胆囊炎、胆管炎或胆石症相关胁痛等说明书适应证；急性重症需转诊。|6片，每日3次|中成药；急性胆囊炎、胆管炎或持续腹痛不能以此替代转诊。|
+肌苷片|0.2 g|肝功能异常或慢性肝病辅助治疗；需先明确病因。|1～3片，每日3次|适应证和获益需按说明书及诊断核对，异常肝功能应先查明病因。|
+护肝片|0.36 g|肝功能异常或慢性肝病辅助治疗；需先明确病因。|4片，每日3次|中成药；转氨酶升高必须查明病因。|
+水飞蓟宾胶囊|35 mg|肝功能异常或慢性肝病辅助治疗；需先明确病因。|2～4粒，每日3次|不能替代肝病病因治疗。|
+水飞蓟宾葡甲胺片|50 mg|肝功能异常或慢性肝病辅助治疗；需先明确病因。|100～200 mg，每日3次|不能替代肝病病因治疗。|
+多烯磷脂酰胆碱胶囊（易善复）|按实物规格|肝功能异常或慢性肝病辅助治疗；需先明确病因。|1～2粒，每日3次|不能替代病毒、酒精或药物性肝损伤的病因处理。|
+恩替卡韦片|0.5 mg|慢性乙型肝炎抗病毒治疗（符合适应证时）。|0.5 mg，每日1次，空腹；既往拉米夫定耐药等情况剂量不同|仅用于明确慢性乙肝适应证；开始、换药或停药均需专科评估并监测病毒学、肝功能和肾功能。||!
+排石颗粒|5 g/袋|泌尿系结石辅助排石；梗阻感染或无尿须转诊。|1袋，每日3次|中成药；感染性梗阻、无尿或持续肾绞痛必须转诊。|
+肾炎康片|0.48 g|慢性肾炎/蛋白尿等说明书适应证；不能替代肾病病因评估。|5片，每日3次|中成药；蛋白尿、血尿或肾功能异常需明确病因。|
+三金片|规格见实物|尿频、尿急、尿痛、小便短赤等下尿路症状辅助治疗；细菌感染需按规范抗菌。|3片，每日3～4次|中成药；不能替代有指征的尿培养和抗菌治疗。|
+`],
+        ['neuro', '神经系统', `
+甲磺酸倍他司汀片|6 mg|眩晕、梅尼埃病或前庭性症状短期对症。|1～2片，每日3次，饭后|短期对症；不能掩盖卒中等中枢性眩晕。|
+氟桂利嗪胶囊（西比灵）|5 mg|偏头痛预防、前庭性眩晕等。|成人每晚10 mg；老年人每晚5 mg|症状控制后及时评估停药；注意嗜睡、抑郁和锥体外系反应。|
+去痛片|复方制剂|发热或疼痛短期对症；双氯芬酸常用于关节痛、腰痛、痛经、胆/肾绞痛等无禁忌场景。|1～2片，每日1～3次，短期使用|复方镇痛药成分和规格需以实物说明书为准；避免与其他退热止痛药重复，不宜长期使用，血液系统异常、肝肾功能异常及过敏史者慎用。||!
+吡拉西坦片|0.4 g|脑代谢/认知功能相关说明书适应证；症状需先明确病因。|2～4片，每日3次，饭后|用于说明书适应证时应评估获益；认知下降、头晕等症状需先明确病因。|
+苯海索片|2 mg|帕金森病或药物性锥体外系反应等神经专科适应证。|常需低剂量起始并缓慢调整；具体剂量由专科按症状和耐受确定|帕金森病或药物性锥体外系反应用药；老年人易出现认知、尿潴留、青光眼加重等抗胆碱不良反应，应由专科制定。||!
+多巴丝肼片（美多芭）|0.25 g|帕金森病或药物性锥体外系反应等神经专科适应证。|按症状、年龄、既往用药和不良反应个体滴定|帕金森病处方需专科个体化，关注异动症、幻觉、体位性低血压等；不可突然停药。||!
+溴吡斯的明片|60 mg|重症肌无力等胆碱酯酶抑制治疗适应证。|60～120 mg，每3～4小时|重症肌无力等专科用药；剂量和胆碱能不良反应必须严密监测。||!
+`],
+        ['nutri', '维生素、电解质与血液', `
+维生素AD软胶囊|按实物规格|维生素A/D缺乏相关夜盲、佝偻病/骨软化等补充。|1粒，每日1～2次|注意总摄入量，避免维生素A、D过量。|
+维生素E软胶囊|100 mg|维生素E缺乏或说明书适应证；避免无指征长期大剂量。|1粒，每日2～3次|长期大剂量及合并抗凝药时注意出血风险。|
+复合维生素B片|按实物规格|维生素缺乏、周围神经症状、口角炎/皮炎或相关说明书适应证的辅助治疗。|1～3片，每日3次|按明确缺乏或适应证使用。|
+维生素B1片|按实物规格|维生素缺乏、周围神经症状、口角炎/皮炎或相关说明书适应证的辅助治疗。|1片，每日3次|按明确缺乏或适应证使用。|
+维生素B2片|5 mg|维生素缺乏、周围神经症状、口角炎/皮炎或相关说明书适应证的辅助治疗。|1～2片，每日3次|按明确缺乏或适应证使用。|
+维生素B6片|按实物规格|维生素缺乏、周围神经症状、口角炎/皮炎或相关说明书适应证的辅助治疗。|按实物含量及说明书使用|长期大剂量可能引起周围神经病变。|
+甲钴胺片|按实物规格|维生素缺乏、周围神经症状、口角炎/皮炎或相关说明书适应证的辅助治疗。|1片，每日3次|按神经病变或维生素B12相关适应证使用。|
+谷维素片|按实物规格|维生素缺乏、周围神经症状、口角炎/皮炎或相关说明书适应证的辅助治疗。|1～3片，每日3次|获益有限时不应延误病因评估。|
+维生素C片|按实物规格|维生素缺乏、周围神经症状、口角炎/皮炎或相关说明书适应证的辅助治疗。|1～2片，每日3次|肾结石高风险者避免长期大剂量。|
+葡萄糖酸钙片|按实物规格|钙/维生素D补充、骨质疏松基础治疗或低钙相关适应证。|1～4片，每日3次|须按元素钙含量换算，避免与其他钙剂重复；高钙血症、肾结石高风险者慎用。|
+碳酸钙D3片（钙尔奇）|按实物规格|钙/维生素D补充、骨质疏松基础治疗或低钙相关适应证。|1片，每日1～2次|按元素钙及维生素D总量计算；与铁、左甲状腺素错开。|
+氯化钾缓释片|0.5 g|低钾血症的补钾治疗。|0.5～1 g，每日2～4次|必须依据血钾和肾功能；高钾、少尿及与保钾药同用时风险高。||!
+地榆升白片|0.1 g|白细胞减少或血小板减少等血细胞减少的辅助治疗；需查明病因。|2～4片，每日3次|白细胞减少需先查病因；中成药不能替代病因处理。|
+利可君片|20 mg|白细胞减少或血小板减少等血细胞减少的辅助治疗；需查明病因。|20 mg，每日3次|白细胞或血小板减少需先查病因，并复查血常规。|
+琥珀酸亚铁片|0.1 g|缺铁性贫血或铁缺乏的补铁治疗。|预防：1片每日1次；治疗：1片每日2次起|确诊缺铁后使用；黑便常见，与钙、茶、咖啡错开。|
+健脾生血片|每片含铁约20 mg|缺铁性贫血或铁缺乏的补铁治疗。|3片，每日3次，饭后|含铁制剂；避免与其他铁剂重复，按缺铁证据使用。|
+牛黄解毒片|规格见实物|咽喉肿痛、口舌生疮、牙龈肿痛等说明书适应证；不宜长期超量。|3片，每日3～4次，短期使用|中成药；不宜长期或超量使用。|
+板蓝根颗粒|按袋装规格|普通感冒、流感样症状或咽痛等说明书适应证；不能替代细菌感染或流感高危抗病毒治疗。|1袋，每日3～4次|中成药；不能替代流感抗病毒或细菌感染规范治疗。|
+`],
+        ['gynmed', '妇科用药', `
+屈螺酮炔雌醇片（优思明）|复方短效避孕药|短效避孕；炔雌醇环丙孕酮还可用于高雄激素相关痤疮/多囊卵巢综合征等特定适应证。|通常每日1片，连服21天，停7天后开始下一盒；起始日和漏服处理按说明书|使用前排除妊娠，筛查静脉血栓、偏头痛伴先兆、吸烟且年龄较大、肝病、乳腺癌等雌激素禁忌；合并用药需核对相互作用。||!
+炔雌醇环丙孕酮片（达英-35）|复方短效避孕药|短效避孕；炔雌醇环丙孕酮还可用于高雄激素相关痤疮/多囊卵巢综合征等特定适应证。|通常每日1片，连服21天，停7天后开始下一盒；起始日和漏服处理按说明书|含雌激素和抗雄激素成分；血栓、肝病、妊娠、乳腺癌等禁忌必须评估，不是所有痤疮或多囊卵巢综合征均适用。||!
+醋酸甲羟孕酮片|2 mg|功能性闭经、异常子宫出血等妇科适应证；病因未明或妊娠未排除时慎用。|功能性闭经常用4～8 mg/d，连服5～10天；异常出血等适应证需按妇科方案|未排除妊娠、血栓风险、肝病和子宫内膜病变前勿自行用于止血；肿瘤等大剂量方案不纳入基层常用剂量。|功能性闭经：4～8 mg/日，连服5～10天；子宫内膜癌维持治疗：100 mg/次、每日3次，或500 mg/次、每日1～2次，仅限专科方案。|!
+断血流片|规格见实物|尿血、便血、月经过多、功能性子宫出血等说明书止血适应证；大量出血需转诊。|3～6片，每日3次|中成药；大量出血、妊娠相关出血或贫血症状需转诊。|
+金鸡胶囊|规格见实物|附件炎、盆腔炎、子宫内膜炎等说明书适应证；不能替代完整抗菌方案。|4粒，每日3次|中成药；不能替代盆腔炎完整抗菌方案。|
+益母草膏|按实物规格|月经不调、经量少等说明书适应证；妊娠相关出血禁忌。|10 g，每日1～2次|妊娠相关出血、月经过多或病因不明者勿自行使用。|
+乳核散结片|规格见实物|乳腺结节、乳房胀痛、乳腺增生等说明书适应证；需规范排查肿块。|4片，每日3次|乳房肿块需规范影像和专科评估。|
+逍遥丸|规格见实物|月经不调、胸胁胀痛、头晕眩、食欲减退等说明书适应证。|8丸，每日3次|中成药；症状持续需明确病因。|
+甲硝唑栓|按实物规格|滴虫性阴道炎等阴道局部治疗。|1粒，每晚1次，7～10天|先明确阴道炎类型；注意与口服甲硝唑总量重复。|1粒，每晚1次，7～10天；阴道毛滴虫感染可按规范合并口服甲硝唑0.2 g，每日4次，共7天。|!
+双唑泰栓|按实物规格|细菌性、滴虫性、念珠菌性阴道炎等复方阴道治疗。|1枚，每晚1次，共7天|复方阴道制剂；先明确病原，妊娠期需核对说明书。|
+硝酸咪康唑栓|按实物规格|外阴阴道念珠菌病等真菌性阴道炎。|1枚，每晚1次，共7天|用于念珠菌性阴道炎等明确适应证。|
+保妇康栓|按实物规格|带下病、霉菌性阴道炎、老年性阴道炎等说明书适应证；宫颈异常需筛查。|1枚，每晚1次|中成药栓剂；“宫颈糜烂”不是独立疾病诊断，异常宫颈筛查需规范评估。|
+洁尔阴洗液|按实物规格|外阴瘙痒、带下等外洗辅助；需避免长期阴道冲洗。|按说明书稀释外用|避免阴道冲洗和长期使用；症状反复需明确病原。|
+`],
+        ['allergy', '抗过敏、激素与止痛', `
+马来酸氯苯那敏片|4 mg|过敏性鼻炎、荨麻疹、皮肤瘙痒等过敏症状。|1片，每日3次|可嗜睡、口干和尿潴留；驾驶、老年、青光眼及前列腺增生者慎用。|
+氯雷他定片|10 mg|过敏性鼻炎、荨麻疹、皮肤瘙痒等过敏症状。|1片，每晚1次|肝功能异常者核对剂量。|
+醋酸地塞米松片|0.75 mg|明确炎症/免疫/过敏等需要全身糖皮质激素的适应证；普通感冒不常规使用。|剂量依适应证差异很大，不作为普通感冒或单纯过敏常规用药|全身激素须核对明确适应证、感染风险、血糖血压、消化道出血风险和疗程；长期或较大剂量用药不得突然停药。||!
+醋酸泼尼松片|5 mg|明确炎症/免疫/过敏等需要全身糖皮质激素的适应证；普通感冒不常规使用。|剂量依适应证，见相应疾病卡；疗程和减量方案需个体化|全身激素需核对感染、糖尿病、高血压、消化性溃疡、骨质疏松等风险；长期或大剂量用药勿突然停药。||!
+郁金银屑片|0.24 g|银屑病相关说明书适应证；中重度或关节受累需皮肤科。|3～6片，每日2～3次|中成药；银屑病需评估严重度和关节受累。|
+双氯芬酸钠肠溶片|25 mg|发热或疼痛短期对症；双氯芬酸常用于关节痛、腰痛、痛经、胆/肾绞痛等无禁忌场景。|25～50 mg，每日2～3次；最大150 mg/d|活动性溃疡、明显肾病、抗凝高风险和妊娠晚期禁/慎用。|
+`],
+        ['anti', '抗感染药', `
+罗红霉素胶囊|150 mg|明确细菌感染时按感染部位、病原和本地耐药选择；普通病毒感染不用。|150 mg，每日2次；疗程依感染部位，通常5～12天|仅按明确细菌感染适应证；注意心电图QT间期和相互作用。|
+阿奇霉素片|250 mg|明确细菌感染时按感染部位、病原和本地耐药选择；普通病毒感染不用。|首日500 mg；第2～5日250 mg每日1次；或500 mg每日1次共3天|疗程依感染部位；单次1 g方案仅限特定性传播感染并按规范使用。|
+乙酰螺旋霉素片|0.1 g|明确细菌感染时按感染部位、病原和本地耐药选择；普通病毒感染不用。|0.2～0.3 g，每日4次，首次加倍|按细菌感染适应证和本地耐药使用。|
+阿莫西林胶囊|250 mg|明确细菌感染时按感染部位、病原和本地耐药选择；普通病毒感染不用。|常用500 mg，每8～12小时1次|青霉素过敏禁用；疗程依感染部位，不用于普通病毒感染。|
+头孢氨苄胶囊|125 mg|明确细菌感染时按感染部位、病原和本地耐药选择；普通病毒感染不用。|250～500 mg，每日4次；最大4 g/d|严重β-内酰胺过敏者慎/禁用；肾功能下降需调量。|
+诺氟沙星胶囊|100 mg|明确细菌感染时按感染部位、病原和本地耐药选择；普通病毒感染不用。|有明确适应证时常用400 mg，每日2次，疗程依感染部位|氟喹诺酮类不作为多数轻症首选；妊娠、未成年人、肌腱病、QT间期延长、癫痫/中枢神经风险及主动脉瘤/夹层高风险者慎/禁用，并结合本地耐药。|300～400 mg，每日2次，疗程3～7天；用于明确适应证的尿路或肠道感染。|!
+左氧氟沙星片|200 mg|明确细菌感染时按感染部位、病原和本地耐药选择；普通病毒感染不用。|常用剂量需按感染部位、严重度和片剂规格换算，肾功能下降需调整|氟喹诺酮类需严格掌握适应证；妊娠、未成年人、肌腱病、QT间期延长、癫痫/中枢神经风险及主动脉瘤/夹层高风险者慎/禁用。|250～750 mg，每24小时1次；按感染部位、严重度和肾功能调整。|!
+阿昔洛韦片|0.1 g|带状疱疹、单纯疱疹等疱疹病毒感染。|带状疱疹常用0.8 g，每日5次，7～10天|肾功能下降需减量并注意补水。|
+玛巴洛沙韦片|40 mg|甲型/乙型流感抗病毒治疗，通常发病48小时内或高危患者尽早用。|成人体重40～＜80 kg单次40 mg；体重≥80 kg单次80 mg|流感起病48小时内尽早使用；妊娠、哺乳期证据有限，应个体评估。|
+磷酸奥司他韦胶囊|75 mg|甲型/乙型流感抗病毒治疗，通常发病48小时内或高危患者尽早用。|75 mg，每日2次，共5天|流感早期或高危患者；肾功能下降需减量。|
+`],
+        ['topical', '外用药与其他制剂', `
+云南白药胶囊|按实物规格|出血、创伤肿痛等说明书适应证；不明原因出血需查因。|按实物说明书剂量短期使用|出血、创伤或术后情况先评估严重度和病因；抗凝/抗血小板治疗、妊娠、过敏史及不明原因出血者使用前应核对说明书和上级意见。||!
+双氯芬酸钠栓|按实物规格|发热或疼痛短期对症；双氯芬酸常用于关节痛、腰痛、痛经、胆/肾绞痛等无禁忌场景。|按单枚规格和说明书使用；与口服双氯芬酸合并时计入总剂量|禁忌同非甾体抗炎药：活动性溃疡、明显肾病、抗凝高风险、心衰加重和妊娠晚期慎/禁用。|
+如意黄金散|9 g/袋|疮疖肿痛、跌打损伤等外用辅助；脓肿需引流。|外敷患处|皮肤破损和感染性质不明时慎用；不能替代引流。|
+50%硫酸镁溶液|50%外用液|静脉炎、乳腺炎等局部肿胀湿敷辅助；破损/感染流脓禁用。|3～5层纱布湿敷15～30分钟，每日2～3次|仅供外用湿敷；皮肤破损、溃疡或流脓处禁用，勿大面积长期封包。||!
+炉甘石洗剂|按实物规格|急性瘙痒性皮疹、痱子、轻度荨麻疹/皮炎等完整皮肤外用止痒。|外用，每日2～3次|不用于明显破溃、渗液或眼周。|
+足光散|按实物规格|足癣、足部多汗/臭等说明书适应证；破溃糖尿病足慎用。|通常按说明书足浴或外洗，避免接触破损皮肤|刺激性可能较强；破溃、糖尿病足、儿童及不明皮疹慎用。|
+跌打万花油|按实物规格|闭合性跌打损伤、扭挫伤疼痛外用。|按说明书外用，避免接触破损皮肤和黏膜|仅用于完整皮肤；急性骨折、开放伤或严重外伤需评估。|
+甲紫溶液|按实物规格|小面积浅表皮肤/黏膜感染或擦伤的传统外用；不作为深伤常规消毒首选。|仅限小面积、完整或浅表皮肤按说明书外用；不作为常规深部伤口消毒首选|不建议用于深伤口、黏膜、大面积破损或眼周；使用前核对院内规定和替代消毒方案。||!
+马应龙痔疮膏|按实物规格|痔疮局部症状。|按说明书局部使用|便血不能一概归因于痔。|
+高锰酸钾外用片|按实物规格|外阴/肛周或皮肤局部清洗坐浴等外用消毒收敛，必须稀释。|必须按说明书充分稀释至规定浓度后外用|严禁口服、吞服药片或高浓度直接接触皮肤黏膜；儿童、老年人和会阴/黏膜使用前须核对浓度。||!
+愈裂贴膏|按实物规格|手足皲裂。|按说明书外用|感染、渗液或不明裂口先评估。|
+水杨酸苯酚贴膏|按实物规格|鸡眼。|按说明书局部使用|只贴于鸡眼角化处，保护正常皮肤；糖尿病足慎用。|
+冻疮膏|按实物规格|冻疮。|按说明书外用|皮肤破溃、感染或深部冻伤需转诊。|
+硫软膏|按实物规格|疥疮、脂溢性皮炎等说明书适应证；疥疮需全身和接触者处理。|疥疮时按实际浓度和说明书全身外用，疗程结束后更换清洁衣被|浓度和适用人群差异较大；孕妇、婴幼儿、大面积破损皮肤或继发感染者先核对说明书/上级意见。||!
+红霉素眼膏|按实物规格|细菌性结膜炎、睑缘炎/睑腺炎等眼部浅表细菌感染。|涂入结膜囊，每日2～4次，疗程依病情|眼痛、畏光、视力下降或隐形眼镜相关红眼需转眼科。|
+林可霉素利多卡因凝胶|按实物规格|轻度皮肤感染/疼痛瘙痒等局部症状；深部感染不能仅外用。|按说明书局部使用|避免大面积、破损皮肤和黏膜长期使用；脓肿、蜂窝织炎或深部感染不能仅靠外用药。|
+鱼石脂软膏|按实物规格|疖肿、浅表脓肿早期等外用辅助；成熟脓肿需引流。|按说明书外用|深部脓肿或快速扩散感染需切开引流/转诊。|
+皮炎平（醋酸地塞米松乳膏）|按实物规格|湿疹、皮炎、神经性皮炎或伴真菌可能的短期外用；不明皮疹慎用激素。|薄涂，每日1～2次，短期使用|面部、眼周、腹股沟慎用；真菌感染勿单用。|
+达克宁（咪康唑乳膏）|按实物规格|体癣、股癣、足癣等浅表真菌感染。|薄涂，每日2次，通常2～4周|皮损消退后按疗程继续；避免入眼。|
+派瑞松（曲安奈德益康唑乳膏）|复方制剂|湿疹、皮炎、神经性皮炎或伴真菌可能的短期外用；不明皮疹慎用激素。|按说明书短期外用|含激素，不宜长期用于未确诊皮疹。|
+无极膏（复方倍氯米松樟脑乳膏）|复方制剂|湿疹、皮炎、神经性皮炎或伴真菌可能的短期外用；不明皮疹慎用激素。|按说明书短期外用|含激素和刺激性成分；面部、黏膜及破损处慎用。|
+红霉素软膏|按实物规格|轻度皮肤浅表细菌感染、小面积擦伤继发感染。|按说明书外用|不用于所有皮肤红肿；脓肿仍以引流为核心。|
+克霉唑乳膏|按实物规格|体癣、股癣、足癣等浅表真菌感染。|薄涂，每日2次，通常2～4周|用于浅表真菌感染，避免入眼。|
+阿昔洛韦软膏|按实物规格|单纯疱疹等局部疱疹病毒感染；带状疱疹不能仅外用。|按说明书外用|带状疱疹不能仅靠外用药；眼周疱疹转诊。|
+尿素维E乳膏|按实物规格|皮肤干燥、角化、皲裂的保湿软化。|按说明书外用|用于干燥角化皮肤；破溃或感染处慎用。|
+`]
+      ];
+      const medications = medGroupData.flatMap(([groupId, groupName, raw]) => raw.trim().split('\n').filter(Boolean).map((line, index) => {
+        const [name, spec, indication, dose, note, homeUse = '', flag = ''] = line.split('|');
+        return {id: `med-${groupId}-${index}`, groupId, groupName, name, spec, indication, dose, note, homeUse, check: flag === '!'};
+      }));
+
+      const emergencies = [
+        {id: 'acs', name: '急性冠脉综合征', hint: '压榨性胸痛、出汗、恶心或放射痛', recognize: ['胸痛或胸闷持续＞10分钟，伴出汗、恶心、呼吸困难，或高危人群出现不典型乏力。', '立即测生命体征、血氧饱和度并做12导联心电图；正常心电图不能完全排除。'], act: ['呼叫120并启动转诊，保持静息，建立静脉通道并持续监测。', '无过敏、活动性出血或主动脉夹层嫌疑：阿司匹林300 mg嚼服；若仅有25 mg肠溶片，应按本院急救流程确认后折算剂量。', '硝酸甘油0.5 mg舌下；仅在收缩压＞90 mmHg且近期未用治疗勃起功能障碍的磷酸二酯酶-5抑制剂时使用，5分钟可重复，最多3次。', '仅血氧饱和度＜90%或呼吸窘迫时给氧。'], avoid: ['不要让患者自行驾车。', '疑主动脉夹层、活动性出血时不要给阿司匹林；勿因等待化验延误转运。'], transfer: '所有疑似急性冠脉综合征患者均需紧急转诊；记录症状起始时间、用药和首份心电图。'},
+        {id: 'stroke', name: '疑似卒中', hint: '脸歪、臂弱、言语不清，记住时间', recognize: ['用“看脸、抬臂、说话、记时间”快速识别；记录“最后正常时间”，测血糖排除低血糖。', '同时评估意识、气道、血氧饱和度、血压和抗凝药使用。'], act: ['立即启动卒中绿色转诊，提前联系有头颅影像、溶栓或取栓能力的医院。', '保持气道，血氧饱和度＜94%时给氧；建立静脉通道。', '低血糖立即纠正；通过吞咽筛查前禁食。'], avoid: ['头颅影像排除脑出血前不要自行给阿司匹林或降压。', '除特殊危及生命情况，不快速大幅降压；不要等待症状自行缓解。'], transfer: '疑似卒中或短暂性脑缺血发作均立即转诊；随行提供最后正常时间、血糖、血压及抗凝信息。'},
+        {id: 'dyspnea', name: '严重呼吸困难', hint: '低氧、不能整句说话、沉默肺', recognize: ['不能整句说话、辅助呼吸肌参与、发绀、嗜睡或躁动、血氧饱和度下降或沉默肺。', '快速考虑哮喘、慢性阻塞性肺疾病、肺炎、心力衰竭、气胸、肺栓塞和严重过敏反应。'], act: ['坐位、保持气道并持续监测；多数患者目标血氧饱和度94%～98%，已知二氧化碳潴留风险者88%～92%。', '⚠ 需要转诊：本页用药目录内没有规范的一线吸入支气管扩张药；喘鸣或严重气促患者立即呼叫转运。', '建立静脉通道，依据病因同步初步处置。'], avoid: ['不要盲目镇静；疑气胸或肺水肿时勿仅反复尝试口服药而延误转诊。', '不要无目标地给二氧化碳潴留高风险患者使用高流量氧。'], transfer: '任何静息低氧、意识变化、呼吸肌疲劳、血流动力学不稳者立即转诊。'},
+        {id: 'anaphylaxis', name: '严重全身过敏反应', hint: '皮肤或黏膜表现合并呼吸、循环异常', recognize: ['急性荨麻疹、潮红或黏膜肿胀，伴喘鸣、喉鸣、低血压或胃肠症状；无皮疹也不能排除。'], act: ['⚠ 需要转诊：本页用药目录内没有规范的一线抢救药；立即呼叫120并明确告知“疑严重全身过敏反应”。', '平卧抬腿；呼吸困难可半坐，孕妇左侧卧。按需高流量给氧并持续监测。', '建立大口径静脉通道；按本院休克流程处置，不等待口服抗过敏药起效。'], avoid: ['氯雷他定、马来酸氯苯那敏和激素不能替代一线抢救药。', '不要让患者突然站起或自行离院。'], transfer: '所有出现呼吸、循环或明显黏膜肿胀者均紧急转诊并持续陪护。'},
+        {id: 'hypo', name: '低血糖', hint: '出汗、手抖、行为异常或昏迷', recognize: ['有症状立即测血糖；不能及时测但高度怀疑时先处理。通常血糖＜3.9 mmol/L即需纠正。'], act: ['清醒且可吞咽：口服15～20 g快速糖，15分钟复测，仍低则重复；恢复后补充含淀粉食物。', '意识障碍或不能吞咽：保持侧卧、保护气道并立即呼叫转运。本页用药目录内没有规范静脉纠正药物。', '查原因：降糖药、漏餐、饮酒、肝肾功能和感染。'], avoid: ['意识障碍者不要口服喂糖；格列本脲、格列美脲等促胰岛素分泌药所致低血糖不要在短暂恢复后直接回家。'], transfer: '持续或复发、促胰岛素分泌药相关、意识障碍、妊娠或病因不清者转诊观察。'},
+        {id: 'gib', name: '消化道出血', hint: '呕血、咖啡渣样物、黑便或便血伴循环异常', recognize: ['评估气道、脉搏、血压、意识和皮肤灌注；站立时头晕、心悸可提示显著失血。', '询问抗凝药、抗血小板药、非甾体抗炎药、肝病和既往出血。'], act: ['禁食，按需给氧，建立2条较粗静脉通道；抽血可行但不延误转运。', '按本院休克流程小量分次补液并反复评估；持续监测。', '记录呕吐物或大便性状、用药和出血起始时间。'], avoid: ['不要口服药物或进食；不要盲目洗胃。', '抗凝逆转和输血需按具体药物、严重程度及上级医院流程决定。'], transfer: '所有活动性呕血、黑便伴症状、血流动力学异常或显著贫血者紧急转诊。'},
+        {id: 'sepsis', name: '脓毒症 / 休克', hint: '感染伴意识、呼吸或循环异常', recognize: ['疑感染伴收缩压≤100 mmHg、呼吸频率≥22次/分、意识改变、少尿、皮肤花斑或乳酸升高（可及）。', '寻找感染灶，同时测血糖、血氧饱和度和体温；低体温也可能提示重症。'], act: ['呼叫转运，按需给氧并建立静脉通道；可行时留取培养，但不因取样延误转诊。', '⚠ 需要转诊：本页用药目录内没有适合脓毒症初始治疗的静脉广谱抗菌药和完整复苏用药。', '按本院休克流程小量分次补液并反复评估；心力衰竭、肾病或老年患者尤其谨慎。'], avoid: ['不要一次大量补液后不复评；不要因“无高热”排除脓毒症。', '基层不稳定患者不应等待全部检查结果。'], transfer: '疑脓毒症伴器官功能异常或任何休克表现立即转诊，并提前通知接收医院。'},
+        {id: 'gynacute', name: '妇科急腹症', hint: '育龄期腹痛/出血先排异位妊娠', recognize: ['所有育龄期下腹痛或异常出血先询问末次月经并做妊娠试验。', '妊娠阳性伴单侧痛、肩痛、晕厥或腹膜刺激征，高度警惕异位妊娠破裂；突发剧痛伴呕吐警惕卵巢扭转。'], act: ['评估循环，禁食，建立静脉通道；不稳定者给氧并小量分次晶体液复苏。', '快速联系有妇产科/手术条件医院；携带妊娠试验、生命体征和用药记录。'], avoid: ['不要因尿妊娠阴性过早完全排除极早期妊娠；必要时查血β-hCG（人绒毛膜促性腺激素）和超声。', '不要盲目刮宫、使用止血激素或延误转诊。'], transfer: '疑异位妊娠、卵巢扭转、破裂出血、腹膜炎或循环不稳均立即转诊。'}
+      ];
+
+      const $ = s => document.querySelector(s);
+      const list = $('#diseaseList'), nav = $('#nav'), diseaseSearch = $('#diseaseSearch'), medSearch = $('#medSearch'), empty = $('#empty');
+      let page = 'disease', active = 'all', favOnly = false, medActive = 'all', lastDiseaseCount = 0, lastMedCount = 0;
+      const safeGet = (k, fallback) => {try {return JSON.parse(localStorage.getItem(k)) ?? fallback} catch {return fallback} };
+      let favorites = new Set(safeGet('mqc-favorites', []));
+      const save = () => {try {localStorage.setItem('mqc-favorites', JSON.stringify([...favorites]))} catch { } };
+      const esc = s => s.replace(/[&<>'"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[c]));
+      const bullets = a => `<ul>${a.map(x => `<li>${x}</li>`).join('')}</ul>`;
+      function sourceText(x) {return refs[x.source] || refs.primary}
+      function card(x) {
+        const searchable = [x.name, x.alias, x.clues, x.red, x.tests, x.dx, x.nonDrug, ...x.rx, x.caution, x.follow, x.refer].join(' ').toLowerCase();
+        return `<details class="disease" id="${x.id}" data-cat="${x.cat}" data-search="${esc(searchable)}">
+      <summary><span class="catmark"></span><div class="titlewrap"><h3>${x.name}</h3><div class="alias">${catNames[x.cat]} · ${x.alias}</div></div><button class="star ${favorites.has(x.id) ? 'on' : ''}" data-fav="${x.id}" aria-label="${favorites.has(x.id) ? '取消收藏' : '收藏'}${x.name}" title="收藏">${favorites.has(x.id) ? '★' : '☆'}</button><span class="chev">⌄</span></summary>
+      <div class="body">
+        <div class="block"><h4>诊断提示</h4><p>${x.clues}</p></div>
+        <div class="dangerbox"><strong>必须先排除</strong><br>${x.red}</div>
+        <div class="block"><h4>最低必要检查</h4><p>${x.tests}</p></div>
+        <div class="block"><h4>诊断与鉴别</h4><p>${x.dx}</p></div>
+        <div class="block"><h4>非药物处理</h4><p>${x.nonDrug}</p></div>
+        <div class="block"><h4>常用药物方案</h4><div class="rx">${x.rx.map((r, i) => {const need = r.startsWith('需要转诊：'); return `<div class="rx-item ${need ? 'need-referral' : ''}"><b>${need ? '⚠ 需要转诊' : (i ? '备选 / 补充' : '首选 / 常用')}</b><br>${need ? r.replace('需要转诊：', '') : r}</div>`}).join('')}</div></div>
+        <div class="warnbox"><strong>禁忌与特殊提醒</strong><br>${x.caution}</div>
+        <div class="block"><h4>复诊安排</h4><p>${x.follow}</p></div>
+        <div class="dangerbox"><strong>需要转诊的危险信号</strong><br>${x.refer}</div>
+        <div class="block source"><h4>依据</h4>${sourceText(x)}</div>
+      </div></details>`;
+      }
+      function renderCards() {
+        const q = diseaseSearch.value.trim().toLowerCase();
+        const visible = page === 'disease';
+        const filtered = visible ? diseases.filter(x => (active === 'all' || active === x.cat) && (!favOnly || favorites.has(x.id)) && (!q || [x.name, x.alias, x.clues, x.red, x.tests, x.dx, x.nonDrug, ...x.rx, x.caution, x.follow, x.refer].join(' ').toLowerCase().includes(q))) : [];
+        $('#diseaseSection').hidden = !visible;
+        $('#emergencySection').hidden = !visible;
+        list.innerHTML = visible ? filtered.map(card).join('') : '';
+        lastDiseaseCount = visible ? filtered.length : 0;
+        $('#diseaseCount').textContent = visible ? `${filtered.length}个` : '';
+        $('#favNote').style.display = favOnly ? 'inline' : 'none';
+        bindCards(q);
+      }
+      function bindCards(q) {
+        list.querySelectorAll('.disease').forEach(el => {
+          if (q) el.open = true;
+        });
+        list.querySelectorAll('.star').forEach(btn => btn.addEventListener('click', e => {
+          e.preventDefault(); e.stopPropagation(); const id = btn.dataset.fav;
+          favorites.has(id) ? favorites.delete(id) : favorites.add(id); save(); renderAll();
+        }));
+      }
+      function medCard(m) {const badge = m.check ? '<span class="med-badge check">重点核对</span>' : ''; const home = m.homeUse ? `<div class="med-row"><span class="med-label">本院指导用法</span><span>${m.homeUse}</span></div>` : ''; return `<details class="med-card" id="${m.id}"><summary><div class="med-name">${m.name}<span class="med-spec">${m.spec}</span></div>${badge}<span class="chev">⌄</span></summary><div class="med-detail"><div class="med-row"><span class="med-label">适应症</span><span>${m.indication}</span></div><div class="med-row"><span class="med-label">规范建议</span><span>${m.dose}</span></div>${home}<div class="med-row"><span class="med-label">使用提醒</span><span>${m.note}</span></div>${m.check ? '<div class="med-warning">⚠ 已标注重点核对：剂型、剂量、适应证或安全性风险需要处方前重点复核；如显示“本院指导用法”，请与规范建议逐项对照后再决定是否使用。</div>' : ''}</div></details>`}
+      function renderMedCats() {const groups = [['all', '全部药品'], ...medGroupData.map(([id, name]) => [id, name])]; $('#medCats').innerHTML = groups.map(([id, name]) => `<button class="med-cat ${id === medActive ? 'active' : ''}" data-medcat="${id}">${name}</button>`).join(''); const current = groups.find(([id]) => id === medActive); $('#medTitle').textContent = medActive === 'all' ? '药品列表' : (current ? current[1] : '药品列表'); $('#medCats').querySelectorAll('button').forEach(b => b.onclick = () => {medActive = b.dataset.medcat; renderMedCats(); renderMeds(); updateResults()})}
+      function renderMeds() {
+        const q = medSearch.value.trim().toLowerCase(), visible = page === 'meds';
+        const filtered = visible ? medications.filter(m => (medActive === 'all' || m.groupId === medActive) && (!q || [m.name, m.spec, m.indication, m.dose, m.note, m.homeUse, m.groupName].join(' ').toLowerCase().includes(q))) : [];
+        $('#medicineSection').hidden = !visible;
+        $('#medList').innerHTML = visible ? filtered.map(medCard).join('') : '';
+        if (q) $('#medList').querySelectorAll('.med-card').forEach(x => x.open = true);
+        lastMedCount = visible ? filtered.length : 0;
+        $('#medCount').textContent = visible ? `${filtered.length}种` : '';
+        $('#medEmpty').style.display = visible && !filtered.length ? 'block' : 'none';
+      }
+      function updateResults() {
+        const dq = diseaseSearch.value.trim(), mq = medSearch.value.trim();
+        $('#diseaseResultCount').textContent = page === 'disease' && (dq || active !== 'all' || favOnly) ? `${lastDiseaseCount}项` : '';
+        $('#medResultCount').textContent = page === 'meds' && (mq || medActive !== 'all') ? `${lastMedCount}种` : '';
+        $('#clearDiseaseSearch').style.display = dq ? 'block' : 'none';
+        $('#clearMedSearch').style.display = mq ? 'block' : 'none';
+        empty.style.display = page === 'disease' && !lastDiseaseCount ? 'block' : 'none';
+      }
+      function renderPageShell() {
+        const medMode = page === 'meds';
+        $('#diseasePageBtn').classList.toggle('active', !medMode);
+        $('#medPageBtn').classList.toggle('active', medMode);
+        $('#diseasePageBtn').setAttribute('aria-selected', medMode ? 'false' : 'true');
+        $('#medPageBtn').setAttribute('aria-selected', medMode ? 'true' : 'false');
+        $('#diseaseSearchBox').hidden = medMode;
+        $('#medSearchBox').hidden = !medMode;
+        nav.hidden = medMode;
+        $('#medCats').hidden = !medMode;
+        $('#favToggle').style.visibility = medMode ? 'hidden' : 'visible';
+      }
+      function renderAll() {renderPageShell(); renderCards(); renderMeds(); updateResults()}
+      function switchPage(next) {page = next; if (page === 'meds') favOnly = false; renderAll(); requestAnimationFrame(() => window.scrollTo({top: 0, behavior: 'smooth'}));}
+      function renderNav() {nav.innerHTML = categories.map(([id, name]) => `<button class="chip ${id === active ? 'active' : ''} ${id === 'emergency' ? 'danger' : ''}" data-cat="${id}">${name}</button>`).join(''); nav.querySelectorAll('button').forEach(b => b.onclick = () => {if (b.dataset.cat === 'emergency') {$('#emergencySection').scrollIntoView(); return } active = b.dataset.cat; renderNav(); renderAll(); $('#listTitle').textContent = active === 'all' ? '疾病列表' : catNames[active];});}
+      function openDisease(id) {page = 'disease'; active = 'all'; favOnly = false; diseaseSearch.value = ''; renderNav(); renderAll(); requestAnimationFrame(() => {const el = document.getElementById(id); if (el) {el.open = true; el.scrollIntoView({block: 'start'})} })}
+      function renderEmergencies() {$('#emergencyGrid').innerHTML = emergencies.map(x => `<button class="emergency-card" data-id="${x.id}"><span class="arrow">›</span><b>${x.name}</b><span>${x.hint}</span></button>`).join(''); $('#emergencyGrid').querySelectorAll('button').forEach(b => b.onclick = () => showEmergency(b.dataset.id));}
+      function showEmergency(id) {const x = emergencies.find(e => e.id === id); $('#emergencyTitle').textContent = x.name; $('#emergencyBody').innerHTML = `<h3>快速识别</h3>${bullets(x.recognize)}<h3>立即处理</h3>${bullets(x.act)}<h3>不要这样做</h3>${bullets(x.avoid)}<h3>转诊</h3><div class="transfer">${x.transfer}</div><p class="source">依据：国家卫生健康委相关急诊规范及专业学会指南；请同步执行本院急救制度。</p>`; $('#emergencyDialog').showModal();}
+      diseaseSearch.addEventListener('input', renderAll);
+      medSearch.addEventListener('input', renderAll);
+      $('#diseasePageBtn').onclick = () => switchPage('disease');
+      $('#medPageBtn').onclick = () => switchPage('meds');
+      $('#clearDiseaseSearch').onclick = $('#emptyClear').onclick = () => {diseaseSearch.value = ''; active = 'all'; favOnly = false; renderNav(); renderAll(); diseaseSearch.focus()};
+      $('#clearMedSearch').onclick = () => {medSearch.value = ''; medActive = 'all'; renderMedCats(); renderAll(); medSearch.focus()};
+      $('#favToggle').onclick = () => {if (page === 'meds') return; favOnly = !favOnly; $('#favToggle').textContent = favOnly ? '★' : '☆'; $('#favToggle').classList.toggle('on', favOnly); renderAll()};
+      const root = document.documentElement, storedTheme = localStorage.getItem('mqc-theme'); if (storedTheme) root.dataset.theme = storedTheme; else if (matchMedia('(prefers-color-scheme:dark)').matches) root.dataset.theme = 'dark';
+      $('#themeToggle').onclick = () => {root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark'; try {localStorage.setItem('mqc-theme', root.dataset.theme)} catch { } };
+      $('.close').onclick = () => $('#emergencyDialog').close(); $('#emergencyDialog').addEventListener('click', e => {if (e.target === $('#emergencyDialog')) $('#emergencyDialog').close()});
+      renderNav(); renderMedCats(); renderAll(); renderEmergencies();
+    })();
+  </script>
+</body>
+
+</html>
